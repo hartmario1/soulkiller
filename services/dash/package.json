@@ -29,7 +29,6 @@
     "@soulkiller/common": "workspace:^0.1.0",
     "framer-motion": "^3.1.4",
     "next": "10.0.3",
-    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "swr": "^0.4.1",

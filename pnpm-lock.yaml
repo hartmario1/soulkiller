@@ -61,7 +61,6 @@ importers:
       '@soulkiller/common': link:../../libs/common
       framer-motion: 3.3.0_react-dom@17.0.1+react@17.0.1
       next: 10.0.3_bdba1ca4a80d13560ab4ce49959c6ea2
-      prop-types: 15.7.2
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
       swr: 0.4.2_react@17.0.1
@@ -80,7 +79,6 @@ importers:
       '@types/react': ^17.0.0
       framer-motion: ^3.1.4
       next: 10.0.3
-      prop-types: ^15.7.2
       react: ^17.0.1
       react-dom: ^17.0.1
       swr: ^0.4.1

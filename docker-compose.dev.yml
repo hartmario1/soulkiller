@@ -24,7 +24,8 @@ services:
 
   dash:
     volumes:
-      - ./services/dash:/usr/dash/services/dash
+      - ./services/dash/src:/usr/dash/services/dash/src
+      - ./services/dash/.next:/usr/dash/services/dash/.next
     expose:
       - "4200"
     build:
