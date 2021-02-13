@@ -6,12 +6,12 @@
  * @license
  */
 
-import Header from './Header';
+import Navbar from './Navbar';
 import { Box, Center, Flex } from '@chakra-ui/react';
 
 const StandardLayout: React.FC = ({ children }) => (
   <Flex direction = "column" h = "100vh" w = "100%">
-    <Header />
+    <Navbar />
 
     <Center flexGrow = {1}>
       <Box w = "70%" minW = "350px">

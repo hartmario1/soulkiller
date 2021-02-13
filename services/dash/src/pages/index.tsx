@@ -6,15 +6,12 @@
  * @license
  */
 
-import Layout from '../components/Layout';
 import { Center } from '@chakra-ui/react';
 
 const Home = () => (
-  <Layout>
-    <Center>
-        salut
-    </Center>
-  </Layout>
+  <Center>
+        Home of Soulkiller
+  </Center>
 );
 
 export default Home;

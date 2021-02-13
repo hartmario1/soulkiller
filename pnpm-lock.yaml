@@ -63,8 +63,10 @@ importers:
       next: 10.0.3_bdba1ca4a80d13560ab4ce49959c6ea2
       react: 17.0.1
       react-dom: 17.0.1_react@17.0.1
+      react-icons: 4.2.0_react@17.0.1
       swr: 0.4.2_react@17.0.1
       tslib: 2.1.0
+      zustand: 3.3.1_react@17.0.1
     devDependencies:
       '@types/node': 14.14.27
       '@types/react': 17.0.2
@@ -81,9 +83,11 @@ importers:
       next: 10.0.3
       react: ^17.0.1
       react-dom: ^17.0.1
+      react-icons: ^4.2.0
       swr: ^0.4.1
       tslib: ^2.0.3
       typescript: ^4.1.5
+      zustand: ^3.3.1
 lockfileVersion: 5.2
 packages:
   /@ampproject/toolbox-core/2.7.4:
@@ -8044,6 +8048,14 @@ packages:
       react: ^16.8.0
     resolution:
       integrity: sha512-c5ZP56KSpj9EAxzScTqQO7bQQNPltf/W1ZEBDqNDOV1XOIwvAyHX0O7db9ekiAtxyKgnqZjQlLppVg94fUeL9w==
+  /react-icons/4.2.0_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+    dev: false
+    peerDependencies:
+      react: '*'
+    resolution:
+      integrity: sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==
   /react-is/16.13.1:
     resolution:
       integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -10048,3 +10060,11 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+  /zustand/3.3.1_react@17.0.1:
+    dependencies:
+      react: 17.0.1
+    dev: false
+    peerDependencies:
+      react: '>=16.8'
+    resolution:
+      integrity: sha512-o0rgrBsi29nCkPHdhtkAHisCIlmRUoXOV+1AmDMeCgkGG0i5edFSpGU0KiZYBvFmBYycnck4Z07JsLYDjSET9g==
