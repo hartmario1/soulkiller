@@ -1,0 +1,6 @@
+dist
+types
+!**/src/types
+
+node_modules
+services/dash/.next

@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  postgres:
+    expose:
+      - "5432"
+
+  redis:
+    expose:
+      - "6379"
+
+  nginx:
+    build:
+      args:
+        - NGINX_ENV=dev
+
+  # api:
+  #   expose:
+  #     - "3000"
+  #   environment:
+  #     DOMAIN: http://localhost:3000
+  #     DASH_DOMAIN: http://localhost:4200
+  #     NODE_ENV: dev
+
+  # dash:
+  #   volumes:
+  #     - ./services/dash:/usr/dash/services/dash
+  #   expose:
+  #     - "4200"
+  #   build:
+  #     args:
+  #       - DASH_ENV=dev
+
+  prometheus:
+    expose:
+      - "9000"
+
+  grafana:
+    environment:
+      GF_SECURITY_ADMIN_USER: "admin"
+      GF_SECURITY_ADMIN_PASSWORD: "admin"
+    expose:
+      - "5000"

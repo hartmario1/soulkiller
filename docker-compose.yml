@@ -1,0 +1,142 @@
+version: "3.7"
+
+services:
+  postgres:
+    build:
+      context: ./docker/services/postgresql
+      dockerfile: ./Dockerfile
+    environment:
+      POSTGRES_USER: "soulkiller"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "soulkiller"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U soulkiller"]
+      interval: 10s
+      timeout: 5s
+    ports:
+      - "5432:5432"
+
+  postgres-exporter:
+    image: wrouesnel/postgres_exporter:latest
+    environment:
+      DATA_SOURCE_NAME: "postgres://soulkiller:admin@postgres:5432/soulkiller?sslmode=disable"
+    restart: unless-stopped
+    expose:
+      - "9187"
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 10s
+      timeout: 5s
+    ports:
+      - "6379:6379"
+
+  redis-exporter:
+    image: oliver006/redis_exporter:alpine
+    environment:
+      REDIS_ADDR: "redis://redis:6379"
+    restart: unless-stopped
+    expose:
+      - "9121"
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./docker/services/nginx/Dockerfile
+    depends_on:
+      - api
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    expose:
+      - "80"
+      - "443"
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  # api:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/services/api/Dockerfile
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3000:3000"
+
+  # dash:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/services/dash/Dockerfile
+  #   depends_on:
+  #     - api
+  #   restart: unless-stopped
+  #   ports:
+  #     - "4200:4200"
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  prometheus:
+    build:
+      context: ./docker/services/prometheus
+      dockerfile: Dockerfile
+    volumes:
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', "wget -qO- localhost:9000/-/healthy"]
+      interval: 30s
+      timeout: 5s
+    ports:
+      - "9000:9000"
+
+  grafana:
+    build:
+      context: ./docker/services/grafana
+      dockerfile: Dockerfile
+    environment:
+      GF_SERVER_HTTP_PORT: "5000"
+      GF_DEFAULT_INSTANCE_NAME: "soulkiller"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_DATABASE_TYPE: "postgres"
+      GF_DATABASE_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller?sslmode=disable"
+      GF_AUTH_GITHUB_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_AUTH_GITHUB_ALLOW_SIGN_UP: "true"
+      GF_AUTH_GITHUB_CLIENT_ID: "a4e42bd86651c4d929e8"
+      GF_AUTH_GITHUB_SCOPES: "user:email,read:org"
+      GF_AUTH_AUTH_URL: "https://github.com/login/oauth/authorize"
+      GF_AUTH_TOKEN_URL: "https://github.com/login/oauth/access_token"
+      GF_AUTH_API_URL: "https://api.github.com/user"
+      GF_AUTH_ALLOWED_ORGANIZATIONS: "soulkiller.io"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
+volumes:
+  postgres-data:
+    name: "soulkiller-postgres-data"
+  redis-data:
+    name: "soulkiller-redis-data"
+  prometheus-data:
+    name: "soulkiller-prometheus-data"
+  grafana-data:
+    name: "soulkiller-grafana-data"
