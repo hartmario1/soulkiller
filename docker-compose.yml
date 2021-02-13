@@ -3,7 +3,7 @@ version: "3.7"
 services:
   postgres:
     build:
-      context: ./docker/services/postgresql
+      context: ./docker/postgresql
       dockerfile: ./Dockerfile
     environment:
       POSTGRES_USER: "soulkiller"
@@ -50,9 +50,9 @@ services:
   nginx:
     build:
       context: ./
-      dockerfile: ./docker/services/nginx/Dockerfile
-    depends_on:
-      - api
+      dockerfile: ./docker/nginx/Dockerfile
+    # depends_on:
+      # - api
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
@@ -67,7 +67,7 @@ services:
   # api:
   #   build:
   #     context: ./
-  #     dockerfile: ./docker/services/api/Dockerfile
+  #     dockerfile: ./docker/api/Dockerfile
   #   depends_on:
   #     - postgres
   #     - redis
@@ -78,9 +78,9 @@ services:
   dash:
     build:
       context: ./
-      dockerfile: ./docker/services/dash/Dockerfile
-    depends_on:
-      - api
+      dockerfile: ./docker/dash/Dockerfile
+    # depends_on:
+    #   - api
     restart: unless-stopped
     ports:
       - "4200:4200"
@@ -94,7 +94,7 @@ services:
 
   prometheus:
     build:
-      context: ./docker/services/prometheus
+      context: ./docker/prometheus
       dockerfile: Dockerfile
     volumes:
       - prometheus-data:/prometheus
@@ -108,7 +108,7 @@ services:
 
   grafana:
     build:
-      context: ./docker/services/grafana
+      context: ./docker/grafana
       dockerfile: Dockerfile
     environment:
       GF_SERVER_HTTP_PORT: "5000"
