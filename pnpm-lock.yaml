@@ -42,6 +42,16 @@ importers:
       jest: ^26.6.3
       lint-staged: ^10.5.3
       typescript: ^4.1.5
+  libs/common:
+    dependencies:
+      tslib: 2.1.0
+    devDependencies:
+      '@types/node': 14.14.27
+      typescript: 4.1.5
+    specifiers:
+      '@types/node': ^14.14.19
+      tslib: ^2.0.3
+      typescript: ^4.1.5
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.12.11:
@@ -5868,6 +5878,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+  /tslib/2.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
   /tsutils/3.20.0_typescript@4.1.5:
     dependencies:
       tslib: 1.14.1
