@@ -75,15 +75,15 @@ services:
   #   ports:
   #     - "3000:3000"
 
-  # dash:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./docker/services/dash/Dockerfile
-  #   depends_on:
-  #     - api
-  #   restart: unless-stopped
-  #   ports:
-  #     - "4200:4200"
+  dash:
+    build:
+      context: ./
+      dockerfile: ./docker/services/dash/Dockerfile
+    depends_on:
+      - api
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
 
   certbot:
     image: certbot/certbot

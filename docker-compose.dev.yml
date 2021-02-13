@@ -22,14 +22,14 @@ services:
   #     DASH_DOMAIN: http://localhost:4200
   #     NODE_ENV: dev
 
-  # dash:
-  #   volumes:
-  #     - ./services/dash:/usr/dash/services/dash
-  #   expose:
-  #     - "4200"
-  #   build:
-  #     args:
-  #       - DASH_ENV=dev
+  dash:
+    volumes:
+      - ./services/dash:/usr/dash/services/dash
+    expose:
+      - "4200"
+    build:
+      args:
+        - DASH_ENV=dev
 
   prometheus:
     expose:

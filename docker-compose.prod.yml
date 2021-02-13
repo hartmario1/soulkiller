@@ -5,10 +5,10 @@ services:
     build:
       args:
         - NGINX_ENV=prod
-  # dash:
-  #   build:
-  #     args:
-  #       - DASH_ENV=prod
+  dash:
+    build:
+      args:
+        - DASH_ENV=prod
 
   # api:
   #   expose:
