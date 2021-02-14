@@ -6,75 +6,59 @@
  * @license
  */
 
-import { Flex, Box, Center, SimpleGrid, Button, Link } from '@chakra-ui/react';
+import { Button, Link, Wrap, WrapItem, Text } from '@chakra-ui/react';
 import { FiInstagram, FiTwitter } from 'react-icons/fi';
 
-const Footer = () => {
-  const Legal = () => (
-    <Center>
-      <Link href = "/terms">
-        <Button variant = "link">
-          <Box paddingX = "2">
-            Terms of Service
-          </Box>
-        </Button>
-      </Link>
-      <Link href = "/privacy">
-        <Button variant = "link">
-          <Box paddingX = "2">
-            Privacy
-          </Box>
-        </Button>
-      </Link>
-    </Center>
-  );
+const Footer = () => (
+  <Wrap paddingY = "5" justify = "center" align = "center">
+    <WrapItem>
+      <Text>
+          © 2021
+        {' '}
+        <Link href = "/">
+            Soulkiller.
+        </Link>
+        {' '}
+          All rights reserved.
+      </Text>
+    </WrapItem>
 
-  const Social = () => (
-    <Center>
+    {/* Social */}
+    <WrapItem>
       <Link href = "https://www.instagram.com/soulkiller.io/">
         <Button variant = "link">
-          <Box>
+          <WrapItem>
             <FiInstagram />
-          </Box>
+          </WrapItem>
         </Button>
       </Link>
       <Link href = "https://twitter.com/SoulkillerIO">
         <Button variant = "link">
-          <Box>
+          <WrapItem>
             <FiTwitter />
-          </Box>
+          </WrapItem>
         </Button>
       </Link>
-    </Center>
-  );
+    </WrapItem>
 
-  const Text = () => (
-    <Center>
-      <Box>
-        © 2021
-        <Link href = "/">
-          <Button variant = "link">
-            <Box paddingX = "1">
-              Soulkiller
-            </Box>
-          </Button>
-        </Link>
-      . All rights reserved.
-      </Box>
-    </Center>
-  );
-
-  return (
-    <Flex paddingY = "5">
-      <Center flexGrow = {1}>
-        <SimpleGrid columns = {3}>
-          <Text />
-          <Social />
-          <Legal />
-        </SimpleGrid>
-      </Center>
-    </Flex>
-  );
-};
+    {/* Legal */}
+    <WrapItem>
+      <Link href = "/terms">
+        <Button variant = "link">
+          <WrapItem paddingX = "2">
+            Terms of Service
+          </WrapItem>
+        </Button>
+      </Link>
+      <Link href = "/privacy">
+        <Button variant = "link">
+          <WrapItem paddingX = "2">
+            Privacy
+          </WrapItem>
+        </Button>
+      </Link>
+    </WrapItem>
+  </Wrap>
+);
 
 export default Footer;

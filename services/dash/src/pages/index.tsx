@@ -7,11 +7,19 @@
  */
 
 import { Center } from '@chakra-ui/react';
+import Head from 'next/head';
 
 const Home = () => (
-  <Center>
+  <div>
+    <Head>
+      <title>
+        Soulkiller
+      </title>
+    </Head>
+    <Center>
         Home of Soulkiller
-  </Center>
+    </Center>
+  </div>
 );
 
 export default Home;

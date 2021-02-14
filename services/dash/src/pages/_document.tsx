@@ -18,7 +18,12 @@ class Document extends NextDocument {
   public render() {
     return (
       <Html lang = "en" style = {{ overflowX: 'hidden' }}>
-        <Head />
+        <Head>
+          <meta charSet = "utf-8" />
+          <meta name = "viewport" content = "width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <meta name = "description" content = "Soulkiller.AIO it's one of the best automated checkout softwares the money can buy. A program built with style and simplicity that will help you cop any item at release." />
+          <meta name = "author" content = "Soulkiller" />
+        </Head>
         <body>
           <ColorModeScript initialColorMode = {theme.config.initialColorMode} />
           <Main />
