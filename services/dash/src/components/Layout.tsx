@@ -7,6 +7,7 @@
  */
 
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { Box, Center, Flex } from '@chakra-ui/react';
 
 const StandardLayout: React.FC = ({ children }) => (
@@ -18,6 +19,7 @@ const StandardLayout: React.FC = ({ children }) => (
         {children}
       </Box>
     </Center>
+    <Footer />
   </Flex>
 );
 
