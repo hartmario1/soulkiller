@@ -9,13 +9,19 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const COLORS = {
-  brand: {
-    blue: '#00ACEE',
-    orange: '#ED6500',
-    pink: '#ED00B7'
-  }
+  purple: '#7252ff',
+  whitepurple: '#9f89ff'
 } as const;
 Object.freeze(COLORS);
+
+const COMPONENTS = {
+  featureBox: {
+    baseStyle: ({ colorMode }: Record<string, any>) => ({
+      bg: colorMode === 'dark' ? 'purple' : 'whitepurple'
+    })
+  }
+} as const;
+Object.freeze(COMPONENTS);
 
 const CONFIG = {
   initialColorMode: 'dark',
@@ -23,7 +29,7 @@ const CONFIG = {
 } as const;
 Object.freeze(CONFIG);
 
-const STYLES = {} as const;
+const STYLES = { } as const;
 Object.freeze(STYLES);
 
 export { COLORS, CONFIG, STYLES };
@@ -31,5 +37,6 @@ export { COLORS, CONFIG, STYLES };
 export default extendTheme({
   styles: STYLES,
   config: CONFIG,
-  colors: COLORS
+  colors: COLORS,
+  components: COMPONENTS
 });
