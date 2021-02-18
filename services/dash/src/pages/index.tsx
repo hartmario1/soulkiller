@@ -92,16 +92,11 @@ const HomePage = () => {
       <Wrap spacing = "50px" justify = "center" paddingY = "75px">
         <WrapItem paddingTop = "30px">
           <VStack>
-            <Center>
-              <Text fontWeight = "bold" fontSize = "4xl">
-              The software that will help you get your
+            <Box maxWidth = "700px">
+              <Text align = "center" fontWeight = "bold" fontSize = "4xl">
+              The software that will help you get your favorite releases.
               </Text>
-            </Center>
-            <Center>
-              <Text fontWeight = "bold" fontSize = "4xl">
-                favorite releases.
-              </Text>
-            </Center>
+            </Box>
             <Center>
               <HStack>
                 <OsBox os = "Windows" osIcon = {<DiWindows />} />
@@ -116,26 +111,6 @@ const HomePage = () => {
           </Center>
         </WrapItem>
       </Wrap>
-
-      {/* <Box paddingTop = "70px" paddingBottom = "40px">
-        <Grid h = "300px"
-          templateRows = "repeat(2, 1fr)"
-          templateColumns = "repeat(2, 1fr)"
-          gap = {4}
-        >
-          <GridItem colStart = {1} w = "700px">
-
-          </GridItem>
-          <GridItem colStart = {1} w = "700px"> */}
-      {/* <Center paddingTop = "20px"> */}
-
-      {/* </Center> */}
-      {/* </GridItem>
-          <GridItem colStart = {2} rowStart = {1} rowSpan = {2}>
-          </GridItem>
-        </Grid>
-      </Box> */}
-
       <Features />
       <Faq />
     </Box>

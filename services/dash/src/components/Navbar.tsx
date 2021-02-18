@@ -42,22 +42,6 @@ const Navbar = () => {
         </Link>
       );
 
-  const ContactButton = () => (
-    <Link href = "/contact">
-      <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
-        Contact
-      </Button>
-    </Link>
-  );
-
-  const PurchaseButton = () => (
-    <Link href = "/purchase">
-      <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
-        Purchase
-      </Button>
-    </Link>
-  );
-
   return (
     <Flex as = "nav" p = {4} align = "center" justify = "space-between" wrap = "wrap">
       <Flex align = "center" mr = {5}>
@@ -86,8 +70,6 @@ const Navbar = () => {
       <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
         flexDirection = {{ base: 'column', md: 'unset' }}
         width = {{ base: 'full', md: 'auto' }}>
-        <PurchaseButton />
-        <ContactButton />
         <LoginButton />
         <IconButton onClick = {toggleColorMode}
           icon = {icon}

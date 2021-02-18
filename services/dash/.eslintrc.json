@@ -10,6 +10,7 @@
     "react/jsx-indent": "off",
     "react/jsx-indent-props": "off",
     "react/prop-types": "off",
-    "react/jsx-max-props-per-line": "off"
+    "react/jsx-max-props-per-line": "off",
+    "react/jsx-key": "off"
   }
 }
