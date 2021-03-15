@@ -10,7 +10,10 @@ import { extendTheme } from '@chakra-ui/react';
 
 const COLORS = {
   purple: '#7252ff',
-  whitepurple: '#9f89ff'
+  whitepurple: '#9f89ff',
+  whiteblue: '#262e40ff',
+  bgblue: '#1a202c',
+  greypale: '#99AAB5'
 } as const;
 Object.freeze(COLORS);
 
@@ -18,6 +21,26 @@ const COMPONENTS = {
   featureBox: {
     baseStyle: ({ colorMode }: Record<string, any>) => ({
       bg: colorMode === 'dark' ? 'purple' : 'whitepurple'
+    })
+  },
+  taskBox: {
+    baseStyle: ({ colorMode }: Record<string, any>) => ({
+      bg: colorMode === 'dark' ? 'whiteblue' : 'greypale'
+    })
+  },
+  taskColumn: {
+    baseStyle: ({ colorMode }: Record<string, any>) => ({
+      bg: colorMode === 'dark' ? 'bgblue' : 'white'
+    })
+  },
+  settingsGradient: {
+    baseStyle: ({ colorMode }: Record<string, any>) => ({
+      bgGradient: colorMode === 'dark' ? 'linear(to-l, #7928CA, purple)' : 'linear(to-l, #9f89ff,#449bff)'
+    })
+  },
+  proxyColumn: {
+    baseStyle: ({ colorMode }: Record<string, any>) => ({
+      bg: colorMode === 'dark' ? 'whiteblue' : '#ededed'
     })
   }
 } as const;

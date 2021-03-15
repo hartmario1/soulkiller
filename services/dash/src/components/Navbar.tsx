@@ -6,11 +6,13 @@
  * @license
  */
 
-import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img } from '@chakra-ui/react';
+import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody } from '@chakra-ui/react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import TextLogo from './TextLogo';
 import { useUserStore } from '../stores/user';
+import { useRef } from 'react';
+import { SiDiscord } from 'react-icons/si';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -19,6 +21,8 @@ const Navbar = () => {
   const { toggleColorMode } = useColorMode();
 
   const user = useUserStore();
+
+  const initialFocusRef = useRef(null);
 
   const LoginButton = () =>
     user.loggedIn
@@ -35,11 +39,29 @@ const Navbar = () => {
         </Link>
       )
       : (
-        <Link href = "/">
-          <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
-          Log In
-          </Button>
-        </Link>
+        <Popover initialFocusRef = {initialFocusRef}>
+          <PopoverTrigger>
+            <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
+              Log In
+            </Button>
+          </PopoverTrigger>
+          <Portal>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverHeader>
+                You have to log in with Discord to be able to purchase our software.
+              </PopoverHeader>
+              <PopoverCloseButton />
+              <PopoverBody>
+                <Link href = "/">
+                  <Button bg = "purple" ref = {initialFocusRef} leftIcon = {<SiDiscord />}>
+                    Log In With Discord
+                  </Button>
+                </Link>
+              </PopoverBody>
+            </PopoverContent>
+          </Portal>
+        </Popover>
       );
 
   return (
@@ -63,8 +85,7 @@ const Navbar = () => {
 
       <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
         flexDirection = {{ base: 'column', md: 'unset' }}
-        width = {{ base: 'full', md: 'auto' }}
-      >
+        width = {{ base: 'full', md: 'auto' }}>
       </Box>
 
       <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
@@ -72,6 +93,7 @@ const Navbar = () => {
         width = {{ base: 'full', md: 'auto' }}>
         <LoginButton />
         <IconButton onClick = {toggleColorMode}
+          variant = "ghost"
           icon = {icon}
           aria-label = "Toggle Theme" />
       </Box>

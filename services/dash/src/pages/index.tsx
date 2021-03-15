@@ -18,6 +18,7 @@ import FaqBox from '../components/FaqBox';
 import FeatureBox from '../components/FeatureBox';
 import Head from 'next/head';
 import OsBox from '../components/OsBox';
+import StandardLayout from 'components/Layouts/Standard';
 
 const HomePage = () => {
   const Title = () => (
@@ -86,34 +87,36 @@ const HomePage = () => {
 
 
   return (
-    <Box>
-      <Title />
+    <StandardLayout>
+      <Box>
+        <Title />
 
-      <Wrap spacing = "50px" justify = "center" paddingY = "75px">
-        <WrapItem paddingTop = "30px">
-          <VStack>
-            <Box maxWidth = "700px">
-              <Text align = "center" fontWeight = "bold" fontSize = "4xl">
-              The software that will help you get your favorite releases.
-              </Text>
-            </Box>
+        <Wrap spacing = "50px" justify = "center" paddingY = "75px">
+          <WrapItem paddingTop = "30px">
+            <VStack>
+              <Box maxWidth = "700px">
+                <Text align = "center" fontWeight = "bold" fontSize = "4xl">
+                  The tool that will help you get your favorite releases.
+                </Text>
+              </Box>
+              <Center>
+                <HStack>
+                  <OsBox os = "Windows" osIcon = {<DiWindows />} />
+                  <OsBox os = "MacOSX" osIcon = {<ImAppleinc />} />
+                </HStack>
+              </Center>
+            </VStack>
+          </WrapItem>
+          <WrapItem>
             <Center>
-              <HStack>
-                <OsBox os = "Windows" osIcon = {<DiWindows />} />
-                <OsBox os = "MacOSX" osIcon = {<ImAppleinc />} />
-              </HStack>
+              <Image src = "/Soulkiller.png" maxWidth = "350px" />
             </Center>
-          </VStack>
-        </WrapItem>
-        <WrapItem>
-          <Center>
-            <Image src = "/Soulkiller.png" maxWidth = "350px" />
-          </Center>
-        </WrapItem>
-      </Wrap>
-      <Features />
-      <Faq />
-    </Box>
+          </WrapItem>
+        </Wrap>
+        <Features />
+        <Faq />
+      </Box>
+    </StandardLayout>
   );
 };
 

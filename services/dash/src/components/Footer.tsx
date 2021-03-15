@@ -25,14 +25,14 @@ const Footer = () => (
 
     {/* Social */}
     <WrapItem>
-      <Link href = "https://www.instagram.com/soulkiller.io/">
+      <Link href = "https://www.instagram.com/soulkiller.io/" isExternal>
         <Button variant = "link">
           <WrapItem>
             <FiInstagram />
           </WrapItem>
         </Button>
       </Link>
-      <Link href = "https://twitter.com/SoulkillerIO">
+      <Link href = "https://twitter.com/SoulkillerIO" isExternal>
         <Button variant = "link">
           <WrapItem>
             <FiTwitter />

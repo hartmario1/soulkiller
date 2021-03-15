@@ -6,8 +6,8 @@
  * @license
  */
 
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 import { Box, Center, Flex } from '@chakra-ui/react';
 
 const StandardLayout: React.FC = ({ children }) => (
