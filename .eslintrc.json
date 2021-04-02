@@ -5,15 +5,6 @@
       "error",
       2
     ],
-    "@typescript-eslint/no-require-imports": "off",
-    "@typescript-eslint/restrict-template-expressions": "off",
-    "@typescript-eslint/no-base-to-string": "off",
-    "@typescript-eslint/no-throw-literal": "off",
-    "one-var": "off",
-    "no-eq-null": "off",
-    "no-useless-constructor": "off",
-    "no-negated-condition": "off",
-    "radix": "off",
-    "no-multi-assign": "off"
+    "@typescript-eslint/naming-convention": "off"
   }
 }
