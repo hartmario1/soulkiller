@@ -1,19 +1,16 @@
-export interface Customer {
+export interface Users {
   user_id: `${bigint}`;
-  id: string;
+  customer_id: string | null;
 }
 
 export interface Subscription {
   user_id: `${bigint}`;
-  id: string;
+  subscription_id: string | null;
 }
 
 export interface Connection {
   user_id: `${bigint}`;
+  email: string;
   username: string;
-  discriminator: string;
-  avatar: string | null;
-  access_token: string;
-  refresh_token: string | null;
-  expires_at: Date;
+  avatar: string;
 }
