@@ -21,7 +21,9 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@soulkiller/common": "workspace:^0.1.0",
     "tslib": "^2.0.3",
+    "tsyringe": "^4.5.0",
     "winston": "^3.3.3"
   }
 }

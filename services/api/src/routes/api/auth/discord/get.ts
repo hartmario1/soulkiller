@@ -42,7 +42,7 @@ export default class DiscordAuthRoute extends Route {
       state
     });
 
-    res.cookie('state', state, { httpOnly: true });
+    res.cookie('state', state, { httpOnly: true, path: '/' });
     res.redirect(`https://discord.com/api/oauth2/authorize?${params.toString()}`);
     return res.end();
   }

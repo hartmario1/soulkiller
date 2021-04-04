@@ -5,8 +5,8 @@ import helmet from 'helmet';
 import cookie from 'cookie';
 import { Histogram } from 'prom-client';
 import { container } from 'tsyringe';
-import { kLogger } from '@soulkiller/common';
-import type { Logger } from 'winston';
+import { Config, kConfig, kLogger } from '@soulkiller/common';
+import { Logger } from 'winston';
 
 const responseTimes = new Histogram({
   name: 'http_request_duration_seconds',
@@ -42,12 +42,14 @@ declare module 'http' {
 
 export const createApp = () => {
   const logger = container.resolve<Logger>(kLogger);
+  const config = container.resolve<Config>(kConfig);
+
   return polka(getPolkaOptions()).use(
     cors({
-      origin: process.env.CORS?.split(',') ?? '*',
+      origin: config.cors,
       credentials: true
     }),
-    helmet({ contentSecurityPolicy: process.env.NODE_ENV === 'prod' ? undefined : false }) as any,
+    helmet({ contentSecurityPolicy: config.nodeEnv === 'prod' ? undefined : false }) as any,
     (_: Request, res: Response, next: NextHandler) => {
       res.append = (header, value) => {
         const prev = res.getHeader(header);

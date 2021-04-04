@@ -11,15 +11,16 @@ import { join as joinPath } from 'path';
 import { container } from 'tsyringe';
 import createLogger from '@soulkiller/logger';
 import postgres from 'postgres';
-import { kLogger, kSql } from '@soulkiller/common';
+import { initConfig, kLogger, kSql } from '@soulkiller/common';
 
 void (async () => {
+  const config = initConfig();
   const logger = createLogger('API');
 
   container.register(kLogger, { useValue: logger });
   container.register(
     kSql, {
-      useValue: postgres(process.env.DB_URL!, {
+      useValue: postgres(config.dbUrl, {
         onnotice: notice => logger.debug(JSON.stringify(notice, null, 2), { topic: 'DB NOTICE' })
       })
     }

@@ -11,6 +11,7 @@ export interface Config {
   dbUrl: string;
   nodeEnv: string;
   encryptionKey: string;
+  cors: string | string[];
 }
 
 export const initConfig = () => {
@@ -23,7 +24,8 @@ export const initConfig = () => {
     discordScopes: process.env.DISCORD_SCOPES!.split(',').join(' '),
     dbUrl: process.env.DB_URL!,
     nodeEnv: process.env.NODE_ENV ?? 'dev',
-    encryptionKey: process.env.ENCRYPTION_KEY!
+    encryptionKey: process.env.ENCRYPTION_KEY!,
+    cors: process.env.CORS?.split(',') ?? '*'
   };
 
   container.register<Config>(kConfig, { useValue: config });

@@ -46,6 +46,30 @@ const COMPONENTS = {
 } as const;
 Object.freeze(COMPONENTS);
 
+const VARIANTS = ({
+  components: {
+    Table: {
+      baseStyle: {
+        fontWeight: 'semibold'
+      },
+      sizes: {
+        xl: {
+          h: '56px',
+          fontSize: 'lg',
+          px: '32px'
+        }
+      },
+      variants: {
+        'task-variant': {
+          bg: 'red.400',
+          boxShadow: '0 0 2px 2px #efdfde'
+        }
+      }
+    }
+  }
+}) as const;
+Object.freeze(VARIANTS);
+
 const CONFIG = {
   initialColorMode: 'dark',
   useSystemColorMode: false
@@ -61,5 +85,6 @@ export default extendTheme({
   styles: STYLES,
   config: CONFIG,
   colors: COLORS,
+  variants: VARIANTS,
   components: COMPONENTS
 });

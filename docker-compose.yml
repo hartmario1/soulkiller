@@ -64,23 +64,26 @@ services:
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
-  # api:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./docker/api/Dockerfile
-  #   depends_on:
-  #     - postgres
-  #     - redis
-  #   restart: unless-stopped
-  #   ports:
-  #     - "3000:3000"
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/api/Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment: 
+      DISCORD_SCOPES: "identify,email"
+      DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller?sslmode=disable"
 
   dash:
     build:
       context: ./
       dockerfile: ./docker/dash/Dockerfile
-    # depends_on:
-    #   - api
+    depends_on:
+      - api
     restart: unless-stopped
     ports:
       - "4200:4200"

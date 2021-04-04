@@ -56,14 +56,18 @@ importers:
       typescript: ^4.1.5
   libs/logger:
     dependencies:
+      '@soulkiller/common': link:../common
       tslib: 2.1.0
+      tsyringe: 4.5.0
       winston: 3.3.3
     devDependencies:
       '@types/node': 14.14.27
       typescript: 4.1.5
     specifiers:
+      '@soulkiller/common': workspace:^0.1.0
       '@types/node': ^14.14.14
       tslib: ^2.0.3
+      tsyringe: ^4.5.0
       typescript: ^4.1.3
       winston: ^3.3.3
   libs/rest:
@@ -126,6 +130,7 @@ importers:
       '@soulkiller/common': link:../../libs/common
       '@soulkiller/logger': link:../../libs/logger
       '@soulkiller/rest': link:../../libs/rest
+      cookie: 0.4.1
       joi: 17.4.0
       node-fetch: 2.6.1
       postgres: 2.0.0-beta.4
@@ -151,6 +156,7 @@ importers:
       '@types/ioredis': ^4.17.9
       '@types/node': ^14.14.14
       '@types/node-fetch': ^2.5.8
+      cookie: ^0.4.1
       discord-api-types: ^0.12.1
       joi: ^17.3.0
       node-fetch: ^2.6.1

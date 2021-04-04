@@ -3,6 +3,7 @@ import { Config, kConfig, APIGetAuthDiscordCallbackQuery, kSql, Connection } fro
 import { Route, State, discordAuth, validate, discordOAuth2, encrypt } from '@soulkiller/rest';
 import * as Joi from 'joi';
 import cookie from 'cookie';
+import fetch from 'node-fetch';
 import { Sql } from 'postgres';
 import { badRequest } from '@hapi/boom';
 import type { Request, Response, NextHandler } from 'polka';
@@ -40,7 +41,7 @@ export default class DiscordAuthCallbackRoute extends Route {
     }
 
     const state = State.from(stateQuery);
-    res.cookie('state', 'noop', { httpOnly: true, expires: new Date('1970-01-01') });
+    res.cookie('state', 'noop', { httpOnly: true, path: '/', expires: new Date('1970-01-01') });
 
     const response = await discordOAuth2(req, res, next);
     if (!response) return;
@@ -81,10 +82,10 @@ export default class DiscordAuthCallbackRoute extends Route {
     res.cookie('access_token', response.access_token, {
       expires: new Date(Date.now() + (response.expires_in * 1000)),
       sameSite: 'strict',
-      domain: this.config.rootDomain
+      domain: this.config.rootDomain.replace('http://', '')
     });
 
-    res.cookie('refresh_token', response.refresh_token, { sameSite: 'strict', domain: this.config.rootDomain });
+    res.cookie('refresh_token', response.refresh_token, { sameSite: 'strict', domain: this.config.rootDomain.replace('http://', '') });
 
     res.redirect(state.redirectUri);
     return res.end();

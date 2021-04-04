@@ -4,3 +4,10 @@ services:
   grafana:
     environment:
       GF_AUTH_GITHUB_CLIENT_SECRET: "CLIENT_SECRET_HERE"
+
+  api:
+    environment:
+      DISCORD_CLIENT_ID: "123"
+      DISCORD_CLIENT_SECRET: "monke"
+      DISCORD_TOKEN: "amogus"
+      ENCRYPTION_KEY: "sus"

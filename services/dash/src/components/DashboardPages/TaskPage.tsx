@@ -14,6 +14,7 @@ import { FiEdit2 } from 'react-icons/fi';
 import DeleteModal from '../Modals/DeleteModal';
 import CreateTask from '../Modals/CreateTask';
 import Captcha from 'components/Modals/Captcha';
+import SuccesToast from 'components/SuccesToast';
 
 const TaskPage = () => {
   const styles = useStyleConfig('taskBox');
@@ -82,6 +83,7 @@ const TaskPage = () => {
             <Task />
             <Task />
           </Box>
+          <SuccesToast />
         </Box>
       </Box>
 

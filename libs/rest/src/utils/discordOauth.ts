@@ -1,6 +1,7 @@
 import { kConfig, kLogger, Config, APIGetAuthDiscordCallbackQuery, APIGetAuthDiscordRefreshBody } from '@soulkiller/common';
 import { container } from 'tsyringe';
 import { forbidden, internal } from '@hapi/boom';
+import fetch from 'node-fetch';
 import type { Request, Response, NextHandler } from 'polka';
 import type { Logger } from 'winston';
 import type { RESTPostOAuth2AccessTokenResult } from 'discord-api-types/v8';

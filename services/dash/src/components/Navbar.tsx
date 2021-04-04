@@ -6,7 +6,7 @@
  * @license
  */
 
-import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody } from '@chakra-ui/react';
+import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, useStyleConfig } from '@chakra-ui/react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import TextLogo from './TextLogo';
@@ -15,6 +15,8 @@ import { useRef } from 'react';
 import { SiDiscord } from 'react-icons/si';
 
 const Navbar = () => {
+  const styles = useStyleConfig('featureBox');
+
   const { isOpen, onToggle } = useDisclosure();
 
   const icon = useColorModeValue(<MoonIcon />, <SunIcon />);
@@ -53,8 +55,8 @@ const Navbar = () => {
               </PopoverHeader>
               <PopoverCloseButton />
               <PopoverBody>
-                <Link href = "/">
-                  <Button bg = "purple" ref = {initialFocusRef} leftIcon = {<SiDiscord />}>
+                <Link href = {`${process.env.NEXT_PUBLIC_API_DOMAIN!}/api/auth/discord?redirect_uri=${process.env.NEXT_PUBLIC_DOMAIN!}`}>
+                  <Button bg = "purple" ref = {initialFocusRef} leftIcon = {<SiDiscord />} sx = {styles}>
                     Log In With Discord
                   </Button>
                 </Link>

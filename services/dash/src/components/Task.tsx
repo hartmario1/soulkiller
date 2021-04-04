@@ -22,7 +22,7 @@ const Task = () => {
           </Text>
           <Spacer />
           <Text isTruncated>
-            NBHD X UNDFTD S/S TEE
+            Lucky Green
           </Text>
           <Spacer />
           <Text isTruncated>

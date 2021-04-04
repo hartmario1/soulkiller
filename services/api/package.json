@@ -31,6 +31,7 @@
     "@soulkiller/common": "workspace:0.1.0",
     "@soulkiller/logger": "workspace:0.1.0",
     "@soulkiller/rest": "workspace:0.1.0",
+    "cookie": "^0.4.1",
     "joi": "^17.3.0",
     "node-fetch": "^2.6.1",
     "postgres": "^2.0.0-beta.4",
