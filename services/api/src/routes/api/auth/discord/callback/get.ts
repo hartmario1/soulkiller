@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import { Config, kConfig, APIGetAuthDiscordCallbackQuery, kSql, Connection } from '@soulkiller/common';
-import { Route, State, discordAuth, validate, discordOAuth2, encrypt } from '@soulkiller/rest';
+import { Config, kConfig, APIGetAuthDiscordCallbackQuery, kSql } from '@soulkiller/common';
+import { Route, State, discordAuth, validate, discordOAuth2 } from '@soulkiller/rest';
 import * as Joi from 'joi';
 import cookie from 'cookie';
 import fetch from 'node-fetch';
@@ -54,38 +54,23 @@ export default class DiscordAuthCallbackRoute extends Route {
       }
     ).then(r => r.json());
 
-    await this.sql.begin(async sql => {
-      await sql`
-        INSERT INTO users (user_id)
-        VALUES (${me.id})
-        ON CONFLICT (user_id)
-        DO NOTHING
-      `;
-
-      // Bug in porsager/postgres
-      const connection: { [K in keyof Connection]: Connection[K] } = {
-        user_id: me.id,
-        email: encrypt(me.email!),
-        username: encrypt(me.username),
-        avatar: me.avatar
-          ? `http://cdn.discordapp.com/avatars/${me.id}/${me.avatar}.${me.avatar.startsWith('a_') ? 'gif' : 'png'}`
-          : `http://cdn.discordapp.com/embed/avatars/${Number(me.discriminator) % 5}.png`
-      };
-
-      await sql`
-        INSERT INTO connections ${sql(connection)}
-        ON CONFLICT (user_id)
-        DO UPDATE SET ${this.sql(connection)}
-      `;
-    });
+    await this.sql`
+      INSERT INTO users (user_id, email)
+      VALUES (${me.id}, ${me.email!})
+      ON CONFLICT (user_id)
+      DO UPDATE SET email = ${me.email!}
+    `;
 
     res.cookie('access_token', response.access_token, {
       expires: new Date(Date.now() + (response.expires_in * 1000)),
       sameSite: 'strict',
-      domain: this.config.rootDomain.replace('http://', '')
+      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, '')
     });
 
-    res.cookie('refresh_token', response.refresh_token, { sameSite: 'strict', domain: this.config.rootDomain.replace('http://', '') });
+    res.cookie('refresh_token', response.refresh_token, {
+      sameSite: 'strict',
+      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, '')
+    });
 
     res.redirect(state.redirectUri);
     return res.end();
