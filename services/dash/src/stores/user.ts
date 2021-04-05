@@ -8,12 +8,15 @@
 
 import create, { State } from 'zustand';
 
-export interface UserData {
-  id: string | null;
+export interface ApiUserData {
+  id: string;
   avatar: string | null;
-  email: string | null;
-  username: string | null;
+  email: string;
+  username: string;
+  discriminator: string;
 }
+
+export type UserData = { [K in keyof ApiUserData]: ApiUserData[K] | null };
 
 export interface UserState extends State, UserData {
   loggedIn: boolean | null;
@@ -28,6 +31,7 @@ export const useUserStore = create<UserState>(
     avatar: null,
     email: null,
     username: null,
+    discriminator: null,
     loggedIn: null,
     login: () => set(() => ({ loggedIn: true })),
     logout: () => set(() => ({ loggedIn: false })),

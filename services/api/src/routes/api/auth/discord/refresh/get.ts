@@ -14,7 +14,7 @@ export default class TokenRefreshRoute extends Route {
       Joi
         .object()
         .keys({
-          refresh_token: Joi.string()
+          refresh_token: Joi.string().required()
         }),
       'body'
     ),
@@ -39,7 +39,7 @@ export default class TokenRefreshRoute extends Route {
     res.cookie('access_token', response.access_token, {
       expires: new Date(Date.now() + (response.expires_in * 1000)),
       sameSite: 'strict',
-      domain: this.config.rootDomain
+      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, '')
     });
 
     return res.end();

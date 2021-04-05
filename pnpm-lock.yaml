@@ -183,6 +183,7 @@ importers:
       react-icons: 4.2.0_react@17.0.1
       swr: 0.4.2_react@17.0.1
       tslib: 2.1.0
+      universal-cookie: 4.0.4
       zustand: 3.3.1_react@17.0.1
     devDependencies:
       '@types/node': 14.14.27
@@ -202,9 +203,10 @@ importers:
       react: ^17.0.1
       react-dom: ^17.0.1
       react-icons: ^4.2.0
-      swr: ^0.4.1
+      swr: ^0.4.2
       tslib: ^2.0.3
       typescript: ^4.1.5
+      universal-cookie: ^4.0.4
       zustand: ^3.3.1
 lockfileVersion: 5.2
 packages:
@@ -2564,6 +2566,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-kSjgDMZONiIfSH1Nxcr5JIRMwUetDki63FSQfpTCz8ogF3Ulqm8+mr5f78dUYs6vMiB6gBusQqfQmBvHZj/lwg==
+  /@types/cookie/0.3.3:
+    dev: false
+    resolution:
+      integrity: sha512-LKVP3cgXBT9RYj+t+9FDKwS5tdI+rPBXaNSkma7hvqy35lc7mAokC2zsqWJH0LaqIt3B962nuYI77hsJoT1gow==
   /@types/cookie/0.4.0:
     dev: true
     resolution:
@@ -10063,6 +10069,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zoWr9ObaxALD3DOPfjPSqxt4fnZiWblxHIgeWqW8x7UqDzEtHEQLzji2cuJYQFCU6KmoJikOYAZlrTHHebjx2w==
+  /universal-cookie/4.0.4:
+    dependencies:
+      '@types/cookie': 0.3.3
+      cookie: 0.4.1
+    dev: false
+    resolution:
+      integrity: sha512-lbRVHoOMtItjWbM7TwDLdl8wug7izB0tq3/YVKhT/ahB4VDvWMyvnADfnJI8y6fSvsjh51Ix7lTGC6Tn4rMPhw==
   /unpipe/1.0.0:
     dev: false
     engines:
