@@ -19,10 +19,10 @@ const ProxiePage = () => {
   const white = useStyleConfig('taskColumn');
 
   return (
-    <Box bg = "whiteblue" height = "756px" maxWidth = "1880px" borderRadius = "xl" sx = {greypale}>
+    <Box bg = "whiteblue" height = "724px" maxWidth = "1880px" borderRadius = "xl" sx = {greypale}>
       <HStack padding = "15px">
 
-        <Box bg = "bgblue" borderRadius = "xl" height = "665px" width = "400px" sx = {white}>
+        <Box bg = "bgblue" borderRadius = "xl" height = "638px" width = "400px" sx = {white}>
           <Center>
             <Text fontSize = "md">
               Proxy Group
@@ -65,7 +65,7 @@ const ProxiePage = () => {
             </Center>
           </Box>
         </Box>
-        <Box bg = "bgblue" borderRadius = "xl" height = "665px" width = "1408px" sx = {white}
+        <Box bg = "bgblue" borderRadius = "xl" height = "638px" width = "1408px" sx = {white}
           overflowY = "auto"
           css = {{
             '&::-webkit-scrollbar': {

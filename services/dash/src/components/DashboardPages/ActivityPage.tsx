@@ -55,7 +55,7 @@ const ActivityPage = () => {
       </Box>
       <Divider />
       <Box paddingTop = "15px">
-        <Box bg = "whiteblue" height = "667px" maxWidth = "1880px" borderRadius = "xl" sx = {styles}
+        <Box bg = "whiteblue" height = "624px" maxWidth = "1880px" borderRadius = "xl" sx = {styles}
           overflowY = "auto"
           css = {{
             '&::-webkit-scrollbar': {

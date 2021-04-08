@@ -16,7 +16,7 @@ const ProfilePage = () => {
 
   return (
     <Box>
-      <Box bg = "whiteblue" height = "696px" maxWidth = "1880px" borderRadius = "xl" sx = {styles}
+      <Box bg = "whiteblue" height = "666px" maxWidth = "1880px" borderRadius = "xl" sx = {styles}
         overflowY = "auto"
         css = {{
           '&::-webkit-scrollbar': {

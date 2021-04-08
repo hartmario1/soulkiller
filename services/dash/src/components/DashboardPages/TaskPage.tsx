@@ -22,7 +22,7 @@ const TaskPage = () => {
   return (
     <Box>
       <Box>
-        <Box bg = "whiteblue" height = "696px" maxWidth = "1880px" borderRadius = "xl" paddingBottom = "7px"
+        <Box bg = "whiteblue" height = "666px" maxWidth = "1880px" borderRadius = "xl" paddingBottom = "7px"
           sx = {styles}
           overflowY = "auto"
           css = {{
