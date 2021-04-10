@@ -10,7 +10,7 @@ export default class GetUserRoute extends Route {
     res.statusCode = 200;
     res.setHeader('content-type', 'application/json');
 
-    const { public_flags, premium_type, flags, verified, locale, mfa_enabled, system, bot, ...user } = req.user!;
+    const { public_flags, premium_type, flags, verified, locale, mfa_enabled, system, bot, email, id, ...user } = req.user!;
     return res.end(JSON.stringify(user));
   }
 }

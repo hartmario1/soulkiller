@@ -23,8 +23,12 @@ export const useQueryMe = () => {
   );
 
   const user = useUserStore();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => data && user.setUser(data), [data]);
+  useEffect(() => {
+    if (data) {
+      user.login();
+      user.setUser(data);
+    }
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) return null;
   if (!data) return null;

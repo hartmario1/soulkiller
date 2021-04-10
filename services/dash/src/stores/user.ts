@@ -1,9 +1,7 @@
 import create, { State } from 'zustand';
 
 export interface ApiUserData {
-  id: string;
   avatar: string | null;
-  email: string;
   username: string;
   discriminator: string;
 }
