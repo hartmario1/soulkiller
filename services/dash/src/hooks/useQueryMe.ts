@@ -7,7 +7,7 @@ export const useQueryMe = () => {
   const { data, error } = useSWR<ApiUserData>(
     '/api/users/@me',
     (url: string) => fetchApi<ApiUserData>(url), {
-      refreshInterval: 5000,
+      revalidateOnFocus: false,
       compare: (a, b) => {
         if (!a) {
           return !Boolean(b);
