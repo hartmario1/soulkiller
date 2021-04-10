@@ -1,6 +1,7 @@
 import create, { State } from 'zustand';
 
 export interface ApiUserData {
+  id: string;
   avatar: string | null;
   username: string;
   discriminator: string;
