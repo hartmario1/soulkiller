@@ -1,11 +1,3 @@
-/**
- * Copyright (C) Soulkiller App, Inc - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by the Soulkiller team <soulkilleroffice@gmail.com>, February 2021
- * @license
- */
-
 import create, { State } from 'zustand';
 
 export interface ApiUserData {
@@ -24,6 +16,12 @@ export interface UserState extends State, UserData {
   logout: () => void;
   setUser: (data: UserData) => void;
 }
+
+export type NonNullUserState = {
+  [K in keyof UserState]: UserState[K] extends infer E | null
+    ? (K extends Exclude<K, 'avatar'> ? E : UserState[K])
+    : never
+};
 
 export const useUserStore = create<UserState>(
   set => ({

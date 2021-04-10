@@ -9,9 +9,20 @@ const raiseError = (data: Record<string, string>) => void createStandaloneToast(
 });
 
 export const fetchApi = async <T>(path: string): Promise<T> => {
-  const toast = createStandaloneToast();
-  const cookies = new Cookies();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN!}${path}`);
+  const cookies = new Cookies(document.cookie);
+  const accessToken = cookies.get('access_token');
+  if (!accessToken) {
+    throw new Error();
+  }
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_DOMAIN!}${path}`, {
+      headers: {
+        authorization: accessToken
+      }
+    }
+  );
+
   const data = await res.json();
 
   if (res.ok) {
@@ -21,11 +32,6 @@ export const fetchApi = async <T>(path: string): Promise<T> => {
   if (res.status === 401) {
     const refreshToken = cookies.get('refresh_token');
     if (!refreshToken) {
-      toast({
-        status: 'error',
-        title: 'Your session expired.'
-      });
-
       useUserStore.getState().logout();
       throw new Error();
     }

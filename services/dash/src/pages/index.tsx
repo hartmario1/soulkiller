@@ -1,11 +1,3 @@
-/**
- * Copyright (C) Soulkiller App, Inc - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by the Soulkiller team <soulkilleroffice@gmail.com>, February 2021
- * @license
- */
-
 import { Box, Center, Divider, HStack, Image, SimpleGrid, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import { FaDiscord } from 'react-icons/fa';
 import { MdUpdate } from 'react-icons/md';
@@ -18,7 +10,7 @@ import FaqBox from '../components/FaqBox';
 import FeatureBox from '../components/FeatureBox';
 import Head from 'next/head';
 import OsBox from '../components/OsBox';
-import StandardLayout from 'components/Layouts/Standard';
+import StandardLayout from '../components/Layouts/Standard';
 
 const HomePage = () => {
   const Title = () => (

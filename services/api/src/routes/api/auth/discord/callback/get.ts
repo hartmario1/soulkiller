@@ -64,12 +64,15 @@ export default class DiscordAuthCallbackRoute extends Route {
     res.cookie('access_token', response.access_token, {
       expires: new Date(Date.now() + (response.expires_in * 1000)),
       sameSite: 'strict',
-      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, '')
+      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, ''),
+      path: '/'
     });
 
     res.cookie('refresh_token', response.refresh_token, {
+      expires: new Date(2030, 1),
       sameSite: 'strict',
-      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, '')
+      domain: this.config.rootDomain.replace(/h?t?t?p?s?:?\/?\/?/, ''),
+      path: '/'
     });
 
     res.redirect(state.redirectUri);
