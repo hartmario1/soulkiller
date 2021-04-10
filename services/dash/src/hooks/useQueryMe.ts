@@ -1,4 +1,4 @@
-import { ApiUserData, useUserStore } from '../stores';
+import { ApiUserData, NonNullUserState, useUserStore } from '../stores';
 import useSWR from 'swr';
 import { fetchApi } from '../util';
 import { useEffect } from 'react';
@@ -23,14 +23,11 @@ export const useQueryMe = () => {
   );
 
   const user = useUserStore();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => data && user.setUser(data), [data]);
 
-  useEffect(() => {
-    if (error || !data) {
-      return;
-    }
+  if (error) return null;
+  if (!data) return null;
 
-    user.setUser(data);
-  }, [error, data, user]);
-
-  return user;
+  return user as NonNullUserState;
 };
