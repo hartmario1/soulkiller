@@ -19,6 +19,7 @@ import TaskPage from 'components/DashboardPages/TaskPage';
 import ActivityPage from 'components/DashboardPages/ActivityPage';
 import ProfilePage from 'components/DashboardPages/ProfilePage';
 import SettingsPage from 'components/DashboardPages/SettingsPage';
+import Protected from 'HOCs/Protected';
 
 const Dashboard = () => {
   const Title = () => (
@@ -78,4 +79,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Protected(Dashboard);

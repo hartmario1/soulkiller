@@ -1,23 +1,4 @@
-import {
-  Flex,
-  Link,
-  Button,
-  IconButton,
-  Box,
-  useDisclosure,
-  useColorMode,
-  useColorModeValue,
-  Img,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Portal,
-  PopoverArrow,
-  PopoverHeader,
-  PopoverCloseButton,
-  PopoverBody,
-  useStyleConfig
-} from '@chakra-ui/react';
+import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, useStyleConfig } from '@chakra-ui/react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import TextLogo from './TextLogo';
@@ -35,20 +16,20 @@ const Navbar = () => {
 
   const user = useQueryMe();
 
-  const avatar = user?.avatar
+  const avatar = user?.avatar && user.id
     ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
     : `https://cdn.discordapp.com/embed/avatars/${parseInt(user?.discriminator ?? '0001', 10) % 5}.png`;
 
   const initialFocusRef = useRef(null);
 
   const LoginButton = () =>
-    user?.loggedIn
+    user?.loggedIn !== null && user?.loggedIn
       ? (
         <Link href = "/">
           <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
             <Img mr = {5} rounded = "full"
               boxSize = "25px" src = {avatar}
-              alt = {user.username} />
+              alt = {user.username!} />
             <Box>
               {user.username}
             </Box>

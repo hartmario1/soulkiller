@@ -26,7 +26,6 @@ export const useUserStore = create<UserState>(
   set => ({
     id: null,
     avatar: null,
-    email: null,
     username: null,
     discriminator: null,
     loggedIn: null,
