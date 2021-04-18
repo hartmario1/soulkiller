@@ -1,4 +1,4 @@
-import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, useStyleConfig } from '@chakra-ui/react';
+import { Flex, Link, Button, IconButton, Box, useDisclosure, useColorMode, useColorModeValue, Img, Popover, PopoverTrigger, PopoverContent, Portal, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, useStyleConfig, HStack } from '@chakra-ui/react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import TextLogo from './TextLogo';
@@ -25,16 +25,27 @@ const Navbar = () => {
   const LoginButton = () =>
     user?.loggedIn !== null && user?.loggedIn
       ? (
-        <Link href = "/">
-          <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
-            <Img mr = {5} rounded = "full"
-              boxSize = "25px" src = {avatar}
-              alt = {user.username!} />
-            <Box>
-              {user.username}
-            </Box>
-          </Button>
-        </Link>
+        <HStack>
+          <Box>
+            <Link href = "/">
+              <Button variant = "ghost" justifyContent = {{ base: 'start', md: 'unset' }}>
+                <Img mr = {5} rounded = "full"
+                  boxSize = "25px" src = {avatar}
+                  alt = {user.username!} />
+                <Box>
+                  {user.username}
+                </Box>
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link href = "/purchase">
+              <Button>
+                Purchase
+              </Button>
+            </Link>
+          </Box>
+        </HStack>
       )
       : (
         <Popover initialFocusRef = {initialFocusRef}>
@@ -89,11 +100,13 @@ const Navbar = () => {
       <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
         flexDirection = {{ base: 'column', md: 'unset' }}
         width = {{ base: 'full', md: 'auto' }}>
-        <LoginButton />
-        <IconButton onClick = {toggleColorMode}
-          variant = "ghost"
-          icon = {icon}
-          aria-label = "Toggle Theme" />
+        <HStack>
+          <LoginButton />
+          <IconButton onClick = {toggleColorMode}
+            variant = "ghost"
+            icon = {icon}
+            aria-label = "Toggle Theme" />
+        </HStack>
       </Box>
     </Flex>
   );

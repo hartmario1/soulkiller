@@ -80,7 +80,6 @@ const Purchase = () => {
             </Center>
           </Box>
         </Box>
-
       </Box>
     </StandardLayout>
   );
