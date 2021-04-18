@@ -1,26 +1,15 @@
-import { jsonParser, Route, validate } from '@soulkiller/rest';
+import { jsonParser, Route } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
 import { kStripe, kConfig, Config, kLogger, kSql } from '@soulkiller/common';
-import Joi from 'joi';
 import { badRequest } from '@hapi/boom';
 import type Stripe from 'stripe';
 import type { Request, Response, NextHandler } from 'polka';
 import type { Logger } from 'winston';
-import { Sql } from 'postgres';
+import type { Sql } from 'postgres';
 
 @injectable()
 export default class PostPaymentsWebhookRoute extends Route {
-  public readonly middleware = [
-    jsonParser(true),
-    validate(
-      Joi
-        .object()
-        .keys({
-          priceId: Joi.string().required()
-        })
-        .required()
-    )
-  ];
+  public readonly middleware = [jsonParser(true)];
 
   public constructor(
     @inject(kStripe) public readonly stripe: Stripe,

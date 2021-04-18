@@ -8,9 +8,9 @@ import Payment from '../components/Payment';
 
 const SubProtected = (Component: React.FC) => (props: any) => {
   const loggedIn = useLoginProtectedRoute();
-  const user = useQueryMe()!;
+  const user = useQueryMe();
 
-  if (!loggedIn || user.sub === null) {
+  if (!loggedIn || !user || user.sub === null) {
     return (
       <StandardLayout>
         <Center>
