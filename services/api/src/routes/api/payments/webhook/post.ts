@@ -55,12 +55,21 @@ export default class PostPaymentsWebhookRoute extends Route {
         break;
       }
 
-      case 'customer.subscription.delete': {
+      case 'customer.subscription.deleted': {
         const data = event.data.object as Stripe.Subscription;
         await this.sql`DELETE FROM subscriptions WHERE subscription_id = ${data.id}`;
 
         break;
       }
+
+      default: {
+        this.logger.warn(`Unexpected packet type ${event.type} - is the webhook configured correctly?`, { topic: 'STRIPE WEBHOOK' });
+        break;
+      }
     }
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    return res.end(JSON.stringify({}));
   }
 }

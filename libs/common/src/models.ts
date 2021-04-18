@@ -1,9 +1,9 @@
-export interface Users {
+export interface User {
   user_id: `${bigint}`;
   email: string;
 }
 
-export interface Customers {
+export interface Customer {
   user_id: `${bigint}`;
   customer_id: string;
 }

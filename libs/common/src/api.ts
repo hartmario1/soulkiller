@@ -14,3 +14,7 @@ export interface APIGetAuthDiscordRefreshBody {
 export interface ApiPostPaymentsCreateResult {
   sessionId: string;
 }
+
+export interface ApiPostPaymentsPortalResult {
+  url: string;
+}

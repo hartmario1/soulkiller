@@ -23,7 +23,7 @@ const Navbar = () => {
   const initialFocusRef = useRef(null);
 
   const LoginButton = () =>
-    user?.loggedIn !== null && user?.loggedIn
+    user?.loggedIn === true
       ? (
         <HStack>
           <Box>
@@ -41,7 +41,7 @@ const Navbar = () => {
           <Box>
             <Link href = "/dashboard">
               <Button>
-                Purchase
+                {user.sub === true ? 'Dashboard' : 'Purchase'}
               </Button>
             </Link>
           </Box>
