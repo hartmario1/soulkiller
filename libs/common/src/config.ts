@@ -4,6 +4,7 @@ import { kConfig } from './symbols';
 export interface Config {
   rootDomain: string;
   apiDomain: string;
+  dashDomain: string;
   discordClientId: `${bigint}`;
   discordClientSecret: string;
   discordToken: string;
@@ -12,12 +13,16 @@ export interface Config {
   nodeEnv: string;
   encryptionKey: string;
   cors: string | string[];
+  stripeSecretKey: string;
+  stripeWebhookSecret: string;
+  stripePriceId: string;
 }
 
 export const initConfig = () => {
   const config: Config = {
     rootDomain: process.env.ROOT_DOMAIN!,
     apiDomain: process.env.API_DOMAIN!,
+    dashDomain: process.env.DASH_DOMAIN!,
     discordClientId: process.env.DISCORD_CLIENT_ID as `${bigint}`,
     discordClientSecret: process.env.DISCORD_CLIENT_SECRET!,
     discordToken: process.env.DISCORD_TOKEN!,
@@ -25,7 +30,10 @@ export const initConfig = () => {
     dbUrl: process.env.DB_URL!,
     nodeEnv: process.env.NODE_ENV ?? 'dev',
     encryptionKey: process.env.ENCRYPTION_KEY!,
-    cors: process.env.CORS?.split(',') ?? '*'
+    cors: process.env.CORS?.split(',') ?? '*',
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY!,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+    stripePriceId: process.env.STRIPE_PRICE_ID!
   };
 
   container.register<Config>(kConfig, { useValue: config });

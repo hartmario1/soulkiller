@@ -1,11 +1,3 @@
-/**
- * Copyright (C) Soulkiller App, Inc - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by the Soulkiller team <soulkilleroffice@gmail.com>, February 2021
- * @license
- */
-
 import { Box, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import BotMenu from 'components/BotMenu';
 import Head from 'next/head';
@@ -19,7 +11,7 @@ import TaskPage from 'components/DashboardPages/TaskPage';
 import ActivityPage from 'components/DashboardPages/ActivityPage';
 import ProfilePage from 'components/DashboardPages/ProfilePage';
 import SettingsPage from 'components/DashboardPages/SettingsPage';
-import Protected from 'HOCs/Protected';
+import SubProtected from '../HOCs/SubProtected';
 
 const Dashboard = () => {
   const Title = () => (
@@ -79,4 +71,4 @@ const Dashboard = () => {
   );
 };
 
-export default Protected(Dashboard);
+export default SubProtected(Dashboard);

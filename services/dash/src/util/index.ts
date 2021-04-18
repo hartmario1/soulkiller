@@ -2,13 +2,13 @@ import Cookies from 'universal-cookie';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { useUserStore } from 'stores';
 
-const raiseError = (data: Record<string, string>) => void createStandaloneToast()({
+export const raiseError = (data: Record<string, string>) => void createStandaloneToast()({
   status: 'error',
   title: data.statusCode ? `Error ${data.statusCode} - ${data.error!}  ` : 'An error occured',
   description: data.message ?? ''
 });
 
-export const fetchApi = async <T>(path: string): Promise<T> => {
+export const fetchApi = async <T, B = never>(path: string, method = 'get', body?: B): Promise<T> => {
   const cookies = new Cookies(document.cookie);
   const accessToken = cookies.get('access_token');
   if (!accessToken) {
@@ -17,6 +17,8 @@ export const fetchApi = async <T>(path: string): Promise<T> => {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_DOMAIN!}${path}`, {
+      method,
+      body: JSON.stringify(body),
       headers: {
         authorization: accessToken
       }

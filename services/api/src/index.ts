@@ -11,7 +11,8 @@ import { join as joinPath } from 'path';
 import { container } from 'tsyringe';
 import createLogger from '@soulkiller/logger';
 import postgres from 'postgres';
-import { initConfig, kLogger, kSql } from '@soulkiller/common';
+import Stripe from 'stripe';
+import { initConfig, kLogger, kSql, kStripe } from '@soulkiller/common';
 
 void (async () => {
   const config = initConfig();
@@ -25,6 +26,8 @@ void (async () => {
       })
     }
   );
+
+  container.register(kStripe, { useValue: new Stripe(config.stripeSecretKey, { apiVersion: '2020-08-27', typescript: true }) });
 
   const app = createApp();
 

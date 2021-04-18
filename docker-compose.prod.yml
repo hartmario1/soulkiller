@@ -14,6 +14,7 @@ services:
     environment:
       ROOT_DOMAIN: "https://soulkiller.io"
       API_DOMAIN: "https://api.soulkiller.io"
+      DASH_DOMAIN: "https://soulkiller.io"
       NODE_ENV: "prod"
 
   grafana:

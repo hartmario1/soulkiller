@@ -10,3 +10,7 @@ export interface APIGetAuthDiscordCallbackQuery {
 export interface APIGetAuthDiscordRefreshBody {
   refresh_token: string;
 }
+
+export interface ApiPostPaymentsCreateResult {
+  sessionId: string;
+}

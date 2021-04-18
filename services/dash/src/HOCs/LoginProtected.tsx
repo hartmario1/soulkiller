@@ -1,10 +1,11 @@
-import useProtectedRoute from 'hooks/useProtecedRoute';
+/* eslint-disable react/display-name, react-hooks/rules-of-hooks */
+
+import useLoginProtectedRoute from 'hooks/useLoginProtecedRoute';
 import { Center, Spinner } from '@chakra-ui/react';
 import StandardLayout from 'components/Layouts/Standard';
 
-// eslint-disable-next-line react/display-name
-const Protected = (Component: React.FC) => (props: any) => {
-  const loggedIn = useProtectedRoute(); // eslint-disable-line react-hooks/rules-of-hooks
+const LoginProtected = (Component: React.FC) => (props: any) => {
+  const loggedIn = useLoginProtectedRoute();
   if (loggedIn) return (<Component {...props} />);
   return (
     <StandardLayout>
@@ -15,4 +16,4 @@ const Protected = (Component: React.FC) => (props: any) => {
   );
 };
 
-export default Protected;
+export default LoginProtected;

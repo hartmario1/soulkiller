@@ -16,3 +16,5 @@ services/dash/*.local
 docker-compose.config.yml
 
 data/certbot/**
+
+.env.*.local

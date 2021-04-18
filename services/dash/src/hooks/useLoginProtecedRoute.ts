@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQueryMe } from './useQueryMe';
 
-const useProtectedRoute = () => {
+const useLoginProtectedRoute = () => {
   const user = useQueryMe();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || (user.loggedIn !== null && !user.loggedIn)) {
+    if (!user || user.loggedIn === false) {
       console.log(user);
       void router.replace('/').catch(() => null);
     }
@@ -16,4 +16,4 @@ const useProtectedRoute = () => {
   return user?.loggedIn;
 };
 
-export default useProtectedRoute;
+export default useLoginProtectedRoute;

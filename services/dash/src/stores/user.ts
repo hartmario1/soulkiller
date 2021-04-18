@@ -5,22 +5,24 @@ export interface ApiUserData {
   avatar: string | null;
   username: string;
   discriminator: string;
+  sub: boolean;
 }
 
 export type UserData = { [K in keyof ApiUserData]: ApiUserData[K] | null };
 
-export interface UserState extends State, UserData {
-  loggedIn: boolean | null;
+interface UserMethods {
   login: () => void;
   logout: () => void;
   setUser: (data: UserData) => void;
 }
 
-export type NonNullUserState = {
-  [K in keyof UserState]: UserState[K] extends infer E | null
-    ? (K extends Exclude<K, 'avatar'> ? E : UserState[K])
-    : never
-};
+export interface UserState extends State, UserData, UserMethods {
+  loggedIn: boolean | null;
+}
+
+export interface NonNullUserState extends State, ApiUserData, UserMethods {
+  loggedIn: boolean;
+}
 
 export const useUserStore = create<UserState>(
   set => ({
@@ -29,6 +31,7 @@ export const useUserStore = create<UserState>(
     username: null,
     discriminator: null,
     loggedIn: null,
+    sub: null,
     login: () => set(() => ({ loggedIn: true })),
     logout: () => set(() => ({ loggedIn: false })),
     setUser: (data: UserData) => set(() => ({ ...data }))
