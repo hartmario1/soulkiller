@@ -15,7 +15,8 @@ export default class TokenRefreshRoute extends Route {
         .object()
         .keys({
           refresh_token: Joi.string().required()
-        }),
+        })
+        .required(),
       'body'
     ),
     discordAuth(true)
