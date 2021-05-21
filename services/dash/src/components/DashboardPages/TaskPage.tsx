@@ -1,11 +1,3 @@
-/**
- * Copyright (C) Soulkiller App, Inc - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by the Soulkiller team <soulkilleroffice@gmail.com>, February 2021
- * @license
- */
-
 import { Box, HStack, Spacer, Text, Wrap, WrapItem, useStyleConfig } from '@chakra-ui/react';
 import TaskButtons from '../StartStopButtons';
 import Task from '../Task';
@@ -15,9 +7,11 @@ import DeleteModal from '../Modals/DeleteModal';
 import CreateTask from '../Modals/CreateTask';
 import Captcha from 'components/Modals/Captcha';
 import SuccesToast from 'components/SuccesToast';
+import { useQueryTasks } from '../../hooks/useQueryTasks';
 
 const TaskPage = () => {
   const styles = useStyleConfig('taskBox');
+  const tasks = useQueryTasks();
 
   return (
     <Box>
@@ -67,7 +61,9 @@ const TaskPage = () => {
             </Box>
           </Box>
 
-          {/* Tasks */}
+          {/* TODO: Tasks data */}
+          {tasks.map(() => (<Task />))}
+
           <Box>
             <Task />
             <Task />

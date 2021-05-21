@@ -8,7 +8,6 @@ const useLoginProtectedRoute = () => {
 
   useEffect(() => {
     if (!user || user.loggedIn === false) {
-      console.log(user);
       void router.replace('/').catch(() => null);
     }
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
