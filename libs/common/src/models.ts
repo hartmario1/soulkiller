@@ -14,7 +14,11 @@ export interface Subscription {
 }
 
 export enum Store {
-  supreme
+  supreme,
+  snkrs,
+  bodega,
+  shoepalace,
+  undefeated
 }
 
 export enum Status {

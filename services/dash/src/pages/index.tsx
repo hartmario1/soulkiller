@@ -77,7 +77,6 @@ const HomePage = () => {
     </Box>
   );
 
-
   return (
     <StandardLayout>
       <Box>
