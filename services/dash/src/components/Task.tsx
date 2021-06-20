@@ -1,8 +1,13 @@
 import { Box, HStack, IconButton, Spacer, Text, useStyleConfig } from '@chakra-ui/react';
 import { FaPlay, FaTrash } from 'react-icons/fa';
 import { FiEdit2 } from 'react-icons/fi';
+import type { Task as TaskData } from '@soulkiller/common';
 
-const Task = () => {
+const STORES = [
+  'supreme'
+] as const;
+
+const Task = ({ data }: { data: TaskData }) => {
   const taskStyle = useStyleConfig('taskColumn');
 
   return (
@@ -10,15 +15,15 @@ const Task = () => {
       <Box bg = "bgblue" borderRadius = "xl" sx = {taskStyle}>
         <HStack paddingX = "20px" paddingY = "5px">
           <Text>
-            Undefeated
+            {STORES[data.store]}
           </Text>
           <Spacer />
           <Text isTruncated>
-            Lucky Green
+            {data.name}
           </Text>
           <Spacer />
           <Text isTruncated>
-            Medium
+            {data.size}
           </Text>
           <Spacer />
           <Text isTruncated>

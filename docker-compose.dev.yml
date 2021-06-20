@@ -1,40 +1,25 @@
 version: "3.7"
 
 services:
-  postgres:
-    expose:
-      - "5432"
-
-  redis:
-    expose:
-      - "6379"
-
-  nginx:
-    build:
-      args:
-        - NGINX_ENV=dev
-
   api:
     environment:
       ROOT_DOMAIN: "http://localhost"
       API_DOMAIN: "http://localhost:3000"
       DASH_DOMAIN: "http://localhost:4200"
       NODE_ENV: "dev"
+    ports:
+      - "127.0.0.1:3000:3000"
 
   dash:
+    build:
+      args:
+        - DASH_ENV=dev
     volumes:
       - ./services/dash/src:/usr/dash/services/dash/src
       - ./services/dash/.next:/usr/dash/services/dash/.next
       - ./services/dash/public:/usr/dash/services/dash/public
-    expose:
-      - "4200"
-    build:
-      args:
-        - DASH_ENV=dev
-
-  prometheus:
-    expose:
-      - "9000"
+    ports:
+      - "127.0.0.1:4200:4200"
 
   grafana:
     environment:
@@ -42,3 +27,5 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: "admin"
     expose:
       - "5000"
+    ports:
+      - "127.0.0.1:5000:5000"

@@ -11,7 +11,7 @@ import type { APIUser } from 'discord-api-types/v8';
 
 @injectable()
 export default class DiscordAuthCallbackRoute extends Route {
-  public readonly middleware = [
+  public override readonly middleware = [
     validate(
       Joi
         .object()

@@ -8,7 +8,7 @@ import type { Sql } from 'postgres';
 
 @injectable()
 export default class PostPaymentsPortalRoute extends Route {
-  public readonly middleware = [discordAuth(false)];
+  public override readonly middleware = [discordAuth(false)];
 
   public constructor(
     @inject(kStripe) public readonly stripe: Stripe,

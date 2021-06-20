@@ -9,7 +9,7 @@ import type { Sql } from 'postgres';
 
 @injectable()
 export default class PostPaymentsWebhookRoute extends Route {
-  public readonly middleware = [jsonParser(true)];
+  public override readonly middleware = [jsonParser(true)];
 
   public constructor(
     @inject(kStripe) public readonly stripe: Stripe,

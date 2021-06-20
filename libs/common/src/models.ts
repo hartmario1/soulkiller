@@ -28,6 +28,8 @@ export interface Task {
   id: number;
   user_id: `${bigint}`;
   store: Store;
+  name: string;
+  size: string;
   created_at: Date;
   status: Status;
   recurring: boolean;

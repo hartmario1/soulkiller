@@ -16,16 +16,12 @@ services:
       test: ["CMD-SHELL", "pg_isready -U soulkiller"]
       interval: 10s
       timeout: 5s
-    ports:
-      - "5432:5432"
 
   postgres-exporter:
     image: wrouesnel/postgres_exporter:latest
     environment:
       DATA_SOURCE_NAME: "postgres://soulkiller:admin@postgres:5432/soulkiller?sslmode=disable"
     restart: unless-stopped
-    expose:
-      - "9187"
 
   redis:
     image: redis:5-alpine
@@ -36,33 +32,12 @@ services:
       test: ["CMD-SHELL", "redis-cli ping"]
       interval: 10s
       timeout: 5s
-    ports:
-      - "6379:6379"
 
   redis-exporter:
     image: oliver006/redis_exporter:alpine
     environment:
       REDIS_ADDR: "redis://redis:6379"
     restart: unless-stopped
-    expose:
-      - "9121"
-
-  nginx:
-    build:
-      context: ./
-      dockerfile: ./docker/nginx/Dockerfile
-    depends_on:
-      - api
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    expose:
-      - "80"
-      - "443"
-    ports:
-      - "80:80"
-      - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   api:
     build:
@@ -72,11 +47,9 @@ services:
       - postgres
       - redis
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     environment: 
       DISCORD_SCOPES: "identify,email"
-      DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller?sslmode=disable"
+      DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller"
       STRIPE_PRICE_ID: "price_1IflayLoZxvFDzrnkopX8bUP"
 
   dash:
@@ -86,15 +59,6 @@ services:
     depends_on:
       - api
     restart: unless-stopped
-    ports:
-      - "4200:4200"
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   prometheus:
     build:
@@ -107,8 +71,6 @@ services:
       test: ['CMD-SHELL', "wget -qO- localhost:9000/-/healthy"]
       interval: 30s
       timeout: 5s
-    ports:
-      - "9000:9000"
 
   grafana:
     build:
@@ -132,8 +94,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
     restart: unless-stopped
-    ports:
-      - "5000:5000"
 
 volumes:
   postgres-data:

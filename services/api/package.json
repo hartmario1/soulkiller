@@ -16,29 +16,29 @@
   },
   "homepage": "https://github.com/soulkiller.io/soulkiller#readme",
   "devDependencies": {
-    "@types/ioredis": "^4.22.3",
-    "@types/node": "^14.14.37",
+    "@types/ioredis": "^4.26.4",
+    "@types/node": "^14.17.3",
     "@types/node-fetch": "^2.5.10",
     "discord-api-types": "^0.12.1",
-    "polka": "^1.0.0-next.14",
-    "typescript": "^4.2.4",
+    "polka": "^1.0.0-next.15",
+    "typescript": "^4.3.4",
     "winston": "^3.3.3"
   },
   "dependencies": {
     "@cordis/bitfield": "^0.2.3",
     "@gaius-bot/readdir": "^1.0.0",
-    "@hapi/boom": "^9.1.1",
+    "@hapi/boom": "^9.1.2",
     "@soulkiller/common": "workspace:0.1.0",
     "@soulkiller/logger": "workspace:0.1.0",
     "@soulkiller/rest": "workspace:0.1.0",
     "cookie": "^0.4.1",
-    "joi": "^17.3.0",
+    "joi": "^17.4.0",
     "node-fetch": "^2.6.1",
     "postgres": "^2.0.0-beta.4",
-    "prom-client": "^13.0.0",
+    "prom-client": "^13.1.0",
     "reflect-metadata": "^0.1.13",
-    "stripe": "^8.144.0",
-    "tslib": "^2.0.3",
-    "tsyringe": "^4.4.0"
+    "stripe": "^8.156.0",
+    "tslib": "^2.3.0",
+    "tsyringe": "^4.5.0"
   }
 }

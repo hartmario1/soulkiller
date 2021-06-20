@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:16-alpine
 LABEL name "api builder"
 
 WORKDIR /opt/build
@@ -25,8 +25,10 @@ COPY services/api ./services/api
 
 RUN pnpm run build && pnpm prune --prod
 
-FROM node:15-alpine
+FROM node:16-alpine
 LABEL name "api"
+
+EXPOSE 3000
 
 WORKDIR /usr/api
 

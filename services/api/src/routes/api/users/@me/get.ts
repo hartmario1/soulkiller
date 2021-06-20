@@ -4,7 +4,7 @@ import type { Request, Response } from 'polka';
 
 @injectable()
 export default class GetUserRoute extends Route {
-  public readonly middleware = [discordAuth(false)];
+  public override readonly middleware = [discordAuth(false)];
 
   public handle(req: Request, res: Response) {
     res.statusCode = 200;

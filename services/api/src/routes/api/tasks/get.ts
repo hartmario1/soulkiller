@@ -6,7 +6,7 @@ import type { Request, Response } from 'polka';
 
 @injectable()
 export default class GetTasksRoute extends Route {
-  public readonly middleware = [discordAuth(false)];
+  public override readonly middleware = [discordAuth(false)];
 
   public constructor(
     @inject(kSql) public readonly sql: Sql<{}>

@@ -2,7 +2,6 @@ import 'reflect-metadata';
 
 // Begin data collection
 import { collectDefaultMetrics } from 'prom-client';
-
 collectDefaultMetrics();
 
 import { createApp, Route } from '@soulkiller/rest';

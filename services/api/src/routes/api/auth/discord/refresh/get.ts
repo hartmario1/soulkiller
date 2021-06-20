@@ -8,7 +8,7 @@ import type { Request, Response, NextHandler } from 'polka';
 
 @injectable()
 export default class TokenRefreshRoute extends Route {
-  public readonly middleware = [
+  public override readonly middleware = [
     jsonParser(),
     validate(
       Joi

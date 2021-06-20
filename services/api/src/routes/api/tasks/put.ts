@@ -7,7 +7,7 @@ import type { Request, Response } from 'polka';
 
 @injectable()
 export default class PutTasksRoute extends Route {
-  public readonly middleware = [
+  public override readonly middleware = [
     discordAuth(false),
     jsonParser(),
     validate(

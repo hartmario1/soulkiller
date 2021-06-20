@@ -9,7 +9,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": false,
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "noImplicitOverride": false
   },
   "include": [
     "next-env.d.ts",

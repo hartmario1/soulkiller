@@ -61,23 +61,9 @@ const TaskPage = () => {
             </Box>
           </Box>
 
-          {/* TODO: Tasks data */}
-          {tasks.map(() => (<Task />))}
-
           <Box>
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
-            <Task />
+            {tasks.map(data => (<Task data = {data} />))}
+            <Task data = {{ store: 0, name: 'ASHUJNIASDHUASD', size: 'joe mama' } as any} />
           </Box>
           <SuccesToast />
         </Box>

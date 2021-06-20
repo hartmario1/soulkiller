@@ -7,7 +7,7 @@ import type { Request, Response, NextHandler } from 'polka';
 
 @injectable()
 export default class PostPaymentsCreateRoute extends Route {
-  public readonly middleware = [discordAuth(false)];
+  public override readonly middleware = [discordAuth(false)];
 
   public constructor(
     @inject(kStripe) public readonly stripe: Stripe,

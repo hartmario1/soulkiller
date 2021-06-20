@@ -8,7 +8,7 @@ import type { Request, Response, NextHandler } from 'polka';
 
 @injectable()
 export default class DeleteTaskRoute extends Route {
-  public readonly middleware = [
+  public override readonly middleware = [
     discordAuth(false),
     validate(
       Joi

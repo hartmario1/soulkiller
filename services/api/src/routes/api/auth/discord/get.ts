@@ -7,7 +7,7 @@ import type { Request, Response } from 'polka';
 
 @injectable()
 export default class DiscordAuthRoute extends Route {
-  public readonly middleware = [
+  public override readonly middleware = [
     validate(
       Joi
         .object()

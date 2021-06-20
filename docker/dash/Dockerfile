@@ -6,6 +6,8 @@ ENV DASH_ENV=${DASH_ENV}
 
 WORKDIR /usr/dash
 
+EXPOSE 4200
+
 RUN apk add --update \
   && apk add --no-cache ca-certificates \
   && apk add --no-cache --virtual .build-deps curl
