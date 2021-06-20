@@ -6,10 +6,21 @@
  * @license
  */
 
-import { Box, Text, HStack, FormControl, FormLabel, NumberIncrementStepper, NumberDecrementStepper, NumberInput, NumberInputField, NumberInputStepper, Center, VStack, useStyleConfig } from '@chakra-ui/react';
+import { Box, Text, HStack, FormControl, FormLabel, NumberIncrementStepper, NumberDecrementStepper, NumberInput, NumberInputField, NumberInputStepper, Center, VStack, useStyleConfig, Button } from '@chakra-ui/react';
+import { useQueryMe } from 'hooks/useQueryMe';
+import { fetchApi } from '../../util';
+import { ApiPostPaymentsPortalResult } from '@soulkiller/common';
 
 const SettingsPage = () => {
   const styles = useStyleConfig('settingsGradient');
+  const user = useQueryMe()!;
+
+  const onClick = async () => {
+    const data = await fetchApi<ApiPostPaymentsPortalResult>('/api/payments/portal', 'post').catch(() => null);
+    if (!data) return;
+
+    window.location.assign(data.url);
+  };
 
   return (
     <Box>
@@ -43,18 +54,27 @@ const SettingsPage = () => {
           </NumberInput>
         </FormControl>
       </HStack>
-
-      <Box paddingBottom = "20px" paddingTop = "40px">
-        <Box sx = {styles} borderRadius = "xl" paddingY = "5px">
-          <Center>
-            <VStack>
-              <Text fontSize = "xl">
-              Welcome back user, hope you are killing every release.
-              </Text>
-            </VStack>
-          </Center>
+      <HStack>
+        <Box paddingBottom = "20px" paddingTop = "40px" w = "100%">
+          <Box sx = {styles} borderRadius = "xl" paddingY = "5px">
+            <Center>
+              <VStack>
+                <Text fontSize = "xl">
+                  Welcome back
+                  {' '}
+                  {user.username}
+                  , hope you are killing every release.
+                </Text>
+              </VStack>
+            </Center>
+          </Box>
         </Box>
-      </Box>
+        <Box paddingTop = "20px">
+          <Button onClick = {onClick}>
+            Manage billing
+          </Button>
+        </Box>
+      </HStack>
     </Box>
   );
 };
