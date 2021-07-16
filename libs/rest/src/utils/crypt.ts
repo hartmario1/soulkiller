@@ -1,4 +1,4 @@
-import { Config, kConfig } from '@soulkiller/common';
+import { Config, kConfig } from '@soulkiller/injection';
 import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 import { container } from 'tsyringe';
 

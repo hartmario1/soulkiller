@@ -5,8 +5,8 @@ import helmet from 'helmet';
 import cookie from 'cookie';
 import { Histogram } from 'prom-client';
 import { container } from 'tsyringe';
-import { Config, kConfig, kLogger } from '@soulkiller/common';
-import { Logger } from 'winston';
+import { Config, kConfig, kLogger } from '@soulkiller/injection';
+import type { Logger } from 'winston';
 
 const responseTimes = new Histogram({
   name: 'http_request_duration_seconds',

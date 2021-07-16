@@ -30,7 +30,7 @@ export abstract class Route {
     };
   }
 
-  public override readonly middleware: Middleware[] = [];
+  public readonly middleware: Middleware[] = [];
 
   public abstract handle(req: Request, res: Response, next?: NextHandler): any;
 

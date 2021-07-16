@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import supertest from 'supertest';
 import { createApp, jsonParser } from '../';
 import { container } from 'tsyringe';
-import { kLogger } from '@soulkiller/common';
+import { kLogger } from '@soulkiller/injection';
 import type { Request, Response } from 'polka';
 
 container.register(kLogger, {
