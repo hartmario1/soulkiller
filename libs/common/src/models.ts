@@ -23,8 +23,8 @@ export enum Store {
 
 export enum Status {
   idle,
-  canceled,
-  failed,
+  stopped,
+  checkingOut,
   done
 }
 
