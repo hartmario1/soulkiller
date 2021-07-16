@@ -21,7 +21,8 @@ import {
   FormLabel,
   HStack,
   Input,
-  Checkbox
+  Checkbox,
+  Text
 } from '@chakra-ui/react';
 import { TiPlus } from 'react-icons/ti';
 import { Formik, Form, Field } from 'formik';
@@ -81,7 +82,7 @@ const CreateTask = () => {
                   Create Tasks
                 </ModalHeader>
                 <ModalBody>
-                  <HStack>
+                  <HStack paddingBottom = "8px">
                     <Field name = "store" as = "select">
                       {({ field }: { field: string }) => (
                         <FormControl>
@@ -110,9 +111,9 @@ const CreateTask = () => {
                     </Field>
                     {errors.store && touched.store
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.store}
-                        </div>
+                        </Text>
                       )
                       : null}
 
@@ -145,16 +146,16 @@ const CreateTask = () => {
                     </Field>
                     {errors.category && touched.category
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.category}
-                        </div>
+                        </Text>
                       )
                       : null}
                   </HStack>
 
                   <Field name = "name">
                     {({ field }: { field: string }) => (
-                      <FormControl>
+                      <FormControl paddingBottom = "10px">
                         <FormLabel htmlFor = "name">
                           Item Name
                         </FormLabel>
@@ -164,13 +165,13 @@ const CreateTask = () => {
                   </Field>
                   {errors.name && touched.name
                     ? (
-                      <div>
+                      <Text color = "red.200">
                         {errors.name}
-                      </div>
+                      </Text>
                     )
                     : null}
 
-                  <HStack>
+                  <HStack paddingBottom = "10px">
                     <Field name = "profile" as = "select">
                       {({ field }: { field: string }) => (
                         <FormControl>
@@ -190,9 +191,9 @@ const CreateTask = () => {
                     </Field>
                     {errors.profile && touched.profile
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.profile}
-                        </div>
+                        </Text>
                       )
                       : null}
 
@@ -215,9 +216,9 @@ const CreateTask = () => {
                     </Field>
                     {errors.proxy && touched.proxy
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.proxy}
-                        </div>
+                        </Text>
                       )
                       : null}
                   </HStack>
@@ -235,9 +236,9 @@ const CreateTask = () => {
                     </Field>
                     {errors.size && touched.size
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.size}
-                        </div>
+                        </Text>
                       )
                       : null}
                     <Field name = "amount">
@@ -252,9 +253,9 @@ const CreateTask = () => {
                     </Field>
                     {errors.amount && touched.amount
                       ? (
-                        <div>
+                        <Text color = "red.200">
                           {errors.amount}
-                        </div>
+                        </Text>
                       )
                       : null}
                   </HStack>

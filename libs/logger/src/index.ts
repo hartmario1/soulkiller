@@ -1,6 +1,6 @@
 import { createLogger, format, transports } from 'winston';
 import { container } from 'tsyringe';
-import { Config, kConfig } from '@soulkiller/common';
+import { Config, kConfig } from '@soulkiller/injection';
 
 export default (name: string) => {
   const config = container.resolve<Config>(kConfig);

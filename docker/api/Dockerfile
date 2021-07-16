@@ -12,6 +12,7 @@ RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
 
 COPY libs/common/package.json ./libs/common/
+COPY libs/injection/package.json ./libs/injection/
 COPY libs/logger/package.json ./libs/logger/
 COPY libs/rest/package.json ./libs/rest/
 COPY services/api/package.json ./services/api/
@@ -19,6 +20,7 @@ COPY services/api/package.json ./services/api/
 RUN pnpm i --frozen-lockfile && apk del .build-deps
 
 COPY libs/common ./libs/common
+COPY libs/injection ./libs/injection
 COPY libs/logger ./libs/logger
 COPY libs/rest ./libs/rest
 COPY services/api ./services/api
