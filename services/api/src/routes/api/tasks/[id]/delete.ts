@@ -1,6 +1,7 @@
 import { discordAuth, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { kSql, ApiDeleteTaskQuery, Task } from '@soulkiller/common';
+import { ApiDeleteTaskQuery, Task } from '@soulkiller/common';
+import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import { notFound } from '@hapi/boom';
 import type { Sql } from 'postgres';

@@ -11,7 +11,7 @@ import { container } from 'tsyringe';
 import createLogger from '@soulkiller/logger';
 import postgres from 'postgres';
 import Stripe from 'stripe';
-import { initConfig, kLogger, kSql, kStripe } from '@soulkiller/common';
+import { initConfig, kLogger, kSql, kStripe } from '@soulkiller/injection';
 
 void (async () => {
   const config = initConfig();

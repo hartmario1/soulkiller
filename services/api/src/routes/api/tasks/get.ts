@@ -1,6 +1,7 @@
 import { discordAuth, Route } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { kSql, Task } from '@soulkiller/common';
+import { kSql } from '@soulkiller/injection';
+import type { Task } from '@soulkiller/common';
 import type { Sql } from 'postgres';
 import type { Request, Response } from 'polka';
 

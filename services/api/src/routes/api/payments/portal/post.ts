@@ -1,6 +1,7 @@
 import { discordAuth, Route } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { kStripe, kConfig, Config, kSql, Customer } from '@soulkiller/common';
+import { kStripe, kConfig, Config, kSql } from '@soulkiller/injection';
+import { Customer } from '@soulkiller/common';
 import { forbidden } from '@hapi/boom';
 import type Stripe from 'stripe';
 import type { Request, Response, NextHandler } from 'polka';

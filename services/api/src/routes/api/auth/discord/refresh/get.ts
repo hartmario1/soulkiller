@@ -2,7 +2,8 @@ import cookie from 'cookie';
 import { inject, injectable } from 'tsyringe';
 import { Route, discordAuth, discordOAuth2, validate, jsonParser } from '@soulkiller/rest';
 import Joi from 'joi';
-import { APIGetAuthDiscordRefreshBody, Config, kConfig } from '@soulkiller/common';
+import { APIGetAuthDiscordRefreshBody } from '@soulkiller/common';
+import { Config, kConfig } from '@soulkiller/injection';
 import { unauthorized } from '@hapi/boom';
 import type { Request, Response, NextHandler } from 'polka';
 

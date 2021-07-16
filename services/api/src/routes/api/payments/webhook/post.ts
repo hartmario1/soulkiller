@@ -1,6 +1,6 @@
 import { jsonParser, Route } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { kStripe, kConfig, Config, kLogger, kSql } from '@soulkiller/common';
+import { kStripe, kConfig, Config, kLogger, kSql } from '@soulkiller/injection';
 import { badRequest } from '@hapi/boom';
 import type Stripe from 'stripe';
 import type { Request, Response, NextHandler } from 'polka';

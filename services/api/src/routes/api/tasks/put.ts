@@ -1,6 +1,7 @@
 import { discordAuth, jsonParser, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { kSql, Store, ApiPutTasksBody, Task, Status } from '@soulkiller/common';
+import { Store, ApiPutTasksBody, Task, Status } from '@soulkiller/common';
+import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import type { Sql } from 'postgres';
 import type { Request, Response } from 'polka';

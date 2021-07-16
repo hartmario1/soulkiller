@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import { Config, kConfig, APIGetAuthDiscordCallbackQuery, kSql } from '@soulkiller/common';
+import { Config, kConfig, kSql } from '@soulkiller/injection';
+import { APIGetAuthDiscordCallbackQuery } from '@soulkiller/common';
 import { Route, State, discordAuth, validate, discordOAuth2 } from '@soulkiller/rest';
 import * as Joi from 'joi';
 import cookie from 'cookie';

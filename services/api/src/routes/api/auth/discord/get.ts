@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import { URLSearchParams } from 'url';
-import { Config, kConfig, APIGetAuthDiscordQuery } from '@soulkiller/common';
+import { APIGetAuthDiscordQuery } from '@soulkiller/common';
+import { Config, kConfig } from '@soulkiller/injection';
 import { Route, State, discordAuth, validate } from '@soulkiller/rest';
 import * as Joi from 'joi';
 import type { Request, Response } from 'polka';
