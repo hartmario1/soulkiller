@@ -15,7 +15,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
   Select,
   FormControl,
   FormLabel,
@@ -26,63 +25,49 @@ import {
   useToast,
   VStack
 } from '@chakra-ui/react';
-import { TiPlus } from 'react-icons/ti';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { fetchApi } from '../../util';
-import { ApiPutTaskResult, ApiPutTasksBody, Store } from '@soulkiller/common';
+import { ApiPatchTaskBody, ApiPatchTaskResult, Store } from '@soulkiller/common';
 import { TaskState, useTasksStore } from 'stores';
 
 interface Task {
-  store: number;
-  category: string;
-  name: string;
-  profile: number;
-  proxy: number;
-  size: number;
-  amount: number;
-  recurring: boolean;
+  store?: number;
+  category?: string;
+  name?: string;
+  profile?: number;
+  proxy?: number;
+  size?: number;
+  recurring?: boolean;
 }
 
 const selector = (state: TaskState) => state;
 
-const CreateTask = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const EditTask = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const toast = useToast();
   const tasks = useTasksStore(selector);
 
   return (
     <Box>
-      <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "purple" leftIcon = {<TiPlus />} onClick = {onOpen}>
-        Create Task
-      </Button>
-      <Formik<Task> initialValues = {{ store: 0, category: '', name: '', profile: 0, proxy: 0, size: 0, amount: 0, recurring: true }}
-        onSubmit = {async values => {
-          const promises = [];
-          for (let i = 0; i < values.amount; i++) {
-            promises.push(
-              fetchApi<ApiPutTaskResult, ApiPutTasksBody>('/api/tasks', 'put', {
-                store: values.store,
-                name: values.name,
-                profile: values.profile,
-                proxy: values.proxy,
-                size: values.size,
-                recurring: values.recurring
-              })
-            );
-          }
-
-          for (const promise of await Promise.allSettled(promises)) {
-            if (promise.status === 'rejected') {
-              toast({
-                title: `Failed to create task ${values.name}`,
-                description: promise.reason.message ?? promise.reason.toString(),
-                status: 'error'
-              });
-              console.error(promise.reason);
-            } else {
-              tasks.add(promise.value);
-            }
+      <Formik<Task> initialValues = {{ store: 0, category: '', name: '', profile: 0, proxy: 0, size: 0, recurring: true }}
+        onSubmit = {async value => {
+          try {
+            const res = await fetchApi<ApiPatchTaskResult, ApiPatchTaskBody>('/api/tasks', 'patch', {
+              store: value.store,
+              name: value.name,
+              profile: value.profile,
+              proxy: value.proxy,
+              size: value.size,
+              recurring: value.recurring
+            });
+            tasks.add(res);
+          } catch (error) {
+            toast({
+              title: 'Failed to edit task',
+              description: error.message ?? error.toString(),
+              status: 'error'
+            });
+            console.error(error);
           }
         }}
         validationSchema = {Yup.object().shape({
@@ -95,7 +80,6 @@ const CreateTask = () => {
           profile: Yup.number().required('This field is required!'),
           proxy: Yup.number().required('This field is required!'),
           size: Yup.number().required('This field is required!'),
-          amount: Yup.number().min(1, 'You need to create at least 1 task').required('This field is required!'),
           recurring: Yup.boolean()
         })}>
         {({ handleSubmit, errors, touched }) => (
@@ -109,7 +93,7 @@ const CreateTask = () => {
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader align = "center">
-                  Create Tasks
+                    Edit Tasks
                 </ModalHeader>
                 <ModalBody>
                   <HStack paddingBottom = "8px">
@@ -118,23 +102,23 @@ const CreateTask = () => {
                         {({ field }: { field: string }) => (
                           <FormControl>
                             <FormLabel>
-                            Store
+                              Store
                             </FormLabel>
                             <Select name = "store" placeholder = "Select Option" {...field}>
                               <option value = {Store.snkrs}>
-                              NikeSnkrs
+                                NikeSnkrs
                               </option>
                               <option value = {Store.supreme}>
-                              Supreme
+                                Supreme
                               </option>
                               <option value = {Store.bodega}>
-                              Bodega
+                                Bodega
                               </option>
                               <option value = {Store.shoepalace}>
-                              ShoePalace
+                                ShoePalace
                               </option>
                               <option value = {Store.undefeated}>
-                              Undefeated
+                                Undefeated
                               </option>
                             </Select>
                           </FormControl>
@@ -154,48 +138,48 @@ const CreateTask = () => {
                         {({ field }: { field: string }) => (
                           <FormControl id = "country">
                             <FormLabel>
-                          Category
+                            Category
                             </FormLabel>
 
                             <Select name = "category" placeholder = "Select Option" {...field}>
                               <option value = "all">
-                              all
+                                all
                               </option>
                               <option value = "new">
-                              new
+                                new
                               </option>
                               <option value = "jackets">
-                              jackets
+                                jackets
                               </option>
                               <option value = "shirts">
-                              shirts
+                                shirts
                               </option>
                               <option value = "tops/sweaters">
-                              tops/sweaters
+                                tops/sweaters
                               </option>
                               <option value = "sweatshirts">
-                              sweatshirts
+                                sweatshirts
                               </option>
                               <option value = "pants">
-                              pants
+                                pants
                               </option>
                               <option value = "shorts">
-                              shorts
+                                shorts
                               </option>
                               <option value = "hats">
-                              hats
+                                hats
                               </option>
                               <option value = "bags">
-                              bags
+                                bags
                               </option>
                               <option value = "accessories">
-                              accessories
+                                accessories
                               </option>
                               <option value = "shoes">
-                              shoes
+                                shoes
                               </option>
                               <option value = "skate">
-                              skate
+                                skate
                               </option>
                             </Select>
                           </FormControl>
@@ -216,7 +200,7 @@ const CreateTask = () => {
                       {({ field }: { field: string }) => (
                         <FormControl paddingBottom = "10px">
                           <FormLabel htmlFor = "name">
-                          Item Name
+                            Item Name
                           </FormLabel>
                           <Input {...field} id = "name" placeholder = "Item Name" />
                         </FormControl>
@@ -237,14 +221,14 @@ const CreateTask = () => {
                         {({ field }: { field: number }) => (
                           <FormControl paddingBottom = "10px">
                             <FormLabel>
-                            Profile
+                              Profile
                             </FormLabel>
                             <Select name = "profile" placeholder = "Select Option" {...field}>
                               <option value = {1}>
-                              profile 1
+                                profile 1
                               </option>
                               <option value = {2}>
-                              profile 2
+                                profile 2
                               </option>
                             </Select>
                           </FormControl>
@@ -264,14 +248,14 @@ const CreateTask = () => {
                         {({ field }: { field: number }) => (
                           <FormControl paddingBottom = "10px">
                             <FormLabel>
-                              Proxy Group
+                                Proxy Group
                             </FormLabel>
                             <Select name = "proxy" placeholder = "Select Option" {...field}>
                               <option value = {1}>
-                                Proxy 1
+                                  Proxy 1
                               </option>
                               <option value = {2}>
-                                Proxy 2
+                                  Proxy 2
                               </option>
                             </Select>
                           </FormControl>
@@ -287,57 +271,36 @@ const CreateTask = () => {
                     </VStack>
                   </HStack>
 
-                  <HStack>
-                    <VStack w = "100%">
-                      <Field name = "size">
-                        {({ field }: { field: string }) => (
-                          <FormControl>
-                            <FormLabel htmlFor = "size">
-                          Size
-                            </FormLabel>
-                            <Input {...field} id = "size" placeholder = "Item Size" />
-                          </FormControl>
-                        )}
-                      </Field>
-                      {errors.size && touched.size
-                        ? (
-                          <Text color = "red.500">
-                            {errors.size}
-                          </Text>
-                        )
-                        : null}
-                    </VStack>
+                  <VStack>
+                    <Field name = "size">
+                      {({ field }: { field: string }) => (
+                        <FormControl>
+                          <FormLabel htmlFor = "size">
+                            Size
+                          </FormLabel>
+                          <Input {...field} id = "size" placeholder = "Item Size" />
+                        </FormControl>
+                      )}
+                    </Field>
+                    {errors.size && touched.size
+                      ? (
+                        <Text color = "red.500">
+                          {errors.size}
+                        </Text>
+                      )
+                      : null}
+                  </VStack>
 
-                    <VStack w = "100%">
-                      <Field name = "amount">
-                        {({ field }: { field: string }) => (
-                          <FormControl>
-                            <FormLabel htmlFor = "amount">
-                            Amount of tasks
-                            </FormLabel>
-                            <Input {...field} id = "amount" placeholder = "Amount of tasks created" />
-                          </FormControl>
-                        )}
-                      </Field>
-                      {errors.amount && touched.amount
-                        ? (
-                          <Text color = "red.500">
-                            {errors.amount}
-                          </Text>
-                        )
-                        : null}
-                    </VStack>
-                  </HStack>
                 </ModalBody>
                 <ModalFooter>
                   <Box paddingRight = "113px">
                     <Checkbox defaultIsChecked>
-                      Reccuring
+                        Reccuring
                     </Checkbox>
                   </Box>
                   <Box>
                     <Button size = "md" height = "48px" width = "200px" onClick = {onClose} border = "2px" borderColor = "purple">
-                    Close
+                      Close
                     </Button>
                   </Box>
                   <Box paddingLeft = "15px">
@@ -349,7 +312,7 @@ const CreateTask = () => {
                         description: 'Tasks have been successfully created'
                       });
                     }}>
-                      Create
+                        Edit
                     </Button>
                   </Box>
                 </ModalFooter>
@@ -362,4 +325,5 @@ const CreateTask = () => {
   );
 };
 
-export default CreateTask;
+export default EditTask;
+

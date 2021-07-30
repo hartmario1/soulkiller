@@ -33,7 +33,9 @@ export interface Task {
   user_id: `${bigint}`;
   store: Store;
   name: string;
-  size: string;
+  profile: number;
+  proxy: number;
+  size: number;
   created_at: Date;
   status: Status;
   recurring: boolean;

@@ -1,6 +1,6 @@
 import { discordAuth, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { ApiDeleteTaskQuery, Task } from '@soulkiller/common';
+import { Task } from '@soulkiller/common';
 import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import { notFound } from '@hapi/boom';
@@ -15,10 +15,10 @@ export default class DeleteTaskRoute extends Route {
       Joi
         .object()
         .keys({
-          id: Joi.string().required()
+          id: Joi.number().required()
         })
         .required(),
-      'query'
+      'params'
     )
   ];
 
@@ -29,9 +29,9 @@ export default class DeleteTaskRoute extends Route {
   }
 
   public async handle(req: Request, res: Response, next: NextHandler) {
-    const { id } = req.query as unknown as ApiDeleteTaskQuery;
+    const { id } = req.params as unknown as { id: number };
 
-    const [task] = await this.sql<[Task?]>`SELECT * FROM WHERE id = ${id}`;
+    const [task] = await this.sql<[Task?]>`SELECT * FROM tasks WHERE id = ${id}`;
 
     if (!task) {
       return next(notFound('Task was not found'));

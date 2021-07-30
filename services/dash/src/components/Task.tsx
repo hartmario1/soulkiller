@@ -1,53 +1,63 @@
-import { Box, HStack, IconButton, Spacer, Text, useStyleConfig } from '@chakra-ui/react';
+import { Box, HStack, IconButton, Spacer, useStyleConfig, Tr, Td, Flex, useToast, useDisclosure } from '@chakra-ui/react';
 import { FaPlay, FaTrash } from 'react-icons/fa';
 import { FiEdit2 } from 'react-icons/fi';
-import type { Task as TaskData } from '@soulkiller/common';
+import { Store, Task as TaskData } from '@soulkiller/common';
+import { TaskState, useTasksStore } from 'stores';
+import { fetchApi } from '../util';
+import EditTask from './Modals/EditTask';
 
-const STORES = [
-  'supreme'
-] as const;
+const selector = (state: TaskState) => state;
 
 const Task = ({ data }: { data: TaskData }) => {
   const taskStyle = useStyleConfig('taskColumn');
+  const tasks = useTasksStore(selector);
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box paddingX = "10px" paddingBottom = "5px">
-      <Box bg = "bgblue" borderRadius = "xl" sx = {taskStyle}>
-        <HStack paddingX = "20px" paddingY = "5px">
-          <Text>
-            {STORES[data.store]}
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            {data.name}
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            {data.size}
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            Profile 1
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            Waiting for start
-          </Text>
+    <Tr bg = "bgblue" sx = {taskStyle}>
+      <Td borderTopLeftRadius = "3xl" borderBottomLeftRadius = "3xl">
+        {Store[data.store]?.toUpperCase()}
+      </Td>
+      <Td>
+        {data.name}
+      </Td>
+      <Td isNumeric>
+        {data.size}
+      </Td>
+      <Td isNumeric>
+        Profile
+        {data.profile}
+      </Td>
+      <Td isNumeric>
+        Waiting for start
+      </Td>
+      <Td isNumeric borderTopRightRadius = "3xl" borderBottomRightRadius = "3xl">
+        <Flex>
           <Spacer />
           <HStack>
             <Box bg = "purple" borderRadius = "xl">
               <IconButton aria-label = "Search database" icon = {<FaPlay />} size = "sm" />
             </Box>
             <Box bg = "purple" borderRadius = "xl">
-              <IconButton aria-label = "Search database" icon = {<FiEdit2 />} size = "sm" />
+              <IconButton aria-label = "Search database" icon = {<FiEdit2 />} size = "sm" onClick = {onOpen} />
+              <EditTask isOpen = {isOpen} onClose = {onClose} />
             </Box>
             <Box bg = "purple" borderRadius = "xl">
-              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" />
+              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {() => {
+                void fetchApi(`/api/tasks/${data.id}`, 'delete');
+                tasks.remove(data);
+                toast({
+                  status: 'info',
+                  title: 'Task Deletion',
+                  description: 'Task has been successfully deleted'
+                });
+              }} />
             </Box>
           </HStack>
-        </HStack>
-      </Box>
-    </Box>
+        </Flex>
+      </Td>
+    </Tr>
   );
 };
 

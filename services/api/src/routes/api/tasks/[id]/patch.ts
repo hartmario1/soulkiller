@@ -1,6 +1,6 @@
 import { discordAuth, jsonParser, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { ApiPatchTaskQuery, ApiPatchTaskBody, Task } from '@soulkiller/common';
+import { ApiPatchTaskBody, Store, Task } from '@soulkiller/common';
 import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import { notFound } from '@hapi/boom';
@@ -15,18 +15,26 @@ export default class PatchTaskRoute extends Route {
       Joi
         .object()
         .keys({
-          id: Joi.string().required()
+          id: Joi.number().required()
         })
         .required(),
-      'query'
+      'params'
     ),
     jsonParser(),
     validate(
       Joi
         .object()
         .keys({
-          recurring: Joi.boolean().required()
+          store: Joi.number()
+            .min(0)
+            .max(Store.undefeated),
+          name: Joi.string(),
+          size: Joi.number(),
+          profile: Joi.number(),
+          proxy: Joi.number(),
+          recurring: Joi.boolean()
         })
+        .or('store', 'name', 'size', 'profile', 'proxy', 'recurring')
         .required(),
       'body'
     )
@@ -39,16 +47,25 @@ export default class PatchTaskRoute extends Route {
   }
 
   public async handle(req: Request, res: Response, next: NextHandler) {
-    const { id } = req.query as unknown as ApiPatchTaskQuery;
-    const { recurring } = req.body as ApiPatchTaskBody;
+    const { id } = req.params as unknown as { id: number };
+    const { store, name, size, profile, proxy, recurring } = req.body as ApiPatchTaskBody;
 
-    const [task] = await this.sql<[Task?]>`SELECT * FROM WHERE id = ${id}`;
+    const data: Partial<Omit<Task, 'id' | 'created_at' | 'status' | 'user_id'>> = {
+      store,
+      name,
+      size,
+      profile,
+      proxy,
+      recurring
+    };
+
+    const [task] = await this.sql<[Task?]>`SELECT * FROM tasks WHERE id = ${id}`;
 
     if (!task) {
       return next(notFound('Task was not found'));
     }
 
-    const [updated] = await this.sql<[Task]>`UPDATE tasks SET recurring = ${recurring} WHERE id = ${id} RETURNING *`;
+    const [updated] = await this.sql<[Task]>`UPDATE tasks SET ${this.sql(data)} WHERE id = ${id} RETURNING *`;
 
     res.statusCode = 200;
     res.setHeader('content-type', 'application/json');

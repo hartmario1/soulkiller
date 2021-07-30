@@ -4,7 +4,7 @@ import { useUserStore } from 'stores';
 
 export const raiseError = (data: Record<string, string>) => void createStandaloneToast()({
   status: 'error',
-  title: data.statusCode ? `Error ${data.statusCode} - ${data.error!}  ` : 'An error occured',
+  title: data.statusCode ? `Error ${data.statusCode} - ${data.error!}` : 'An error occured',
   description: data.message ?? ''
 });
 
@@ -20,7 +20,8 @@ export const fetchApi = async <T, B = never>(path: string, method = 'get', body?
       method,
       body: JSON.stringify(body),
       headers: {
-        authorization: accessToken
+        'Authorization': accessToken,
+        'Content-Type': 'application/json'
       }
     }
   );
@@ -41,7 +42,10 @@ export const fetchApi = async <T, B = never>(path: string, method = 'get', body?
     const tokenRes = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN!}api/auth/discord/refresh`, {
       body: JSON.stringify({
         refresh_token: refreshToken
-      })
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     const tokenData = await tokenRes.json();

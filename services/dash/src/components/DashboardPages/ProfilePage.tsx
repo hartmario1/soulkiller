@@ -6,7 +6,7 @@
  * @license
  */
 
-import { Box, Center, HStack, Text, Spacer, useStyleConfig } from '@chakra-ui/react';
+import { Box, Center, HStack, Table, Thead, Tr, Th, Tbody, useStyleConfig } from '@chakra-ui/react';
 import CreateProfile from '../Modals/CreateProfile';
 import DeleteModal from '../Modals/DeleteModal';
 import Profile from '../Profile';
@@ -30,41 +30,42 @@ const ProfilePage = () => {
             borderRadius: '24px'
           }
         }}>
-        <HStack paddingX = "40px" paddingTop = "10px">
-          <Text>
-          Profile Name
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-          Country
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-          Full Name
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-          Email
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-          Username
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-          Phone
-          </Text>
-        </HStack>
-        <Box padding = "10px">
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
+        <Box paddingY = "10px" paddingX = "30px">
+          <Table variant = "simple" size = "sm">
+            <Thead>
+              <Tr>
+                <Th>
+                  Profile Name
+                </Th>
+                <Th>
+                  Country
+                </Th>
+                <Th isNumeric>
+                  Full Name
+                </Th>
+                <Th isNumeric>
+                  Email
+                </Th>
+                <Th isNumeric>
+                  Username
+                </Th>
+                <Th isNumeric>
+                  Phone
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+              <Profile />
+            </Tbody>
+          </Table>
         </Box>
       </Box>
 

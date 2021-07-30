@@ -1,17 +1,20 @@
-import { Box, HStack, Spacer, Text, Wrap, WrapItem, useStyleConfig } from '@chakra-ui/react';
+import {
+  Box, Spacer, Wrap, WrapItem, useStyleConfig, Table, Thead, Tbody, Tr, Th, Button, useDisclosure
+} from '@chakra-ui/react';
 import TaskButtons from '../StartStopButtons';
 import Task from '../Task';
 import { FaPlay, FaStop } from 'react-icons/fa';
-import { FiEdit2 } from 'react-icons/fi';
 import DeleteModal from '../Modals/DeleteModal';
 import CreateTask from '../Modals/CreateTask';
 import Captcha from 'components/Modals/Captcha';
-import SuccesToast from 'components/SuccesToast';
 import { useQueryTasks } from '../../hooks/useQueryTasks';
+import { FiEdit2 } from 'react-icons/fi';
+import EditTask from 'components/Modals/EditTask';
 
 const TaskPage = () => {
   const styles = useStyleConfig('taskBox');
   const tasks = useQueryTasks();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <Box>
@@ -32,39 +35,34 @@ const TaskPage = () => {
             }
           }}>
           <Box paddingY = "10px" paddingX = "30px">
-            <Box>
-              <HStack paddingX = "20px" paddingY = "5px">
-                <Text>
-                  Store
-                </Text>
-                <Spacer />
-                <Text isTruncated>
-                  Name/Url
-                </Text>
-                <Spacer />
-                <Text isTruncated>
-                  Size
-                </Text>
-                <Spacer />
-                <Text isTruncated>
-                  Profile
-                </Text>
-                <Spacer />
-                <Text isTruncated>
-                  Status
-                </Text>
-                <Spacer />
-                <Text isTruncated>
-                  Actions
-                </Text>
-              </HStack>
-            </Box>
+            <Table variant = "simple" size = "sm">
+              <Thead>
+                <Tr>
+                  <Th>
+                    Store
+                  </Th>
+                  <Th>
+                    Name/Url
+                  </Th>
+                  <Th isNumeric>
+                    Size
+                  </Th>
+                  <Th isNumeric>
+                    Profile
+                  </Th>
+                  <Th isNumeric>
+                    Status
+                  </Th>
+                  <Th isNumeric>
+                    Actions
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {tasks.map(data => (<Task data = {data} />))}
+              </Tbody>
+            </Table>
           </Box>
-
-          <Box>
-            {tasks.map(data => (<Task data = {data} />))}
-          </Box>
-          <SuccesToast />
         </Box>
       </Box>
 
@@ -87,7 +85,10 @@ const TaskPage = () => {
 
         <Spacer />
         <WrapItem>
-          <TaskButtons content = "Edit Tasks" color = "purple" taskIcon = {<FiEdit2 />} />
+          <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "purple" leftIcon = {<FiEdit2 />} onClick = {onOpen}>
+            Edit Tasks
+          </Button>
+          <EditTask isOpen = {isOpen} onClose = {onClose} />
         </WrapItem>
         <WrapItem>
           <Captcha />

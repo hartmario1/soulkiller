@@ -17,7 +17,11 @@ CREATE TABLE IF NOT EXISTS tasks (
   id SERIAL PRIMARY KEY,
   user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
   store smallint NOT NULL,
-  created_at timestamptz DEFAULT now() NOT NULL,
+  name text NOT NULL,
+  size smallint NOT NULL,
+  profile smallint NOT NULL,
+  proxy smallint NOT NULL,
   status smallint NOT NULL,
+  created_at timestamptz DEFAULT now() NOT NULL,
   recurring boolean NOT NULL
 );

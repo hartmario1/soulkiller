@@ -6,11 +6,17 @@
  * @license
  */
 
-import { Box, Button, HStack, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, HStack, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from '@chakra-ui/react';
 import { FaTrash } from 'react-icons/fa';
+import { TaskState, useTasksStore } from 'stores';
+import { fetchApi } from '../../util';
+
+const selector = (state: TaskState) => state;
 
 const DeleteTasks = ({ title, modalBody, borderColor }: {title: string; modalBody: string; borderColor: string}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const tasks = useTasksStore(selector);
+  const toast = useToast();
 
   return (
     <Box>
@@ -38,7 +44,15 @@ const DeleteTasks = ({ title, modalBody, borderColor }: {title: string; modalBod
                 </Button>
               </Box>
               <Box>
-                <Button bg = "purple" color = "white">
+                <Button bg = "purple" color = "white" onClick = {() => {
+                  void fetchApi('/api/tasks/', 'delete');
+                  tasks.clear();
+                  toast({
+                    status: 'info',
+                    title: 'Tasks Deletion',
+                    description: 'Tasks have been successfully deleted'
+                  });
+                }}>
                   Delete
                 </Button>
               </Box>

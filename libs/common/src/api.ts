@@ -21,19 +21,9 @@ export interface ApiPostPaymentsPortalResult {
   url: string;
 }
 
-export interface ApiPatchTaskCancelQuery {
-  id: string;
-}
+export type ApiPatchTaskCancelResults = Task;
 
-export type ApiPatchTaskCancelBody = Task;
-
-export type ApiDeleteTaskQuery = ApiPatchTaskCancelQuery;
-
-export type ApiPatchTaskQuery = ApiPatchTaskCancelQuery;
-
-export interface ApiPatchTaskBody {
-  recurring: boolean;
-}
+export type ApiPatchTaskBody = Partial<ApiPutTasksBody>;
 
 export type ApiPatchTaskResult = Task;
 
@@ -41,6 +31,10 @@ export type ApiGetTasksBody = Task[];
 
 export interface ApiPutTasksBody {
   store: Store;
+  name: string;
+  size: number;
+  profile: number;
+  proxy: number;
   recurring: boolean;
 }
 

@@ -17,8 +17,12 @@ export default class PutTasksRoute extends Route {
         .keys({
           store: Joi.number()
             .min(0)
-            .max(Store.supreme)
+            .max(Store.undefeated)
             .required(),
+          name: Joi.string().required(),
+          size: Joi.number().required(),
+          profile: Joi.number().required(),
+          proxy: Joi.number().required(),
           recurring: Joi.boolean().required()
         })
         .required(),
@@ -33,16 +37,20 @@ export default class PutTasksRoute extends Route {
   }
 
   public async handle(req: Request, res: Response) {
-    const { store, recurring } = req.body as ApiPutTasksBody;
+    const { store, name, size, profile, proxy, recurring } = req.body as ApiPutTasksBody;
 
-    const data: Pick<Task, 'user_id' | 'store' | 'recurring' | 'status'> = {
+    const data: Omit<Task, 'id' | 'created_at'> = {
       user_id: req.user!.id,
       status: Status.idle,
       store,
+      name,
+      size,
+      profile,
+      proxy,
       recurring
     };
 
-    const [task] = await this.sql<[Task]>`INSERT INTO tasks ${this.sql(data)}`;
+    const [task] = await this.sql<[Task]>`INSERT INTO tasks ${this.sql(data)} RETURNING *`;
 
     res.statusCode = 200;
     res.setHeader('content-type', 'application/json');
