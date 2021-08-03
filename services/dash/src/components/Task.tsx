@@ -41,11 +41,11 @@ const Task = ({ data }: { data: TaskData }) => {
             </Box>
             <Box bg = "purple" borderRadius = "xl">
               <IconButton aria-label = "Search database" icon = {<FiEdit2 />} size = "sm" onClick = {onOpen} />
-              <EditTask isOpen = {isOpen} onClose = {onClose} />
+              <EditTask isOpen = {isOpen} onClose = {onClose} ids = {[data.id]} />
             </Box>
             <Box bg = "purple" borderRadius = "xl">
               <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {() => {
-                void fetchApi(`/api/tasks/${data.id}`, 'delete');
+                void fetchApi(`/api/tasks/${data.id}`, 'DELETE');
                 tasks.remove(data);
                 toast({
                   status: 'info',

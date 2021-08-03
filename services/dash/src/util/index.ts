@@ -8,7 +8,7 @@ export const raiseError = (data: Record<string, string>) => void createStandalon
   description: data.message ?? ''
 });
 
-export const fetchApi = async <T, B = never>(path: string, method = 'get', body?: B): Promise<T> => {
+export const fetchApi = async <T, B = never>(path: string, method = 'GET', body?: B): Promise<T> => {
   const cookies = new Cookies(document.cookie);
   const accessToken = cookies.get('access_token');
   if (!accessToken) {

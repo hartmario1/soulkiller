@@ -45,7 +45,7 @@ const DeleteTasks = ({ title, modalBody, borderColor }: {title: string; modalBod
               </Box>
               <Box>
                 <Button bg = "purple" color = "white" onClick = {() => {
-                  void fetchApi('/api/tasks/', 'delete');
+                  void fetchApi('/api/tasks/', 'DELETE');
                   tasks.clear();
                   toast({
                     status: 'info',

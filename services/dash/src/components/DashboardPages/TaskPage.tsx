@@ -88,7 +88,7 @@ const TaskPage = () => {
           <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "purple" leftIcon = {<FiEdit2 />} onClick = {onOpen}>
             Edit Tasks
           </Button>
-          <EditTask isOpen = {isOpen} onClose = {onClose} />
+          <EditTask isOpen = {isOpen} onClose = {onClose} ids = {tasks.map(task => task.id)} />
         </WrapItem>
         <WrapItem>
           <Captcha />

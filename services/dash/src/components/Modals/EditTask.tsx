@@ -43,7 +43,7 @@ interface Task {
 
 const selector = (state: TaskState) => state;
 
-const EditTask = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => void; ids: number[] }) => {
   const toast = useToast();
   const tasks = useTasksStore(selector);
 
@@ -51,23 +51,32 @@ const EditTask = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void })
     <Box>
       <Formik<Task> initialValues = {{ store: 0, category: '', name: '', profile: 0, proxy: 0, size: 0, recurring: true }}
         onSubmit = {async value => {
-          try {
-            const res = await fetchApi<ApiPatchTaskResult, ApiPatchTaskBody>('/api/tasks', 'patch', {
-              store: value.store,
-              name: value.name,
-              profile: value.profile,
-              proxy: value.proxy,
-              size: value.size,
-              recurring: value.recurring
-            });
-            tasks.add(res);
-          } catch (error) {
-            toast({
-              title: 'Failed to edit task',
-              description: error.message ?? error.toString(),
-              status: 'error'
-            });
-            console.error(error);
+          const promises = [];
+
+          for (const id of ids) {
+            promises.push(
+              fetchApi<ApiPatchTaskResult, ApiPatchTaskBody>(`/api/tasks/${id}`, 'PATCH', {
+                store: value.store,
+                name: value.name,
+                profile: value.profile,
+                proxy: value.proxy,
+                size: value.size,
+                recurring: value.recurring
+              })
+            );
+          }
+
+          for (const promise of await Promise.allSettled(promises)) {
+            if (promise.status === 'rejected') {
+              toast({
+                title: 'Failed to edit task',
+                description: promise.reason.message ?? promise.reason.toString(),
+                status: 'error'
+              });
+              console.error(promise.reason);
+            } else {
+              tasks.add(promise.value);
+            }
           }
         }}
         validationSchema = {Yup.object().shape({

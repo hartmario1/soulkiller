@@ -61,7 +61,7 @@ const CreateTask = () => {
           const promises = [];
           for (let i = 0; i < values.amount; i++) {
             promises.push(
-              fetchApi<ApiPutTaskResult, ApiPutTasksBody>('/api/tasks', 'put', {
+              fetchApi<ApiPutTaskResult, ApiPutTasksBody>('/api/tasks', 'PUT', {
                 store: values.store,
                 name: values.name,
                 profile: values.profile,
