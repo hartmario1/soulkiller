@@ -6,67 +6,66 @@
  * @license
  */
 
-import { Tr, Td, useStyleConfig } from '@chakra-ui/react';
+import { Tr, Td, useStyleConfig, Flex, Spacer, HStack, Box, IconButton, useToast, useDisclosure } from '@chakra-ui/react';
+import { ProfileState, useProfilesStore } from 'stores/profiles';
+import { Profile } from '@soulkiller/common';
+import { fetchApi } from '../util';
+import { FaTrash } from 'react-icons/fa';
+import { FiEdit2 } from 'react-icons/fi';
+import EditProfile from './Modals/EditProfile';
 
-const Profile = () => {
+const selector = (state: ProfileState) => state;
+
+const ProfileUi = ({ data }: { data: Profile }) => {
   const style = useStyleConfig('taskColumn');
+  const profiles = useProfilesStore(selector);
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Tr bg = "bgblue" sx = {style}>
       <Td borderTopLeftRadius = "3xl" borderBottomLeftRadius = "3xl" paddingY = "13px">
-        Test
+        {data.profile_name}
       </Td>
       <Td>
-        Spain
+        {data.country}
       </Td>
       <Td isNumeric>
-        John Doe
+        {data.first_name + data.last_name}
       </Td>
       <Td isNumeric>
-        johndoe@soulkiller.io
+        {data.email}
       </Td>
       <Td isNumeric>
-        johndoe
+        {data.city}
+      </Td>
+      <Td isNumeric>
+        {data.phone}
       </Td>
       <Td isNumeric borderTopRightRadius = "3xl" borderBottomRightRadius = "3xl">
-        07noi2sialetalebuzemoi
+        <Flex>
+          <Spacer />
+          <HStack>
+            <Box bg = "purple" borderRadius = "xl">
+              <IconButton aria-label = "Search database" icon = {<FiEdit2 />} size = "sm" onClick = {onOpen} />
+              <EditProfile isOpen = {isOpen} onClose = {onClose} name = {data.profile_name} />
+            </Box>
+            <Box bg = "purple" borderRadius = "xl">
+              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {async () => {
+                await fetchApi(`/api/profiles/${encodeURIComponent(data.profile_name)}`, 'DELETE');
+                profiles.remove(data);
+                toast({
+                  status: 'info',
+                  title: 'Task Deletion',
+                  description: 'Task has been successfully deleted'
+                });
+              }} />
+            </Box>
+          </HStack>
+        </Flex>
       </Td>
     </Tr>
-  // <Box paddingY = "6px">
-  //   <Box bg = "bgblue" borderRadius = "xl" sx = {styles} paddingY = "2px">
-  //     <Box paddingX = "20px">
-  //       <HStack>
-  //         <Text>
-  //         Test
-  //         </Text>
-  //         <Spacer />
-  //         <Text isTruncated>
-  //         Romania
-  //         </Text>
-  //         <Spacer />
-  //         <Text isTruncated>
-  //         John Doe
-  //         </Text>
-  //         <Spacer />
-  //         <Text isTruncated>
-  //         johndoe@soulkiller.io
-  //         </Text>
-  //         <Spacer />
-  //         <Text isTruncated>
-  //         username
-  //         </Text>
-  //         <Spacer />
-  //         <Text isTruncated>
-  //         0732057756
-  //         </Text>
-  //         <Box bg = "purple" borderRadius = "xl">
-  //           <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" />
-  //         </Box>
-  //       </HStack>
-  //     </Box>
-  //   </Box>
-  // </Box>
   );
 };
 
-export default Profile;
+export default ProfileUi;

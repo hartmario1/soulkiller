@@ -7,12 +7,14 @@
  */
 
 import { Box, Center, HStack, Table, Thead, Tr, Th, Tbody, useStyleConfig } from '@chakra-ui/react';
+import { useQueryProfiles } from 'hooks/useQueryProfiles';
 import CreateProfile from '../Modals/CreateProfile';
-import DeleteModal from '../Modals/DeleteModal';
-import Profile from '../Profile';
+import DeleteProfiles from '../Modals/DeleteProfiles';
+import ProfileUi from '../Profile';
 
 const ProfilePage = () => {
   const styles = useStyleConfig('taskBox');
+  const profiles = useQueryProfiles();
 
   return (
     <Box>
@@ -47,23 +49,18 @@ const ProfilePage = () => {
                   Email
                 </Th>
                 <Th isNumeric>
-                  Username
+                  City
                 </Th>
                 <Th isNumeric>
                   Phone
                 </Th>
+                <Th isNumeric>
+                  Actions
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
-              <Profile />
+              {profiles.map(data => (<ProfileUi data = {data} />))}
             </Tbody>
           </Table>
         </Box>
@@ -73,7 +70,7 @@ const ProfilePage = () => {
         <Center>
           <HStack>
             <CreateProfile />
-            <DeleteModal title = "Delete Profiles" modalBody = "This will permanently delete your profiles. Are you sure you want to do it?" borderColor = "purple" />
+            <DeleteProfiles />
           </HStack>
         </Center>
       </Box>

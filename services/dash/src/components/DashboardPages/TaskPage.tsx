@@ -4,7 +4,7 @@ import {
 import TaskButtons from '../StartStopButtons';
 import Task from '../Task';
 import { FaPlay, FaStop } from 'react-icons/fa';
-import DeleteModal from '../Modals/DeleteModal';
+import DeleteModal from '../Modals/DeleteTasks';
 import CreateTask from '../Modals/CreateTask';
 import Captcha from 'components/Modals/Captcha';
 import { useQueryTasks } from '../../hooks/useQueryTasks';
@@ -80,7 +80,7 @@ const TaskPage = () => {
           <TaskButtons content = "Cancel Tasks" color = "red.600" taskIcon = {<FaStop />} />
         </WrapItem>
         <WrapItem>
-          <DeleteModal title = "Delete Tasks" modalBody = "This will permanently delete your tasks. Are you sure you want to do it?" borderColor = "red.600" />
+          <DeleteModal />
         </WrapItem>
 
         <Spacer />

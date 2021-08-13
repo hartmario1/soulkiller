@@ -6,7 +6,26 @@
  * @license
  */
 
-import { Box, Center, Divider, HStack, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useStyleConfig, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Divider,
+  HStack,
+  Spacer,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useStyleConfig,
+  VStack,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+} from '@chakra-ui/react';
 import { FaTrash } from 'react-icons/fa';
 import TaskButtons from '../StartStopButtons';
 import ProxyGroup from '../Modals/ProxyGroup';
@@ -79,52 +98,31 @@ const ProxiePage = () => {
               borderRadius: '24px'
             }
           }}>
-          <HStack paddingX = "30px">
-            <Text fontSize = "md">
-              IP
-            </Text>
-            <Spacer />
-            <Text fontSize = "md" isTruncated>
-              User
-            </Text>
-            <Spacer />
-            <Text fontSize = "md" isTruncated>
-              Password
-            </Text>
-            <Spacer />
-            <Text fontSize = "md">
-              Speed
-            </Text>
-            <Spacer />
-            <Text fontSize = "md" isTruncated>
-              Actions
-            </Text>
-          </HStack>
-          <Divider />
-          <Box paddingY = "5px">
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
-            <Proxy />
+          <Box paddingX = "15px" paddingY = "5px">
+            <Table variant = "simple" size = "sm">
+              <Thead>
+                <Tr>
+                  <Th>
+                  IP
+                  </Th>
+                  <Th isNumeric>
+                  User
+                  </Th>
+                  <Th isNumeric>
+                  Password
+                  </Th>
+                  <Th isNumeric>
+                  Speed
+                  </Th>
+                  <Th isNumeric>
+                  Actions
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Proxy />
+              </Tbody>
+            </Table>
           </Box>
         </Box>
       </HStack>

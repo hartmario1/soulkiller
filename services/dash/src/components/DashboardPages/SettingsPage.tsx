@@ -17,7 +17,7 @@ const SettingsPage = () => {
 
   const onClick = async () => {
     const data = await fetchApi<ApiPostPaymentsPortalResult>('/api/payments/portal', 'POST').catch(() => null);
-    if (!data) return;
+    if (!data) { return; }
 
     window.location.assign(data.url);
   };

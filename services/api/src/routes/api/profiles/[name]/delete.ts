@@ -1,6 +1,6 @@
 import { discordAuth, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { Task } from '@soulkiller/common';
+import { Profile } from '@soulkiller/common';
 import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import { notFound } from '@hapi/boom';
@@ -15,7 +15,7 @@ export default class DeleteTaskRoute extends Route {
       Joi
         .object()
         .keys({
-          id: Joi.number().required()
+          name: Joi.string().required()
         })
         .required(),
       'params'
@@ -29,15 +29,15 @@ export default class DeleteTaskRoute extends Route {
   }
 
   public async handle(req: Request, res: Response, next: NextHandler) {
-    const { id } = req.params as unknown as { id: number };
+    const { name } = req.params as unknown as { name: string };
 
-    const [task] = await this.sql<[Task?]>`SELECT * FROM tasks WHERE id = ${id}`;
+    const [profile] = await this.sql<[Profile?]>`SELECT * FROM profiles WHERE profile_name = ${name} AND user_id = ${req.user!.id}`;
 
-    if (!task) {
-      return next(notFound('Task was not found'));
+    if (!profile) {
+      return next(notFound('Profile was not found'));
     }
 
-    await this.sql`DELETE FROM tasks WHERE id = ${id}`;
+    await this.sql`DELETE FROM profiles WHERE profile_name = ${name} AND user_id = ${req.user!.id}`;
 
     res.statusCode = 200;
     res.setHeader('content-type', 'application/json');

@@ -78,6 +78,12 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
               tasks.add(promise.value);
             }
           }
+
+          toast({
+            status: 'info',
+            title: 'Task Editing',
+            description: 'Task has been successfully edited'
+          });
         }}
         validationSchema = {Yup.object().shape({
           store: Yup.number()
@@ -313,14 +319,7 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
                     </Button>
                   </Box>
                   <Box paddingLeft = "15px">
-                    <Button size = "md" height = "48px" width = "200px" bg = "purple" color = "white" type = "submit" onClick = {event => {
-                      handleSubmit(event as any);
-                      toast({
-                        status: 'info',
-                        title: 'Tasks Creation',
-                        description: 'Tasks have been successfully created'
-                      });
-                    }}>
+                    <Button size = "md" height = "48px" width = "200px" bg = "purple" color = "white" type = "submit" onClick = {event => handleSubmit(event as any)}>
                         Edit
                     </Button>
                   </Box>

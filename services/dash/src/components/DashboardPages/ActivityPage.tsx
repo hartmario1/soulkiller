@@ -6,7 +6,7 @@
  * @license
  */
 
-import { Box, Center, Divider, Stat, StatGroup, StatLabel, StatNumber, Text, useStyleConfig } from '@chakra-ui/react';
+import { Box, Divider, Stat, StatGroup, StatLabel, StatNumber, useStyleConfig, Table, Thead, Tr, Th, Tbody } from '@chakra-ui/react';
 import ActivityTask from '../ActivityTask';
 
 const ActivityPage = () => {
@@ -69,39 +69,39 @@ const ActivityPage = () => {
               borderRadius: '24px'
             }
           }}>
-          <Box paddingY = "10px">
-            <Center>
-              <Text fontWeight = "bold" fontSize = "xl">
-              Items that checked out
-              </Text>
-            </Center>
+          <Box paddingY = "10px" paddingX = "20px">
+            <Table variant = "simple" size = "sm">
+              <Thead>
+                <Tr>
+                  <Th>
+                    Store
+                  </Th>
+                  <Th>
+                    Name/url
+                  </Th>
+                  <Th>
+                    size
+                  </Th>
+                  <Th isNumeric>
+                    profile
+                  </Th>
+                  <Th isNumeric>
+                    proxy
+                  </Th>
+                  <Th isNumeric>
+                    status
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <ActivityTask />
+                <ActivityTask />
+                <ActivityTask />
+                <ActivityTask />
+                <ActivityTask />
+              </Tbody>
+            </Table>
           </Box>
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
-          <ActivityTask />
         </Box>
       </Box>
     </Box>

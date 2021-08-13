@@ -1,4 +1,4 @@
-import type { Store, Task } from './models';
+import type { Category, Profile, Store, Task } from './models';
 
 export interface APIGetAuthDiscordQuery {
   redirect_uri: string;
@@ -27,10 +27,11 @@ export type ApiPatchTaskBody = Partial<ApiPutTasksBody>;
 
 export type ApiPatchTaskResult = Task;
 
-export type ApiGetTasksBody = Task[];
+export type ApiGetTasksResult = Task[];
 
 export interface ApiPutTasksBody {
   store: Store;
+  category: Category;
   name: string;
   size: number;
   profile: number;
@@ -39,3 +40,32 @@ export interface ApiPutTasksBody {
 }
 
 export type ApiPutTaskResult = Task;
+
+export type ApiGetProfileResult = Profile[];
+
+export interface ApiPutProfileBody {
+  profile_name: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  username?: string;
+  password?: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  zip: number;
+  country: string;
+  state?: string;
+  cname: string;
+  cnumber: string;
+  month: number;
+  year: number;
+  cvv: number;
+}
+
+export type ApiPutProfileResult = Profile;
+
+export type ApiPatchProfileBody = Partial<ApiPutProfileBody>;
+
+export type ApiPatchProfileResult = Profile;

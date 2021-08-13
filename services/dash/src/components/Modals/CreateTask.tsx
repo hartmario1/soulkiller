@@ -30,12 +30,13 @@ import { TiPlus } from 'react-icons/ti';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { fetchApi } from '../../util';
-import { ApiPutTaskResult, ApiPutTasksBody, Store } from '@soulkiller/common';
+import { ApiPutTaskResult, ApiPutTasksBody, Store, Category } from '@soulkiller/common';
 import { TaskState, useTasksStore } from 'stores';
+import { useQueryProfiles } from 'hooks/useQueryProfiles';
 
 interface Task {
-  store: number;
-  category: string;
+  store: Store;
+  category: Category;
   name: string;
   profile: number;
   proxy: number;
@@ -56,7 +57,7 @@ const CreateTask = () => {
       <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "purple" leftIcon = {<TiPlus />} onClick = {onOpen}>
         Create Task
       </Button>
-      <Formik<Task> initialValues = {{ store: 0, category: '', name: '', profile: 0, proxy: 0, size: 0, amount: 0, recurring: true }}
+      <Formik<Task> initialValues = {{ store: 0, category: 0, name: '', profile: 0, proxy: 0, size: 0, amount: 0, recurring: true }}
         onSubmit = {async values => {
           const promises = [];
           for (let i = 0; i < values.amount; i++) {
@@ -64,6 +65,7 @@ const CreateTask = () => {
               fetchApi<ApiPutTaskResult, ApiPutTasksBody>('/api/tasks', 'PUT', {
                 store: values.store,
                 name: values.name,
+                category: values.category,
                 profile: values.profile,
                 proxy: values.proxy,
                 size: values.size,
@@ -84,6 +86,12 @@ const CreateTask = () => {
               tasks.add(promise.value);
             }
           }
+
+          toast({
+            status: 'info',
+            title: 'Tasks Creation',
+            description: 'Tasks have been successfully created'
+          });
         }}
         validationSchema = {Yup.object().shape({
           store: Yup.number()
@@ -156,45 +164,44 @@ const CreateTask = () => {
                             <FormLabel>
                           Category
                             </FormLabel>
-
                             <Select name = "category" placeholder = "Select Option" {...field}>
-                              <option value = "all">
+                              <option value = {Category.all}>
                               all
                               </option>
-                              <option value = "new">
+                              <option value = {Category.new}>
                               new
                               </option>
-                              <option value = "jackets">
+                              <option value = {Category.jackets}>
                               jackets
                               </option>
-                              <option value = "shirts">
+                              <option value = {Category.shirts}>
                               shirts
                               </option>
-                              <option value = "tops/sweaters">
+                              <option value = {Category.topsOrSweaters}>
                               tops/sweaters
                               </option>
-                              <option value = "sweatshirts">
+                              <option value = {Category.sweatshirts}>
                               sweatshirts
                               </option>
-                              <option value = "pants">
+                              <option value = {Category.pants}>
                               pants
                               </option>
-                              <option value = "shorts">
+                              <option value = {Category.shorts}>
                               shorts
                               </option>
-                              <option value = "hats">
+                              <option value = {Category.hats}>
                               hats
                               </option>
-                              <option value = "bags">
+                              <option value = {Category.bags}>
                               bags
                               </option>
-                              <option value = "accessories">
+                              <option value = {Category.accessories}>
                               accessories
                               </option>
-                              <option value = "shoes">
+                              <option value = {Category.shoes}>
                               shoes
                               </option>
-                              <option value = "skate">
+                              <option value = {Category.skate}>
                               skate
                               </option>
                             </Select>
@@ -234,21 +241,24 @@ const CreateTask = () => {
                   <HStack>
                     <VStack w = "100%">
                       <Field name = "profile" as = "select">
-                        {({ field }: { field: number }) => (
-                          <FormControl paddingBottom = "10px">
-                            <FormLabel>
-                            Profile
-                            </FormLabel>
-                            <Select name = "profile" placeholder = "Select Option" {...field}>
-                              <option value = {1}>
-                              profile 1
-                              </option>
-                              <option value = {2}>
-                              profile 2
-                              </option>
-                            </Select>
-                          </FormControl>
-                        )}
+                        {({ field }: { field: number }) => {
+                          // eslint-disable-next-line react-hooks/rules-of-hooks
+                          const profiles = useQueryProfiles();
+                          return (
+                            <FormControl paddingBottom = "10px">
+                              <FormLabel>
+                              Profile
+                              </FormLabel>
+                              <Select name = "profile" placeholder = "Select Option" {...field}>
+                                {profiles.map(profile => (
+                                  <option value = {profile.profile_name}>
+                                    {profile.profile_name}
+                                  </option>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          );
+                        }}
                       </Field>
                       {errors.profile && touched.profile
                         ? (
@@ -341,14 +351,7 @@ const CreateTask = () => {
                     </Button>
                   </Box>
                   <Box paddingLeft = "15px">
-                    <Button size = "md" height = "48px" width = "200px" bg = "purple" color = "white" type = "submit" onClick = {event => {
-                      handleSubmit(event as any);
-                      toast({
-                        status: 'info',
-                        title: 'Tasks Creation',
-                        description: 'Tasks have been successfully created'
-                      });
-                    }}>
+                    <Button size = "md" height = "48px" width = "200px" bg = "purple" color = "white" type = "submit" onClick = {event => handleSubmit(event as any)}>
                       Create
                     </Button>
                   </Box>

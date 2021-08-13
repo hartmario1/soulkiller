@@ -1,6 +1,6 @@
 import { discordAuth, jsonParser, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { Store, ApiPutTasksBody, Task, Status } from '@soulkiller/common';
+import { Store, ApiPutTasksBody, Task, Status, Category } from '@soulkiller/common';
 import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import type { Sql } from 'postgres';
@@ -16,8 +16,12 @@ export default class PutTasksRoute extends Route {
         .object()
         .keys({
           store: Joi.number()
-            .min(0)
+            .min(Store.supreme)
             .max(Store.undefeated)
+            .required(),
+          category: Joi.number()
+            .min(Category.all)
+            .max(Category.skate)
             .required(),
           name: Joi.string().required(),
           size: Joi.number().required(),
@@ -37,12 +41,13 @@ export default class PutTasksRoute extends Route {
   }
 
   public async handle(req: Request, res: Response) {
-    const { store, name, size, profile, proxy, recurring } = req.body as ApiPutTasksBody;
+    const { store, category, name, size, profile, proxy, recurring } = req.body as ApiPutTasksBody;
 
     const data: Omit<Task, 'id' | 'created_at'> = {
       user_id: req.user!.id,
       status: Status.idle,
       store,
+      category,
       name,
       size,
       profile,

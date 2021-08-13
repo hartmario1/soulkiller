@@ -17,7 +17,7 @@ export const useQueryMe = (): UserState | NonNullUserState | null => {
     }
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (error) return null;
+  if (error) { return null; }
 
   return user;
 };

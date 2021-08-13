@@ -5,7 +5,20 @@
       "error",
       2
     ],
+    "@typescript-eslint/no-require-imports": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-base-to-string": "off",
+    "@typescript-eslint/no-throw-literal": "off",
     "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/ban-types": "off"
+    "@typescript-eslint/ban-types": "off",
+    "one-var": "off",
+    "no-eq-null": "off",
+    "no-useless-constructor": "off",
+    "comma-dangle": "off",
+    "curly": [
+      "error",
+      "all"
+    ],
+    "no-redeclare": "off"
   }
 }

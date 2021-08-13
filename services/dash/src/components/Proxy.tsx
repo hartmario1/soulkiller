@@ -6,7 +6,7 @@
  * @license
  */
 
-import { Box, HStack, IconButton, Spacer, Text, useStyleConfig } from '@chakra-ui/react';
+import { Tr, Td, useStyleConfig, Flex, Spacer, HStack, Box, IconButton } from '@chakra-ui/react';
 import { GiAerialSignal } from 'react-icons/gi';
 import { FaTrash } from 'react-icons/fa';
 
@@ -14,24 +14,21 @@ const Proxy = () => {
   const proxyColor = useStyleConfig('proxyColumn');
 
   return (
-    <Box paddingY = "4px" paddingX = "7px">
-      <Box borderRadius = "xl" paddingX = "10px" height = "38px" paddingY = "3px" sx = {proxyColor}>
-        <HStack>
-          <Text>
-            192.269.0.438
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            User
-          </Text>
-          <Spacer />
-          <Text isTruncated>
-            ***********
-          </Text>
-          <Spacer />
-          <Text color = "green.400">
-            52 ms
-          </Text>
+    <Tr bg = "bgblue" sx = {proxyColor}>
+      <Td borderTopLeftRadius = "3xl" borderBottomLeftRadius = "3xl" paddingY = "13px">
+        192.269.0.438
+      </Td>
+      <Td isNumeric>
+        User
+      </Td>
+      <Td isNumeric>
+        ***********
+      </Td>
+      <Td isNumeric color = "green.400">
+        52 ms
+      </Td>
+      <Td isNumeric borderTopRightRadius = "3xl" borderBottomRightRadius = "3xl">
+        <Flex>
           <Spacer />
           <HStack>
             <Box bg = "purple" borderRadius = "xl">
@@ -41,9 +38,9 @@ const Proxy = () => {
               <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" />
             </Box>
           </HStack>
-        </HStack>
-      </Box>
-    </Box>
+        </Flex>
+      </Td>
+    </Tr>
   );
 };
 

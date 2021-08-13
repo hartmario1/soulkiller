@@ -23,6 +23,6 @@ export const useQueryTasks = (): Task[] => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  if (error) return [];
+  if (error) { return []; }
   return data?.concat([...extraTasks.tasks.values()]) ?? [];
 };

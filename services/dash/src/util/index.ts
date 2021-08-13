@@ -26,6 +26,10 @@ export const fetchApi = async <T, B = never>(path: string, method = 'GET', body?
     }
   );
 
+  if (res.status === 204) {
+    console.log(await res.clone().text());
+  }
+
   const data = await res.json();
 
   if (res.ok) {

@@ -8,35 +8,33 @@
 
 import {
   Box,
-  useToast,
-  Tabs,
-  TabPanel,
-  TabPanels,
-  TabList,
-  Tab,
   Button,
-  useDisclosure,
   Modal,
   ModalBody,
   ModalContent,
-  ModalOverlay,
-  ModalHeader,
   ModalFooter,
-  HStack,
+  ModalHeader,
+  ModalOverlay,
   FormControl,
   FormLabel,
+  HStack,
   Input,
+  Tabs,
+  Text,
+  useToast,
+  VStack,
+  TabPanels,
+  TabPanel,
   InputGroup,
   InputRightElement,
-  Text,
-  VStack
+  Tab,
+  TabList
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { GoPlus } from 'react-icons/go';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { ApiPutProfileBody, ApiPutProfileResult } from '@soulkiller/common';
 import { fetchApi } from '../../util';
+import { ApiPatchProfileBody, ApiPatchProfileResult } from '@soulkiller/common';
 import { ProfileState, useProfilesStore } from 'stores/profiles';
 
 interface Profile {
@@ -62,18 +60,14 @@ interface Profile {
 
 const selector = (state: ProfileState) => state;
 
-const CreateProfile = () => {
+const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () => void; name: string }) => {
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const profiles = useProfilesStore(selector);
 
   return (
     <Box>
-      <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "purple" leftIcon = {<GoPlus />} onClick = {onOpen} >
-        Create Profile
-      </Button>
       <Formik<Profile> initialValues = {{
         profile_name: '',
         email: '',
@@ -93,7 +87,7 @@ const CreateProfile = () => {
       }}
       onSubmit = {async values => {
         try {
-          const profile = await fetchApi<ApiPutProfileResult, ApiPutProfileBody>('/api/profiles', 'PUT', {
+          const profile = await fetchApi<ApiPatchProfileResult, ApiPatchProfileBody>(`/api/profiles/${encodeURIComponent(name)}`, 'PATCH', {
             profile_name: values.profile_name,
             email: values.email,
             first_name: values.first_name,
@@ -116,14 +110,14 @@ const CreateProfile = () => {
 
           toast({
             status: 'info',
-            title: 'Profile Creation',
-            description: 'Profile has been successfully created'
+            title: 'Profile Editing',
+            description: 'Profile has been successfully edited'
           });
 
           profiles.add(profile);
         } catch (error) {
           toast({
-            title: `Failed to create profile ${values.profile_name}`,
+            title: `Failed to edit profile ${values.profile_name}`,
             description: error.message ?? error.toString(),
             status: 'error'
           });
@@ -167,14 +161,14 @@ const CreateProfile = () => {
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader align = "center">
-                  Create Profile
+                Create Profile
                 </ModalHeader>
                 <ModalBody>
                   <Tabs defaultIndex = {1} variant = "soft-rounded" colorScheme = "whiteAlpha">
                     <TabPanels>
                       <TabPanel>
                         <Box color = "purple" fontSize = "xl" fontWeight = "bold" paddingBottom = "15px">
-                            General Info
+                          General Info
                         </Box>
                         <Box>
                           <HStack paddingBottom = "15px">
@@ -183,7 +177,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "profile">
                                     <FormLabel>
-                                      Profile Name
+                                    Profile Name
                                     </FormLabel>
                                     <Input {...field} type = "profile" placeholder = "John Doe" />
                                   </FormControl>
@@ -203,7 +197,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "email">
                                     <FormLabel>
-                                    Email
+                                  Email
                                     </FormLabel>
                                     <Input {...field} type = "email" placeholder = "johndoe@soulkiller.io" />
                                   </FormControl>
@@ -225,7 +219,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "firstname">
                                     <FormLabel>
-                                    First Name
+                                  First Name
                                     </FormLabel>
                                     <Input {...field} type = "firstname" placeholder = "John" />
                                   </FormControl>
@@ -244,7 +238,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "lastname">
                                     <FormLabel>
-                                    Last Name
+                                  Last Name
                                     </FormLabel>
                                     <Input {...field} type = "lastname" placeholder = "Doe" />
                                   </FormControl>
@@ -263,7 +257,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "phone">
                                     <FormLabel>
-                                    Phone Number
+                                  Phone Number
                                     </FormLabel>
                                     <Input {...field} type = "phone" placeholder = "Phone" />
                                   </FormControl>
@@ -284,7 +278,7 @@ const CreateProfile = () => {
                               {({ field }: { field: string }) => (
                                 <FormControl id = "username">
                                   <FormLabel>
-                                    Username (Optional)
+                                  Username (Optional)
                                   </FormLabel>
                                   <Input {...field} type = "username" placeholder = "Username" />
                                 </FormControl>
@@ -302,7 +296,7 @@ const CreateProfile = () => {
                               {({ field }: { field: string }) => (
                                 <FormControl id = "password">
                                   <FormLabel>
-                                  Password (Optional)
+                                Password (Optional)
                                   </FormLabel>
                                   <InputGroup size = "md">
                                     <Input pr = "4.5rem"
@@ -330,7 +324,7 @@ const CreateProfile = () => {
                       </TabPanel>
                       <TabPanel>
                         <Box color = "purple" fontSize = "xl" fontWeight = "bold" paddingBottom = "15px">
-                          Shipping
+                        Shipping
                         </Box>
                         <Box>
                           <HStack paddingBottom = "15px">
@@ -339,7 +333,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "address">
                                     <FormLabel>
-                                    Address 1
+                                  Address 1
                                     </FormLabel>
                                     <Input {...field} type = "address" placeholder = "Address 1" />
                                   </FormControl>
@@ -358,7 +352,7 @@ const CreateProfile = () => {
                               {({ field }: { field: string }) => (
                                 <FormControl id = "address2">
                                   <FormLabel>
-                                    Address 2 (Optional)
+                                  Address 2 (Optional)
                                   </FormLabel>
                                   <Input {...field} type = "address2" placeholder = "Address 2" />
                                 </FormControl>
@@ -379,7 +373,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "City">
                                     <FormLabel>
-                                    City
+                                  City
                                     </FormLabel>
                                     <Input {...field} type = "City" placeholder = "City" />
                                   </FormControl>
@@ -398,7 +392,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "zip">
                                     <FormLabel>
-                                    ZIP/PostalCode
+                                  ZIP/PostalCode
                                     </FormLabel>
                                     <Input {...field} type = "zip" placeholder = "ZIP" />
                                   </FormControl>
@@ -420,7 +414,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "country">
                                     <FormLabel>
-                                    Country
+                                  Country
                                     </FormLabel>
                                     <Input {...field} type = "country" placeholder = "Country" />
                                   </FormControl>
@@ -439,7 +433,7 @@ const CreateProfile = () => {
                               {({ field }: { field: string }) => (
                                 <FormControl id = "state">
                                   <FormLabel>
-                                    State / County (Optional)
+                                  State / County (Optional)
                                   </FormLabel>
                                   <Input {...field} type = "state" placeholder = "State" />
                                 </FormControl>
@@ -457,7 +451,7 @@ const CreateProfile = () => {
                       </TabPanel>
                       <TabPanel>
                         <Box color = "purple" fontSize = "xl" fontWeight = "bold" paddingBottom = "15px">
-                          Card Info
+                        Card Info
                         </Box>
                         <Box>
                           <Box paddingBottom = "15px">
@@ -466,7 +460,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "card-name">
                                     <FormLabel>
-                                    Card Name
+                                  Card Name
                                     </FormLabel>
                                     <Input {...field} type = "card-name" placeholder = "John Doe" />
                                   </FormControl>
@@ -487,7 +481,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "card-number">
                                     <FormLabel>
-                                    Card Number
+                                  Card Number
                                     </FormLabel>
                                     <Input {...field} type = "card-number" placeholder = "0000 0000 0000 0000" />
                                   </FormControl>
@@ -508,7 +502,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "card-month">
                                     <FormLabel>
-                                    Card Month
+                                  Card Month
                                     </FormLabel>
                                     <Input {...field} type = "card-month" placeholder = "04" />
                                   </FormControl>
@@ -527,7 +521,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "card-year">
                                     <FormLabel>
-                                    Card Year
+                                  Card Year
                                     </FormLabel>
                                     <Input {...field} type = "card-year" placeholder = "2056" />
                                   </FormControl>
@@ -546,7 +540,7 @@ const CreateProfile = () => {
                                 {({ field }: { field: string }) => (
                                   <FormControl id = "card-cvv">
                                     <FormLabel>
-                                    Card CVV
+                                  Card CVV
                                     </FormLabel>
                                     <Input {...field} type = "card-cvv" placeholder = "000" />
                                   </FormControl>
@@ -566,13 +560,13 @@ const CreateProfile = () => {
                     </TabPanels>
                     <TabList>
                       <Tab>
-                        General
+                      General
                       </Tab>
                       <Tab>
-                        Shipping
+                      Shipping
                       </Tab>
                       <Tab>
-                        Card
+                      Card
                       </Tab>
                     </TabList>
                   </Tabs>
@@ -580,10 +574,10 @@ const CreateProfile = () => {
                 <ModalFooter>
                   <HStack>
                     <Button onClick = {onClose}>
-                      Close
+                    Close
                     </Button>
                     <Button bg = "purple" color = "white" onClick = {event => handleSubmit(event as any)}>
-                      Create
+                      Edit
                     </Button>
                   </HStack>
                 </ModalFooter>
@@ -596,4 +590,5 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+export default EditProfile;
+

@@ -1,6 +1,6 @@
 import { discordAuth, jsonParser, Route, validate } from '@soulkiller/rest';
 import { inject, injectable } from 'tsyringe';
-import { ApiPatchTaskBody, Store, Task } from '@soulkiller/common';
+import { ApiPatchTaskBody, Category, Store, Task } from '@soulkiller/common';
 import { kSql } from '@soulkiller/injection';
 import * as Joi from 'joi';
 import { notFound } from '@hapi/boom';
@@ -26,15 +26,19 @@ export default class PatchTaskRoute extends Route {
         .object()
         .keys({
           store: Joi.number()
-            .min(0)
+            .min(Store.supreme)
             .max(Store.undefeated),
+          category: Joi.number()
+            .min(Category.all)
+            .max(Category.skate)
+            .required(),
           name: Joi.string(),
           size: Joi.number(),
           profile: Joi.number(),
           proxy: Joi.number(),
           recurring: Joi.boolean()
         })
-        .or('store', 'name', 'size', 'profile', 'proxy', 'recurring')
+        .or('store', 'category', 'name', 'size', 'profile', 'proxy', 'recurring')
         .required(),
       'body'
     )
@@ -48,11 +52,12 @@ export default class PatchTaskRoute extends Route {
 
   public async handle(req: Request, res: Response, next: NextHandler) {
     const { id } = req.params as unknown as { id: number };
-    const { store, name, size, profile, proxy, recurring } = req.body as ApiPatchTaskBody;
+    const { store, category, name, size, profile, proxy, recurring } = req.body as ApiPatchTaskBody;
 
     const data: Partial<Omit<Task, 'id' | 'created_at' | 'status' | 'user_id'>> = {
       store,
       name,
+      category,
       size,
       profile,
       proxy,

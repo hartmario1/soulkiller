@@ -44,8 +44,8 @@ const Task = ({ data }: { data: TaskData }) => {
               <EditTask isOpen = {isOpen} onClose = {onClose} ids = {[data.id]} />
             </Box>
             <Box bg = "purple" borderRadius = "xl">
-              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {() => {
-                void fetchApi(`/api/tasks/${data.id}`, 'DELETE');
+              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {async () => {
+                await fetchApi(`/api/tasks/${data.id}`, 'DELETE');
                 tasks.remove(data);
                 toast({
                   status: 'info',

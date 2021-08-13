@@ -13,15 +13,15 @@ import { fetchApi } from '../../util';
 
 const selector = (state: TaskState) => state;
 
-const DeleteTasks = ({ title, modalBody, borderColor }: {title: string; modalBody: string; borderColor: string}) => {
+const DeleteTasks = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const tasks = useTasksStore(selector);
   const toast = useToast();
 
   return (
     <Box>
-      <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = {borderColor} leftIcon = {<FaTrash />} onClick = {onOpen}>
-        {title}
+      <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "red.600" leftIcon = {<FaTrash />} onClick = {onOpen}>
+        Delete Tasks
       </Button>
       <Modal onClose = {onClose}
         isOpen = {isOpen}
@@ -31,10 +31,10 @@ const DeleteTasks = ({ title, modalBody, borderColor }: {title: string; modalBod
         <ModalOverlay />
         <ModalContent>
           <ModalHeader align = "center">
-            {title}
+            Delete Tasks
           </ModalHeader>
           <ModalBody align = "center">
-            {modalBody}
+            This will permanently delete your tasks. Are you sure you want to do it?
           </ModalBody>
           <ModalFooter>
             <HStack alignContent = "center">
