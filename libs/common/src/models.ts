@@ -79,3 +79,12 @@ export interface Profile {
   year: number;
   cvv: number;
 }
+
+export interface Proxy {
+  user_id: `${bigint}`;
+  proxy_group: string;
+  ip: string;
+  port: string;
+  username: string;
+  password: string;
+}

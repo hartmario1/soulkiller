@@ -30,9 +30,10 @@ import { TiPlus } from 'react-icons/ti';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { fetchApi } from '../../util';
-import { ApiPutTaskResult, ApiPutTasksBody, Store, Category } from '@soulkiller/common';
+import { ApiPutTaskResult, ApiPutTasksBody, Store, Category, Proxy } from '@soulkiller/common';
 import { TaskState, useTasksStore } from 'stores';
 import { useQueryProfiles } from 'hooks/useQueryProfiles';
+import { useQueryProxies } from 'hooks/useQueryProxy';
 
 interface Task {
   store: Store;
@@ -271,21 +272,30 @@ const CreateTask = () => {
 
                     <VStack w = "100%">
                       <Field name = "proxy" as = "select">
-                        {({ field }: { field: number }) => (
-                          <FormControl paddingBottom = "10px">
-                            <FormLabel>
+                        {({ field }: { field: number }) => {
+                          // eslint-disable-next-line react-hooks/rules-of-hooks
+                          const proxies = useQueryProxies();
+                          return (
+                            <FormControl paddingBottom = "10px">
+                              <FormLabel>
                               Proxy Group
-                            </FormLabel>
-                            <Select name = "proxy" placeholder = "Select Option" {...field}>
-                              <option value = {1}>
-                                Proxy 1
-                              </option>
-                              <option value = {2}>
-                                Proxy 2
-                              </option>
-                            </Select>
-                          </FormControl>
-                        )}
+                              </FormLabel>
+                              <Select name = "proxy" placeholder = "Select Option" {...field}>
+                                {
+                                  [...new Set(Object
+                                    .values(proxies)
+                                    .reduce<Proxy[]>((acc, proxy) => acc.concat(proxy), [])
+                                    .map(proxy => proxy.proxy_group))]
+                                    .map(group => (
+                                      <option value = {group}>
+                                        {group}
+                                      </option>
+                                    ))
+                                }
+                              </Select>
+                            </FormControl>
+                          );
+                        }}
                       </Field>
                       {errors.proxy && touched.proxy
                         ? (

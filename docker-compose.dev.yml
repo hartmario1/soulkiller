@@ -21,6 +21,10 @@ services:
     ports:
       - "127.0.0.1:4200:4200"
 
+  proxy-healthcheck:
+    environment:
+      NODE_ENV: "dev"
+
   grafana:
     environment:
       GF_SECURITY_ADMIN_USER: "admin"

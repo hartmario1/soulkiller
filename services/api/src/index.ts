@@ -4,6 +4,7 @@ import 'reflect-metadata';
 import { collectDefaultMetrics } from 'prom-client';
 collectDefaultMetrics();
 
+import Redis from 'ioredis';
 import { createApp, Route } from '@soulkiller/rest';
 import { readdirRecurse } from '@gaius-bot/readdir';
 import { join as joinPath } from 'path';
@@ -11,13 +12,14 @@ import { container } from 'tsyringe';
 import createLogger from '@soulkiller/logger';
 import postgres from 'postgres';
 import Stripe from 'stripe';
-import { initConfig, kLogger, kSql, kStripe } from '@soulkiller/injection';
+import { initConfig, kLogger, kSql, kStripe, kRedis } from '@soulkiller/injection';
 
 void (async () => {
   const config = initConfig();
   const logger = createLogger('API');
 
   container.register(kLogger, { useValue: logger });
+  container.register(kRedis, { useValue: new Redis(config.redisUrl) });
   container.register(
     kSql, {
       useValue: postgres(config.dbUrl, {

@@ -53,6 +53,7 @@ services:
       DISCORD_SCOPES: "identify,email"
       DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller"
       STRIPE_PRICE_ID: "price_1IflayLoZxvFDzrnkopX8bUP"
+      REDIS_URL: "redis://redis:6379/0"
 
   dash:
     build:
@@ -73,6 +74,18 @@ services:
       test: ['CMD-SHELL', "wget -qO- localhost:9000/-/healthy"]
       interval: 30s
       timeout: 5s
+
+  proxy-healthcheck:
+    build:
+      context: ./
+      dockerfile: ./docker/proxy-healthcheck/Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    environment: 
+      DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller"
+      REDIS_URL: "redis://redis:6379/0"
 
   grafana:
     build:

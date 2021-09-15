@@ -1,4 +1,4 @@
-import type { Category, Profile, Store, Task } from './models';
+import type { Category, Profile, Proxy, Store, Task } from './models';
 
 export interface APIGetAuthDiscordQuery {
   redirect_uri: string;
@@ -69,3 +69,21 @@ export type ApiPutProfileResult = Profile;
 export type ApiPatchProfileBody = Partial<ApiPutProfileBody>;
 
 export type ApiPatchProfileResult = Profile;
+
+export type ApiGetProxyResult = (Proxy & {ping: number | null})[];
+
+export interface ApiPutProxyBody {
+  proxy_group: string;
+  ip: string;
+  port: string;
+  username: string;
+  password: string;
+}
+
+export type ApiPutProxyResult = Proxy;
+
+export interface ApiDeleteProxyBody {
+  proxy_group?: string | null;
+}
+
+export type ApiDeleteProxyResult = Proxy[];

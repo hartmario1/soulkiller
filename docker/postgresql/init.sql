@@ -49,3 +49,13 @@ CREATE TABLE IF NOT EXISTS profiles (
   cvv int NOT NULL,
   PRIMARY KEY (profile_name, user_id)
 );
+
+CREATE TABLE IF NOT EXISTS proxies (
+  user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  ip text NOT NULL,
+  port text NOT NULL,
+  username text NOT NULL,
+  password text NOT NULL,
+  proxy_group text NOT NULL,
+  PRIMARY KEY (user_id, ip, port)
+);

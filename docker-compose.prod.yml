@@ -37,6 +37,10 @@ services:
       DASH_DOMAIN: "https://soulkiller.io"
       NODE_ENV: "prod"
 
+  proxy-healthcheck:
+    environment:
+      NODE_ENV: "prod"    
+
   grafana:
     environment:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "false"

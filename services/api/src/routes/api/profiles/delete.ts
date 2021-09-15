@@ -17,7 +17,7 @@ export default class DeleteProfilesRoute extends Route {
   public async handle(req: Request, res: Response) {
     await this.sql`DELETE FROM profiles WHERE user_id = ${req.user!.id}`;
 
-    res.statusCode = 204;
+    res.statusCode = 200;
     res.setHeader('content-type', 'application/json');
 
     return res.end(JSON.stringify({}));

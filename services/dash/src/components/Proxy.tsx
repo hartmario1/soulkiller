@@ -6,36 +6,49 @@
  * @license
  */
 
-import { Tr, Td, useStyleConfig, Flex, Spacer, HStack, Box, IconButton } from '@chakra-ui/react';
-import { GiAerialSignal } from 'react-icons/gi';
+import { Tr, Td, useStyleConfig, Flex, Spacer, HStack, Box, IconButton, useToast } from '@chakra-ui/react';
 import { FaTrash } from 'react-icons/fa';
+import { ProxyState, ProxyWithStatus, useProxiesStore } from 'stores';
+import { fetchApi } from '../util';
 
-const Proxy = () => {
+const selector = (state: ProxyState) => state;
+
+const ProxyUi = ({ data }: { data: ProxyWithStatus }) => {
   const proxyColor = useStyleConfig('proxyColumn');
+  const proxies = useProxiesStore(selector);
+  const toast = useToast();
 
   return (
     <Tr bg = "bgblue" sx = {proxyColor}>
       <Td borderTopLeftRadius = "3xl" borderBottomLeftRadius = "3xl" paddingY = "13px">
-        192.269.0.438
+        {data.ip}
+      </Td>
+      <Td>
+        {data.port}
       </Td>
       <Td isNumeric>
-        User
+        {data.username}
       </Td>
       <Td isNumeric>
-        ***********
+        {data.password}
       </Td>
-      <Td isNumeric color = "green.400">
-        52 ms
+      <Td isNumeric>
+        {data.ping ? `${data.ping.toFixed(0)} ms` : 'unknown'}
       </Td>
       <Td isNumeric borderTopRightRadius = "3xl" borderBottomRightRadius = "3xl">
         <Flex>
           <Spacer />
           <HStack>
             <Box bg = "purple" borderRadius = "xl">
-              <IconButton aria-label = "Search database" icon = {<GiAerialSignal />} size = "sm" />
-            </Box>
-            <Box bg = "purple" borderRadius = "xl">
-              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" />
+              <IconButton aria-label = "Search database" icon = {<FaTrash />} size = "sm" onClick = {async () => {
+                await fetchApi(`/api/proxies/${data.ip}:${data.port}`, 'DELETE');
+                proxies.remove(data);
+                toast({
+                  status: 'info',
+                  title: 'Proxy Deletion',
+                  description: 'Proxy has been successfully deleted'
+                });
+              }} />
             </Box>
           </HStack>
         </Flex>
@@ -44,4 +57,4 @@ const Proxy = () => {
   );
 };
 
-export default Proxy;
+export default ProxyUi;

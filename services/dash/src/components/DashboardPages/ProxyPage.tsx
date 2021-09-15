@@ -14,8 +14,6 @@ import {
   Spacer,
   Tab,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
   Text,
   useStyleConfig,
@@ -23,19 +21,23 @@ import {
   Table,
   Thead,
   Tbody,
+  Tooltip,
   Tr,
   Th,
 } from '@chakra-ui/react';
 import { FaTrash } from 'react-icons/fa';
 import TaskButtons from '../StartStopButtons';
-import ProxyGroup from '../Modals/ProxyGroup';
 import AddProxy from '../Modals/AddProxy';
-import Proxy from '../Proxy';
-import TestProxy from '../Modals/TestProxy';
+import { useQueryProxies } from 'hooks/useQueryProxy';
+import ProxyUi from '../Proxy';
+import { useState } from 'react';
+import DeleteProxy from 'components/Modals/DeleteProxy';
 
 const ProxiePage = () => {
   const greypale = useStyleConfig('taskBox');
   const white = useStyleConfig('taskColumn');
+  const proxies = useQueryProxies();
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Box bg = "whiteblue" height = "724px" maxWidth = "1880px" borderRadius = "xl" sx = {greypale}>
@@ -51,35 +53,16 @@ const ProxiePage = () => {
 
           <Box paddingY = "10px">
             <Center>
-              <Tabs variant = "solid-rounded" colorScheme = "facebook">
+              <Tabs variant = "solid-rounded" colorScheme = "facebook" onChange = {index => setTabIndex(index)}>
                 <TabList mb = "1em">
                   <VStack>
-                    <Tab>
-                    Supreme
-                    </Tab>
-                    <Tab>
-                    NikeSnkrs
-                    </Tab>
+                    {Object.keys(proxies).map(proxy => (
+                      <Tab>
+                        {proxy}
+                      </Tab>
+                    ))}
                   </VStack>
                 </TabList>
-
-                <TabPanels>
-                  <TabPanel>
-                    <p>
-                    one!
-                    </p>
-                  </TabPanel>
-                  <TabPanel>
-                    <p>
-                    two!
-                    </p>
-                  </TabPanel>
-                  <TabPanel>
-                    <p>
-                    three!
-                    </p>
-                  </TabPanel>
-                </TabPanels>
               </Tabs>
             </Center>
           </Box>
@@ -105,6 +88,9 @@ const ProxiePage = () => {
                   <Th>
                   IP
                   </Th>
+                  <Th>
+                  Port
+                  </Th>
                   <Th isNumeric>
                   User
                   </Th>
@@ -112,7 +98,15 @@ const ProxiePage = () => {
                   Password
                   </Th>
                   <Th isNumeric>
-                  Speed
+                    <Tooltip hasArrow
+                      aria-label = "A tooltip"
+                      bg = "purple"
+                      color = "white"
+                      placement = "top"
+                      label = "The ping may appear to be higher than it actually is, because connections aren't kept around like they would be for tasks."
+                    >
+                      Speed
+                    </Tooltip>
                   </Th>
                   <Th isNumeric>
                   Actions
@@ -120,7 +114,7 @@ const ProxiePage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Proxy />
+                {Object.values(proxies)[tabIndex]?.map(data => (<ProxyUi data = {data} />))}
               </Tbody>
             </Table>
           </Box>
@@ -128,20 +122,14 @@ const ProxiePage = () => {
       </HStack>
       <HStack paddingX = "15px">
         <Box>
-          <ProxyGroup />
+          <AddProxy />
         </Box>
         <Spacer />
         <Box>
-          <AddProxy />
-        </Box>
-        <Box>
-          <TestProxy />
-        </Box>
-        <Box>
-          <TaskButtons content = "Delete all" color = "purple" taskIcon = {<FaTrash />} />
-        </Box>
-        <Box>
           <TaskButtons content = "Delete bad ones" color = "purple" taskIcon = {<FaTrash />} />
+        </Box>
+        <Box>
+          <DeleteProxy name = {Object.keys(proxies)[tabIndex]!} />
         </Box>
       </HStack>
     </Box>
