@@ -8,17 +8,21 @@ declare module 'polka' {
 }
 
 export const jsonParser = (wantRaw = false) => async (req: Request, _: Response, next: NextHandler) => {
-  if (!req.headers['content-type']?.startsWith('application/json')) return next(badRequest('Unexpected content type'));
+  if (!req.headers['content-type']?.startsWith('application/json')) { return next(badRequest('Unexpected content type')); }
   req.setEncoding('utf8');
 
   try {
     let data = '';
-    for await (const chunk of req) data += chunk;
-    if (wantRaw) req.rawBody = data;
+    for await (const chunk of req) {
+      data += chunk;
+    }
+    if (wantRaw) {
+      req.rawBody = data;
+    }
     req.body = JSON.parse(data);
 
     await next();
-  } catch (e) {
+  } catch (e: any) {
     void next(badData(e?.toString()));
   }
 };

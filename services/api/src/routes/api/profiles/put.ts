@@ -16,6 +16,7 @@ export default class PutProfilesRoute extends Route {
       Joi
         .object()
         .keys({
+          group_id: Joi.number().required(),
           profile_name: Joi.string().required(),
           email: Joi.string().required(),
           first_name: Joi.string().required(),
@@ -48,6 +49,7 @@ export default class PutProfilesRoute extends Route {
 
   public async handle(req: Request, res: Response, next: NextHandler) {
     const {
+      group_id,
       profile_name,
       email,
       first_name,
@@ -70,6 +72,7 @@ export default class PutProfilesRoute extends Route {
 
     const data: Profile = {
       user_id: req.user!.id,
+      group_id,
       profile_name,
       email,
       first_name,

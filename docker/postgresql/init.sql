@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 CREATE TABLE IF NOT EXISTS tasks (
   id SERIAL PRIMARY KEY,
   user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  group_id int NOT NULL REFERENCES task_groups(id) ON DELETE CASCADE,
   store smallint NOT NULL,
   category smallint NOT NULL,
   name text NOT NULL,
@@ -30,6 +31,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 CREATE TABLE IF NOT EXISTS profiles (
   profile_name text NOT NULL,
   user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  group_id int NOT NULL REFERENCES profile_groups(id) ON DELETE CASCADE,
   email text NOT NULL,
   first_name text NOT NULL,
   last_name text NOT NULL,
@@ -52,10 +54,33 @@ CREATE TABLE IF NOT EXISTS profiles (
 
 CREATE TABLE IF NOT EXISTS proxies (
   user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  group_id int NOT NULL REFERENCES proxy_groups(id) ON DELETE CASCADE,
   ip text NOT NULL,
   port text NOT NULL,
   username text NOT NULL,
   password text NOT NULL,
-  proxy_group text NOT NULL,
   PRIMARY KEY (user_id, ip, port)
+);
+
+CREATE TABLE IF NOT EXISTS task_groups (
+  user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  id SERIAL UNIQUE NOT NULL,
+  name text NOT NULL,
+  monitor_delay int NOT NULL,
+  retry_delay int NOT NULL,
+  PRIMARY KEY (user_id, name)
+);
+
+CREATE TABLE IF NOT EXISTS profile_groups (
+  user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  id SERIAL UNIQUE NOT NULL,
+  name text NOT NULL,
+  PRIMARY KEY (user_id, name)
+);
+
+CREATE TABLE IF NOT EXISTS proxy_groups (
+  user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+  id SERIAL UNIQUE NOT NULL,
+  name text NOT NULL,
+  PRIMARY KEY (user_id, name)
 );

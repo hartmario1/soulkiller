@@ -11,7 +11,20 @@ import Footer from '../Footer';
 import { Box, Center, Flex } from '@chakra-ui/react';
 
 const StandardLayout: React.FC = ({ children }) => (
-  <Flex direction = "column" h = "100vh" w = "100%">
+  <Flex direction = "column" h = "100vh" w = "100%"
+    overflowY = "auto"
+    css = {{
+      '&::-webkit-scrollbar': {
+        width: '4px'
+      },
+      '&::-webkit-scrollbar-track': {
+        width: '6px'
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: '#1a202c',
+        borderRadius: '24px'
+      }
+    }}>
     <Navbar />
 
     <Center flexGrow = {1}>

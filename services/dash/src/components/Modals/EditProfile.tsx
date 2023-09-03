@@ -115,7 +115,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
           });
 
           profiles.add(profile);
-        } catch (error) {
+        } catch (error: any) {
           toast({
             title: `Failed to edit profile ${values.profile_name}`,
             description: error.message ?? error.toString(),

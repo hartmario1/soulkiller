@@ -22,7 +22,7 @@ const Payment = () => {
     const Stripe = (await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!))!;
 
     const data = await fetchApi<ApiPostPaymentsCreateResult>('/api/payments/create', 'POST').catch(() => null);
-    if (!data) return;
+    if (!data) { return; }
 
     const { error } = await Stripe.redirectToCheckout({ sessionId: data.sessionId });
     toast({

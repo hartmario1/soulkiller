@@ -1,6 +1,16 @@
 version: "3.7"
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: unless-stopped
+    expose:
+      - '5672'
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 60s
+      timeout: 5s
+
   postgres:
     build:
       context: ./docker/postgresql
@@ -86,6 +96,16 @@ services:
     environment: 
       DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller"
       REDIS_URL: "redis://redis:6379/0"
+
+  job-runner:
+    build:
+      context: ./
+      dockerfile: ./docker/job-runner/Dockerfile
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment: 
+      DB_URL: "postgres://soulkiller:admin@postgres:5432/soulkiller"
 
   grafana:
     build:

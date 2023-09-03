@@ -1,3 +1,4 @@
+import { ProfileGroup, ProxyGroup, TaskGroup } from '.';
 import type { Category, Profile, Proxy, Store, Task } from './models';
 
 export interface APIGetAuthDiscordQuery {
@@ -21,7 +22,9 @@ export interface ApiPostPaymentsPortalResult {
   url: string;
 }
 
-export type ApiPatchTaskCancelResults = Task;
+export type ApiPatchTaskCancelResult = Task;
+
+export type ApiPatchTaskStartResult = Task;
 
 export type ApiPatchTaskBody = Partial<ApiPutTasksBody>;
 
@@ -30,6 +33,7 @@ export type ApiPatchTaskResult = Task;
 export type ApiGetTasksResult = Task[];
 
 export interface ApiPutTasksBody {
+  group_id: number;
   store: Store;
   category: Category;
   name: string;
@@ -41,9 +45,51 @@ export interface ApiPutTasksBody {
 
 export type ApiPutTaskResult = Task;
 
+export type ApiGetTaskGroupResult = TaskGroup[];
+
+export interface ApiPutTaskGroupBody {
+  name: string;
+  monitor_delay: number;
+  retry_delay: number;
+}
+
+export type ApiPutTaskGroupResult = TaskGroup;
+
+export type ApiPatchTaskGroupBody = Partial<ApiPutTaskGroupBody>;
+
+export type ApiPatchTaskGroupResult = TaskGroup;
+
+
+export type ApiGetProxyGroupResult = ProxyGroup[];
+
+export interface ApiPutProxyGroupBody {
+  name: string;
+}
+
+export type ApiPutProxyGroupResult = ProxyGroup;
+
+export type ApiPatchProxyGroupBody = Partial<ApiPutProxyGroupBody>;
+
+export type ApiPatchProxyGroupResult = ProxyGroup;
+
+
+export type ApiGetProfileGroupResult = ProfileGroup[];
+
+export interface ApiPutProfileGroupBody {
+  name: string;
+}
+
+export type ApiPutProfileGroupResult = ProfileGroup;
+
+export type ApiPatchProfileGroupBody = Partial<ApiPutProfileGroupBody>;
+
+export type ApiPatchProfileGroupResult = ProfileGroup;
+
+
 export type ApiGetProfileResult = Profile[];
 
 export interface ApiPutProfileBody {
+  group_id: number;
   profile_name: string;
   email: string;
   first_name: string;
@@ -73,7 +119,7 @@ export type ApiPatchProfileResult = Profile;
 export type ApiGetProxyResult = (Proxy & {ping: number | null})[];
 
 export interface ApiPutProxyBody {
-  proxy_group: string;
+  group_id: number;
   ip: string;
   port: string;
   username: string;

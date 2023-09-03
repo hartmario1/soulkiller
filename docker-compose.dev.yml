@@ -25,6 +25,12 @@ services:
     environment:
       NODE_ENV: "dev"
 
+  job-runner:
+    environment:
+      NODE_ENV: "dev"
+    volumes:
+      - ../screenshots:/usr/job-runner/screenshots
+
   grafana:
     environment:
       GF_SECURITY_ADMIN_USER: "admin"

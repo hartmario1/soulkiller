@@ -8,22 +8,17 @@
 
 import {
   Box,
-  Center,
-  Divider,
   HStack,
   Spacer,
-  Tab,
-  TabList,
-  Tabs,
-  Text,
   useStyleConfig,
-  VStack,
   Table,
   Thead,
   Tbody,
   Tooltip,
   Tr,
   Th,
+  Select,
+  useDisclosure
 } from '@chakra-ui/react';
 import { FaTrash } from 'react-icons/fa';
 import TaskButtons from '../StartStopButtons';
@@ -31,108 +26,105 @@ import AddProxy from '../Modals/AddProxy';
 import { useQueryProxies } from 'hooks/useQueryProxy';
 import ProxyUi from '../Proxy';
 import { useState } from 'react';
-import DeleteProxy from 'components/Modals/DeleteProxy';
+import ProxyGroup from 'components/Modals/Groups/ProxyGroup';
+import EditProxyGroup from 'components/Modals/Groups/EditProxyGroup';
+import DeleteProxyGroup from 'components/Modals/Groups/DeleteProxyGroup';
+import { useQueryProxyGroups } from 'hooks/useQueryProxyGroups';
 
 const ProxiePage = () => {
+  const [groupId, setGroupId] = useState<number | null>(null);
   const greypale = useStyleConfig('taskBox');
-  const white = useStyleConfig('taskColumn');
   const proxies = useQueryProxies();
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex] = useState(0);
+  const { isOpen: createIsOpen, onClose: createOnClose, onOpen: createOnOpen } = useDisclosure();
+  const proxyGroups = useQueryProxyGroups();
 
   return (
-    <Box bg = "whiteblue" height = "724px" maxWidth = "1880px" borderRadius = "xl" sx = {greypale}>
-      <HStack padding = "15px">
-
-        <Box bg = "bgblue" borderRadius = "xl" height = "638px" width = "400px" sx = {white}>
-          <Center>
-            <Text fontSize = "md">
-              Proxy Group
-            </Text>
-          </Center>
-          <Divider />
-
-          <Box paddingY = "10px">
-            <Center>
-              <Tabs variant = "solid-rounded" colorScheme = "facebook" onChange = {index => setTabIndex(index)}>
-                <TabList mb = "1em">
-                  <VStack>
-                    {Object.keys(proxies).map(proxy => (
-                      <Tab>
-                        {proxy}
-                      </Tab>
-                    ))}
-                  </VStack>
-                </TabList>
-              </Tabs>
-            </Center>
-          </Box>
-        </Box>
-        <Box bg = "bgblue" borderRadius = "xl" height = "638px" width = "1408px" sx = {white}
-          overflowY = "auto"
-          css = {{
-            '&::-webkit-scrollbar': {
-              width: '4px'
-            },
-            '&::-webkit-scrollbar-track': {
-              width: '6px'
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#7252ff',
-              borderRadius: '24px'
-            }
-          }}>
-          <Box paddingX = "15px" paddingY = "5px">
-            <Table variant = "simple" size = "sm">
-              <Thead>
-                <Tr>
-                  <Th>
-                  IP
-                  </Th>
-                  <Th>
-                  Port
-                  </Th>
-                  <Th isNumeric>
-                  User
-                  </Th>
-                  <Th isNumeric>
-                  Password
-                  </Th>
-                  <Th isNumeric>
-                    <Tooltip hasArrow
-                      aria-label = "A tooltip"
-                      bg = "purple"
-                      color = "white"
-                      placement = "top"
-                      label = "The ping may appear to be higher than it actually is, because connections aren't kept around like they would be for tasks."
-                    >
-                      Speed
-                    </Tooltip>
-                  </Th>
-                  <Th isNumeric>
-                  Actions
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {Object.values(proxies)[tabIndex]?.map(data => (<ProxyUi data = {data} />))}
-              </Tbody>
-            </Table>
-          </Box>
-        </Box>
+    <Box>
+      <ProxyGroup isOpen = {createIsOpen} onClose = {createOnClose} />
+      <HStack paddingBottom = "12px">
+        <Select variant = "filled" placeholder = "Proxy Group" onChange = {event => {
+          if (event.target.value === 'add') {
+            createOnOpen();
+          } else {
+            setGroupId(parseInt(event.target.value, 10));
+          }
+        }}>
+          <option value = "add">
+            Add Proxy Group
+          </option>
+          {proxyGroups.map(group => (
+            <option value = {group.id}>
+              {group.name}
+            </option>
+          ))}
+        </Select>
+        <EditProxyGroup id = {groupId} />
+        <DeleteProxyGroup id = {groupId} />
       </HStack>
-      <HStack paddingX = "15px">
+      <Box bg = "whiteblue" height = "605px" maxWidth = "1880px" borderRadius = "xl" sx = {greypale}
+        overflowY = "auto"
+        css = {{
+          '&::-webkit-scrollbar': {
+            width: '4px'
+          },
+          '&::-webkit-scrollbar-track': {
+            width: '6px'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#7252ff',
+            borderRadius: '24px'
+          }
+        }}>
+
+        <Box paddingX = "15px" paddingY = "5px">
+          <Table variant = "simple" size = "sm">
+            <Thead>
+              <Tr>
+                <Th>
+                  IP
+                </Th>
+                <Th>
+                  Port
+                </Th>
+                <Th isNumeric>
+                  User
+                </Th>
+                <Th isNumeric>
+                  Password
+                </Th>
+                <Th isNumeric>
+                  <Tooltip hasArrow
+                    aria-label = "A tooltip"
+                    bg = "purple"
+                    color = "white"
+                    placement = "top"
+                    label = "The ping may appear to be higher than it actually is, because connections aren't kept around like they would be for tasks.">
+                      Speed
+                  </Tooltip>
+                </Th>
+                <Th isNumeric>
+                  Actions
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {Object.values(proxies)[tabIndex]?.map(data => (<ProxyUi data = {data} />))}
+            </Tbody>
+          </Table>
+        </Box>
+      </Box>
+      <HStack paddingTop = "10px">
         <Box>
-          <AddProxy />
+          <AddProxy groupId = {groupId} />
         </Box>
         <Spacer />
         <Box>
           <TaskButtons content = "Delete bad ones" color = "purple" taskIcon = {<FaTrash />} />
         </Box>
-        <Box>
-          <DeleteProxy name = {Object.keys(proxies)[tabIndex]!} />
-        </Box>
       </HStack>
     </Box>
+
   );
 };
 

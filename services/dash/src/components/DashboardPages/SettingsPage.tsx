@@ -6,7 +6,7 @@
  * @license
  */
 
-import { Box, Text, HStack, FormControl, FormLabel, NumberIncrementStepper, NumberDecrementStepper, NumberInput, NumberInputField, NumberInputStepper, Center, VStack, useStyleConfig, Button } from '@chakra-ui/react';
+import { Box, Text, Center, VStack, useStyleConfig, Button } from '@chakra-ui/react';
 import { useQueryMe } from 'hooks/useQueryMe';
 import { fetchApi } from '../../util';
 import { ApiPostPaymentsPortalResult } from '@soulkiller/common';
@@ -27,7 +27,7 @@ const SettingsPage = () => {
       <Box fontSize = "xl" paddingBottom = "5px">
       Delays
       </Box>
-      <HStack paddingX = "10px">
+      {/* <HStack paddingX = "10px">
         <FormControl id = "monitor-delay">
           <FormLabel>
           Monitor Delay
@@ -53,28 +53,24 @@ const SettingsPage = () => {
             </NumberInputStepper>
           </NumberInput>
         </FormControl>
-      </HStack>
-      <HStack>
-        <Box paddingBottom = "20px" paddingTop = "40px" w = "100%">
-          <Box sx = {styles} borderRadius = "xl" paddingY = "5px">
-            <Center>
-              <VStack>
-                <Text fontSize = "xl">
+      </HStack> */}
+      <Box paddingBottom = "20px" paddingTop = "40px" w = "100%">
+        <Box sx = {styles} borderRadius = "xl" paddingY = "5px">
+          <Center>
+            <VStack>
+              <Text fontSize = "xl">
                   Welcome back
-                  {' '}
-                  {user.username}
+                {' '}
+                {user.username}
                   , hope you are killing every release.
-                </Text>
-              </VStack>
-            </Center>
-          </Box>
+              </Text>
+            </VStack>
+          </Center>
         </Box>
-        <Box paddingTop = "20px">
-          <Button onClick = {onClick}>
+      </Box>
+      <Button onClick = {onClick} width = "100%" borderRadius = {20}>
             Manage billing
-          </Button>
-        </Box>
-      </HStack>
+      </Button>
     </Box>
   );
 };

@@ -33,7 +33,7 @@ export default class DeleteProxyRoute extends Route {
     const proxies: Proxy[] = [];
 
     if (proxy_group) {
-      proxies.push(...(await this.sql<Proxy[]>`DELETE FROM proxies WHERE user_id = ${req.user!.id} AND proxy_group = ${proxy_group}`));
+      proxies.push(...(await this.sql<Proxy[]>`DELETE FROM proxies WHERE user_id = ${req.user!.id} AND group_id = ${proxy_group}`));
     } else {
       proxies.push(...(await this.sql<Proxy[]>`DELETE FROM proxies WHERE user_id = ${req.user!.id}`));
     }

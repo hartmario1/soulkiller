@@ -6,25 +6,25 @@
  * @license
  */
 
-import { Box, Button, HStack, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from '@chakra-ui/react';
-import { FaTrash } from 'react-icons/fa';
+import { Box, Button, HStack, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useToast, useDisclosure } from '@chakra-ui/react';
 import { TaskState, useTasksStore } from 'stores';
 import { fetchApi } from '../../util';
+import { FaTrash } from 'react-icons/fa';
 
 const selector = (state: TaskState) => state;
 
 const DeleteTasks = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const tasks = useTasksStore(selector);
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box>
       <Button size = "md" height = "48px" width = "200px" border = "2px" borderColor = "red.600" leftIcon = {<FaTrash />} onClick = {onOpen}>
         Delete Tasks
       </Button>
-      <Modal onClose = {onClose}
-        isOpen = {isOpen}
+      <Modal isOpen = {isOpen}
+        onClose = {onClose}
         isCentered
         closeOnOverlayClick
         motionPreset = "slideInRight">

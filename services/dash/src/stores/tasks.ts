@@ -1,7 +1,6 @@
 import create, { State } from 'zustand';
 import type { Task } from '@soulkiller/common';
 
-
 export interface TaskState extends State {
   tasks: Map<number, Task>;
   add: (task: Task) => void;

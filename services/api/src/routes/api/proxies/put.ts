@@ -16,7 +16,7 @@ export default class PutTasksRoute extends Route {
       Joi
         .object()
         .keys({
-          proxy_group: Joi.string().required(),
+          group_id: Joi.number().required(),
           ip: Joi.string().required(),
           port: Joi.string().required(),
           username: Joi.string().required(),
@@ -34,11 +34,11 @@ export default class PutTasksRoute extends Route {
   }
 
   public async handle(req: Request, res: Response, next: NextHandler) {
-    const { proxy_group, ip, port, username, password } = req.body as ApiPutProxyBody;
+    const { group_id, ip, port, username, password } = req.body as ApiPutProxyBody;
 
     const data: Proxy = {
       user_id: req.user!.id,
-      proxy_group,
+      group_id,
       ip,
       port,
       username,

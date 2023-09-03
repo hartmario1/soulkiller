@@ -48,7 +48,7 @@ interface Task {
 
 const selector = (state: TaskState) => state;
 
-const CreateTask = () => {
+const CreateTask = ({ groupId }: { groupId: number }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const tasks = useTasksStore(selector);
@@ -70,7 +70,8 @@ const CreateTask = () => {
                 profile: values.profile,
                 proxy: values.proxy,
                 size: values.size,
-                recurring: values.recurring
+                recurring: values.recurring,
+                group_id: groupId
               })
             );
           }

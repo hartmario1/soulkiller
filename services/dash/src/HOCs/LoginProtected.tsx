@@ -6,7 +6,7 @@ import StandardLayout from 'components/Layouts/Standard';
 
 const LoginProtected = (Component: React.FC) => (props: any) => {
   const loggedIn = useLoginProtectedRoute();
-  if (loggedIn) return (<Component {...props} />);
+  if (loggedIn) { return (<Component {...props} />); }
   return (
     <StandardLayout>
       <Center>

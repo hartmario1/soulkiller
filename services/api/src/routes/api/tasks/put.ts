@@ -15,6 +15,7 @@ export default class PutTasksRoute extends Route {
       Joi
         .object()
         .keys({
+          group_id: Joi.number().required(),
           store: Joi.number()
             .min(Store.supreme)
             .max(Store.undefeated)
@@ -41,9 +42,10 @@ export default class PutTasksRoute extends Route {
   }
 
   public async handle(req: Request, res: Response) {
-    const { store, category, name, size, profile, proxy, recurring } = req.body as ApiPutTasksBody;
+    const { group_id, store, category, name, size, profile, proxy, recurring } = req.body as ApiPutTasksBody;
 
     const data: Omit<Task, 'id' | 'created_at'> = {
+      group_id,
       user_id: req.user!.id,
       status: Status.idle,
       store,

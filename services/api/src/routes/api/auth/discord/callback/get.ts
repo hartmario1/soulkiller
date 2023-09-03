@@ -45,7 +45,7 @@ export default class DiscordAuthCallbackRoute extends Route {
     res.cookie('state', 'noop', { httpOnly: true, path: '/', expires: new Date('1970-01-01') });
 
     const response = await discordOAuth2(req, res, next);
-    if (!response) return;
+    if (!response) { return; }
 
     const me: APIUser = await fetch(
       'https://discord.com/api/users/@me', {

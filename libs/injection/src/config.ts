@@ -17,6 +17,7 @@ export interface Config {
   stripeSecretKey: string;
   stripeWebhookSecret: string;
   stripePriceId: string;
+  amqpUrl: string;
 }
 
 export const initConfig = () => {
@@ -35,7 +36,8 @@ export const initConfig = () => {
     cors: process.env.CORS?.split(',') ?? '*',
     stripeSecretKey: process.env.STRIPE_SECRET_KEY!,
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
-    stripePriceId: process.env.STRIPE_PRICE_ID!
+    stripePriceId: process.env.STRIPE_PRICE_ID!,
+    amqpUrl: process.env.AMQP_URL!
   };
 
   container.register<Config>(kConfig, { useValue: config });

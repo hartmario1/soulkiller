@@ -40,7 +40,7 @@ export default class PostPaymentsCreateRoute extends Route {
       res.setHeader('content-type', 'application/json');
 
       return res.end(JSON.stringify({ sessionId }));
-    } catch (e) {
+    } catch (e: any) {
       return next(badRequest(e.message));
     }
   }

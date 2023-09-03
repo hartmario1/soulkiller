@@ -2,7 +2,7 @@ import Agent from 'https-proxy-agent';
 import { Sql } from 'postgres';
 import { inject, singleton } from 'tsyringe';
 import { kRedis, kSql } from '@soulkiller/injection';
-import { Redis } from 'ioredis';
+import type { Redis } from 'ioredis';
 import { RedisStore } from '@cordis/redis-store';
 import { Proxy } from '@soulkiller/common';
 import fetch from 'node-fetch';

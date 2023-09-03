@@ -22,7 +22,9 @@ export abstract class Route {
     }
 
     path = path.replace(/\[([a-zA-Z]+)\]/g, ':$1').replace(/\\/g, '/');
-    if (!path.startsWith('/')) path = `/${path}`;
+    if (!path.startsWith('/')) {
+      path = `/${path}`;
+    }
 
     return {
       path: dirname(path),
@@ -38,7 +40,7 @@ export abstract class Route {
     server[info.method](`${info.path.startsWith('/') ? '' : '/'}${info.path}`, ...this.middleware, async (req, res, next) => {
       try {
         await this.handle(req, res, next);
-      } catch (e) {
+      } catch (e: any) {
         void next(e);
       }
     });

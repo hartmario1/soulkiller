@@ -29,7 +29,7 @@ export default class PatchTaskCancelRoute extends Route {
   }
 
   public async handle(req: Request, res: Response, next: NextHandler) {
-    const { id } = req.query as unknown as { id: number };
+    const { id } = req.params as unknown as { id: number };
 
     const [task] = await this.sql<[Task?]>`SELECT * FROM tasks WHERE id = ${id}`;
 
@@ -37,7 +37,7 @@ export default class PatchTaskCancelRoute extends Route {
       return next(notFound('Task was not found'));
     }
 
-    const [updated] = await this.sql<[Task]>`UPDATE tasks SET status = ${Status.stopped} WHERE id = ${id} RETURNING *`;
+    const [updated] = await this.sql<[Task]>`UPDATE tasks SET status = ${Status.waitingForCancel} WHERE id = ${id} RETURNING *`;
 
     res.statusCode = 200;
     res.setHeader('content-type', 'application/json');

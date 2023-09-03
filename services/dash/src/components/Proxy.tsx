@@ -14,7 +14,7 @@ import { fetchApi } from '../util';
 const selector = (state: ProxyState) => state;
 
 const ProxyUi = ({ data }: { data: ProxyWithStatus }) => {
-  const proxyColor = useStyleConfig('proxyColumn');
+  const proxyColor = useStyleConfig('taskColumn');
   const proxies = useProxiesStore(selector);
   const toast = useToast();
 

@@ -62,7 +62,7 @@ interface Profile {
 
 const selector = (state: ProfileState) => state;
 
-const CreateProfile = () => {
+const CreateProfile = ({ groupId }: { groupId: number }) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = useState(false);
@@ -94,6 +94,7 @@ const CreateProfile = () => {
       onSubmit = {async values => {
         try {
           const profile = await fetchApi<ApiPutProfileResult, ApiPutProfileBody>('/api/profiles', 'PUT', {
+            group_id: groupId,
             profile_name: values.profile_name,
             email: values.email,
             first_name: values.first_name,
@@ -121,7 +122,7 @@ const CreateProfile = () => {
           });
 
           profiles.add(profile);
-        } catch (error) {
+        } catch (error: any) {
           toast({
             title: `Failed to create profile ${values.profile_name}`,
             description: error.message ?? error.toString(),

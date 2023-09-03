@@ -34,19 +34,46 @@ export enum Category {
   bags,
   accessories,
   shoes,
-  skate
+  skate,
+  tShirts
 }
 
 export enum Status {
   idle,
   stopped,
+  failed,
+  waiting,
+  waitingForCancel,
+  loading,
+  captcha,
   checkingOut,
   done
+}
+
+export interface TaskGroup {
+  user_id: `${bigint}`;
+  id: number;
+  name: string;
+  monitor_delay: number;
+  retry_delay: number;
+}
+
+export interface ProxyGroup {
+  user_id: `${bigint}`;
+  id: number;
+  name: string;
+}
+
+export interface ProfileGroup {
+  user_id: `${bigint}`;
+  id: number;
+  name: string;
 }
 
 export interface Task {
   id: number;
   user_id: `${bigint}`;
+  group_id: number;
   store: Store;
   category: Category;
   name: string;
@@ -60,6 +87,7 @@ export interface Task {
 
 export interface Profile {
   user_id: `${bigint}`;
+  group_id: number;
   profile_name: string;
   email: string;
   first_name: string;
@@ -82,7 +110,7 @@ export interface Profile {
 
 export interface Proxy {
   user_id: `${bigint}`;
-  proxy_group: string;
+  group_id: number;
   ip: string;
   port: string;
   username: string;

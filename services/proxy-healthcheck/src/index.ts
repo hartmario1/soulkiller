@@ -13,7 +13,7 @@ import { Handler } from './Handler';
 
 void (() => {
   const config = initConfig();
-  const logger = createLogger('API');
+  const logger = createLogger('PROXY-HEALTHCHECK');
 
   container.register(kLogger, { useValue: logger });
   container.register(kRedis, { useValue: new Redis(config.redisUrl) });
