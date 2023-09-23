@@ -352,8 +352,8 @@ importers:
         specifier: ^17.0.15
         version: 17.0.34
       common:
-        specifier: link:@types/soulkiller/common
-        version: link:@types/soulkiller/common
+        specifier: ../../libs/common
+        version: link:../../libs/common
       typescript:
         specifier: ^4.3.5
         version: 4.4.4
