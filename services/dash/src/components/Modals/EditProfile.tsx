@@ -160,7 +160,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
             <Modal onClose = {onClose} isOpen = {isOpen} isCentered size = "3xl" closeOnOverlayClick motionPreset = "slideInRight">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                 Create Profile
                 </ModalHeader>
                 <ModalBody>
@@ -174,7 +174,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "profile_name">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "profile">
                                     <FormLabel>
                                     Profile Name
@@ -194,7 +194,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
 
                             <VStack w = "100%">
                               <Field name = "email">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "email">
                                     <FormLabel>
                                   Email
@@ -216,7 +216,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "first_name">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "firstname">
                                     <FormLabel>
                                   First Name
@@ -235,7 +235,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
                             <VStack w = "100%">
                               <Field name = "last_name">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "lastname">
                                     <FormLabel>
                                   Last Name
@@ -254,7 +254,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
                             <VStack w = "100%">
                               <Field name = "phone">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "phone">
                                     <FormLabel>
                                   Phone Number
@@ -275,7 +275,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
 
                           <HStack>
                             <Field name = "username">
-                              {({ field }: { field: string }) => (
+                              {({ field }: { field: any }) => (
                                 <FormControl id = "username">
                                   <FormLabel>
                                   Username (Optional)
@@ -293,7 +293,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                               : null}
 
                             <Field name = "password">
-                              {({ field }: { field: string }) => (
+                              {({ field }: { field: any }) => (
                                 <FormControl id = "password">
                                   <FormLabel>
                                 Password (Optional)
@@ -330,7 +330,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "address1">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "address">
                                     <FormLabel>
                                   Address 1
@@ -349,7 +349,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
 
                             <Field name = "address2">
-                              {({ field }: { field: string }) => (
+                              {({ field }: { field: any }) => (
                                 <FormControl id = "address2">
                                   <FormLabel>
                                   Address 2 (Optional)
@@ -370,7 +370,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "city">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "City">
                                     <FormLabel>
                                   City
@@ -389,7 +389,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
                             <VStack w = "100%">
                               <Field name = "zip">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "zip">
                                     <FormLabel>
                                   ZIP/PostalCode
@@ -411,7 +411,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack>
                             <VStack w = "100%">
                               <Field name = "country">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "country">
                                     <FormLabel>
                                   Country
@@ -430,7 +430,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
 
                             <Field name = "state">
-                              {({ field }: { field: string }) => (
+                              {({ field }: { field: any }) => (
                                 <FormControl id = "state">
                                   <FormLabel>
                                   State / County (Optional)
@@ -457,7 +457,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <Box paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "cname">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "card-name">
                                     <FormLabel>
                                   Card Name
@@ -478,7 +478,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <Box paddingBottom = "15px">
                             <VStack w = "100%">
                               <Field name = "cnumber">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "card-number">
                                     <FormLabel>
                                   Card Number
@@ -499,7 +499,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                           <HStack>
                             <VStack w = "100%">
                               <Field name = "month">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "card-month">
                                     <FormLabel>
                                   Card Month
@@ -518,7 +518,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
                             <VStack w = "100%">
                               <Field name = "year">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "card-year">
                                     <FormLabel>
                                   Card Year
@@ -537,7 +537,7 @@ const EditProfile = ({ isOpen, onClose, name }: { isOpen: boolean; onClose: () =
                             </VStack>
                             <VStack w = "100%">
                               <Field name = "cvv">
-                                {({ field }: { field: string }) => (
+                                {({ field }: { field: any }) => (
                                   <FormControl id = "card-cvv">
                                     <FormLabel>
                                   Card CVV

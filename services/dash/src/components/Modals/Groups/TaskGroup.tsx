@@ -73,12 +73,12 @@ const TaskGroup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
               size = "xl">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                   Create Task Group
                 </ModalHeader>
-                <ModalBody align = "center">
+                <ModalBody textAlign = "center">
                   <Field name = "name">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "task-group">
                         <FormLabel>
                           Create Task Group
@@ -96,7 +96,7 @@ const TaskGroup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                     : null}
                   <HStack paddingTop = "13px">
                     <Field name = "monitorDelay">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl id = "monitor-delay">
                           <FormLabel>
                               Monitor Delay
@@ -113,7 +113,7 @@ const TaskGroup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                       )
                       : null}
                     <Field name = "retryDelay">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl id = "retry-delay">
                           <FormLabel>
                             Retry Delay

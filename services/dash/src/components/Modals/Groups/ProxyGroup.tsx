@@ -62,12 +62,12 @@ const ProxyGroup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               size = "xl">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                    Create Proxy Group
                 </ModalHeader>
-                <ModalBody align = "center">
+                <ModalBody textAlign = "center">
                   <Field name = "name">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "proxy-group">
                         <FormLabel>
                            Create Proxy Group

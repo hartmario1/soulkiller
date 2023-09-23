@@ -17,7 +17,7 @@ import { ProxyState, useProxiesStore } from 'stores';
 const proxyPattern = /^(?<ip>(?:[0-9]{1,3}\.){3}[0-9]{1,3}):(?<port>[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]):(?<username>\w+):(?<password>\w+)$/mg;
 const selector = (state: ProxyState) => state;
 
-const AddProxy = ({ groupId }: { groupId: number }) => {
+const AddProxy = ({ groupId }: { groupId: number | null }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const proxies = useProxiesStore(selector);
@@ -64,12 +64,12 @@ const AddProxy = ({ groupId }: { groupId: number }) => {
             <Modal onClose = {onClose} isOpen = {isOpen} isCentered size = "2xl" closeOnOverlayClick motionPreset = "slideInRight">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                 Add Proxies
                 </ModalHeader>
                 <ModalBody>
                   <Field name = "proxies">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "add-proxy">
                         <FormLabel>
                         Proxies

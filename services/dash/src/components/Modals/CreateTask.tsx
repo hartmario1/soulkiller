@@ -48,7 +48,7 @@ interface Task {
 
 const selector = (state: TaskState) => state;
 
-const CreateTask = ({ groupId }: { groupId: number }) => {
+const CreateTask = ({ groupId }: { groupId: number | null }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const tasks = useTasksStore(selector);
@@ -118,14 +118,14 @@ const CreateTask = ({ groupId }: { groupId: number }) => {
               size = "2xl" >
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                   Create Tasks
                 </ModalHeader>
                 <ModalBody>
                   <HStack paddingBottom = "8px">
                     <VStack w = "100%">
                       <Field name = "store" as = "select">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl>
                             <FormLabel>
                             Store
@@ -161,7 +161,7 @@ const CreateTask = ({ groupId }: { groupId: number }) => {
 
                     <VStack w = "100%">
                       <Field as = "select" name = "category">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl id = "country">
                             <FormLabel>
                           Category
@@ -222,7 +222,7 @@ const CreateTask = ({ groupId }: { groupId: number }) => {
 
                   <VStack>
                     <Field name = "name">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl paddingBottom = "10px">
                           <FormLabel htmlFor = "name">
                           Item Name
@@ -311,7 +311,7 @@ const CreateTask = ({ groupId }: { groupId: number }) => {
                   <HStack>
                     <VStack w = "100%">
                       <Field name = "size">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl>
                             <FormLabel htmlFor = "size">
                           Size
@@ -331,7 +331,7 @@ const CreateTask = ({ groupId }: { groupId: number }) => {
 
                     <VStack w = "100%">
                       <Field name = "amount">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl>
                             <FormLabel htmlFor = "amount">
                             Amount of tasks

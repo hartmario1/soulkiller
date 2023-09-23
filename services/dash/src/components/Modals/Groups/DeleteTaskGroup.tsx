@@ -13,7 +13,7 @@ import { FiTrash2 } from 'react-icons/fi';
 
 const selector = (state: TaskGroupState) => state;
 
-const DeleteTaskGroup = ({ id }: { id: number }) => {
+const DeleteTaskGroup = ({ id }: { id: number | null }) => {
   const group = useTaskGroupStore(selector);
   const toast = useToast();
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -30,10 +30,10 @@ const DeleteTaskGroup = ({ id }: { id: number }) => {
         motionPreset = "slideInRight">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader align = "center">
+          <ModalHeader textAlign = "center">
             Delete Task Group
           </ModalHeader>
-          <ModalBody align = "center">
+          <ModalBody textAlign = "center">
             This will permanently delete your task group. Are you sure you want to do it?
           </ModalBody>
           <ModalFooter>

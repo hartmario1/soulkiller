@@ -107,14 +107,14 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
               size = "2xl" >
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                     Edit Tasks
                 </ModalHeader>
                 <ModalBody>
                   <HStack paddingBottom = "8px">
                     <VStack w = "100%">
                       <Field name = "store" as = "select">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl>
                             <FormLabel>
                               Store
@@ -150,7 +150,7 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
 
                     <VStack w = "100%">
                       <Field as = "select" name = "category">
-                        {({ field }: { field: string }) => (
+                        {({ field }: { field: any }) => (
                           <FormControl id = "country">
                             <FormLabel>
                             Category
@@ -212,7 +212,7 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
 
                   <VStack>
                     <Field name = "name">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl paddingBottom = "10px">
                           <FormLabel htmlFor = "name">
                             Item Name
@@ -288,7 +288,7 @@ const EditTask = ({ isOpen, onClose, ids }: { isOpen: boolean; onClose: () => vo
 
                   <VStack>
                     <Field name = "size">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl>
                           <FormLabel htmlFor = "size">
                             Size

@@ -17,7 +17,7 @@ import * as Yup from 'yup';
 
 const selector = (state: ProfileGroupState) => state;
 
-const EditProxyGroup = ({ id }: { id: number }) => {
+const EditProxyGroup = ({ id }: { id: number | null}) => {
   const group = useProfileGroupStore(selector);
   const toast = useToast();
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -64,12 +64,12 @@ const EditProxyGroup = ({ id }: { id: number }) => {
               size = "xl">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                     Edit Profile Group
                 </ModalHeader>
-                <ModalBody align = "center">
+                <ModalBody textAlign = "center">
                   <Field name = "name">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "profile-group">
                         <FormLabel>
                             Edit Profile Group

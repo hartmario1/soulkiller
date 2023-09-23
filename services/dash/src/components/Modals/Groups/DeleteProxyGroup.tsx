@@ -13,7 +13,7 @@ import { FiTrash2 } from 'react-icons/fi';
 
 const selector = (state: ProxyGroupState) => state;
 
-const DeleteProxyGroup = ({ id }: { id: number }) => {
+const DeleteProxyGroup = ({ id }: { id: number | null }) => {
   const group = useProxyGroupStore(selector);
   const toast = useToast();
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -30,10 +30,10 @@ const DeleteProxyGroup = ({ id }: { id: number }) => {
         motionPreset = "slideInRight">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader align = "center">
+          <ModalHeader textAlign = "center">
              Delete Proxy Group
           </ModalHeader>
-          <ModalBody align = "center">
+          <ModalBody textAlign = "center">
              This will permanently delete your proxy group. Are you sure you want to do it?
           </ModalBody>
           <ModalFooter>

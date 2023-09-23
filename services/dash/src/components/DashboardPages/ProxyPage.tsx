@@ -109,7 +109,7 @@ const ProxiePage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {Object.values(proxies)[tabIndex]?.map(data => (<ProxyUi data = {data} />))}
+              {Object.values(proxies)[tabIndex]?.map((data: any) => (<ProxyUi data = {data} />))}
             </Tbody>
           </Table>
         </Box>

@@ -30,10 +30,10 @@ const DeleteTasks = () => {
         motionPreset = "slideInRight">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader align = "center">
+          <ModalHeader textAlign = "center">
              Delete Profiles
           </ModalHeader>
-          <ModalBody align = "center">
+          <ModalBody textAlign = "center">
              This will permanently delete your profiles. Are you sure you want to do it?
           </ModalBody>
           <ModalFooter>

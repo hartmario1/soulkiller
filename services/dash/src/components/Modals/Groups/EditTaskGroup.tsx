@@ -17,7 +17,7 @@ import TaskGroup from './TaskGroup';
 
 const selector = (state: TaskGroupState) => state;
 
-const EditTaskGroup = ({ id }: { id: number }) => {
+const EditTaskGroup = ({ id }: { id: number | null }) => {
   const group = useTaskGroupStore(selector);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const toast = useToast();
@@ -72,12 +72,12 @@ const EditTaskGroup = ({ id }: { id: number }) => {
               size = "xl">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                    Edit Task Group
                 </ModalHeader>
-                <ModalBody align = "center">
+                <ModalBody textAlign = "center">
                   <Field name = "name">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "task-group">
                         <FormLabel>
                            Edit Task Group
@@ -95,7 +95,7 @@ const EditTaskGroup = ({ id }: { id: number }) => {
                     : null}
                   <HStack paddingTop = "13px">
                     <Field name = "monitorDelay">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl id = "monitor-delay">
                           <FormLabel>
                               Monitor Delay
@@ -112,7 +112,7 @@ const EditTaskGroup = ({ id }: { id: number }) => {
                       )
                       : null}
                     <Field name = "retryDelay">
-                      {({ field }: { field: string }) => (
+                      {({ field }: { field: any }) => (
                         <FormControl id = "retry-delay">
                           <FormLabel>
                              Retry Delay

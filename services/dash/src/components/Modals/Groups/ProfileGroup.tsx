@@ -62,12 +62,12 @@ const ProfileGroup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
               size = "xl">
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader align = "center">
+                <ModalHeader textAlign = "center">
                    Create Profile Group
                 </ModalHeader>
-                <ModalBody align = "center">
+                <ModalBody textAlign = "center">
                   <Field name = "name">
-                    {({ field }: { field: string }) => (
+                    {({ field }: { field: any }) => (
                       <FormControl id = "profile-group">
                         <FormLabel>
                            Create Profile Group

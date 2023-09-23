@@ -84,7 +84,7 @@ const Navbar = () => {
       </Flex>
 
       <Flex align = "center" paddingY = "3" paddingX = "2">
-        <IconButton d = {{ base: 'flex', md: 'none' }}
+        <IconButton display = {{ base: 'flex', md: 'none' }}
           aria-label = "Open menu"
           variant = "ghost"
           icon = {isOpen ? <FiX /> : <FiMenu />}
@@ -92,12 +92,12 @@ const Navbar = () => {
         />
       </Flex>
 
-      <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
+      <Box display = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
         flexDirection = {{ base: 'column', md: 'unset' }}
         width = {{ base: 'full', md: 'auto' }}>
       </Box>
 
-      <Box d = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
+      <Box display = {{ base: isOpen ? 'flex' : 'none', md: 'block' }}
         flexDirection = {{ base: 'column', md: 'unset' }}
         width = {{ base: 'full', md: 'auto' }}>
         <HStack>
