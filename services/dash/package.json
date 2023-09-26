@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/node": "^14.17.7",
     "@types/react": "^17.0.15",
-    "common": "../../libs/common",
+    "@soulkiller/common": "../../libs/common",
     "typescript": "^4.3.5"
   },
   "dependencies": {
