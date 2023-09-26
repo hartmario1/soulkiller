@@ -6,20 +6,20 @@
  * @license
  */
 
-import { Box, Text, Center, VStack, useStyleConfig, Button } from '@chakra-ui/react';
-import { useQueryMe } from 'hooks/useQueryMe';
-import { fetchApi } from '../../util';
-import { ApiPostPaymentsPortalResult } from '@soulkiller/common';
+import { Box, Text, Center, VStack, useStyleConfig, Button, } from '@chakra-ui/react';
+import { ApiPostPaymentsPortalResult, } from '@soulkiller/common';
+import { useQueryMe, } from 'hooks/useQueryMe';
+import { fetchApi, } from '../../util';
 
 const SettingsPage = () => {
-  const styles = useStyleConfig('settingsGradient');
+  const styles = useStyleConfig('settingsGradient',);
   const user = useQueryMe()!;
 
   const onClick = async () => {
-    const data = await fetchApi<ApiPostPaymentsPortalResult>('/api/payments/portal', 'POST').catch(() => null);
+    const data = await fetchApi<ApiPostPaymentsPortalResult>('/api/payments/portal', 'POST',).catch(() => null,);
     if (!data) { return; }
 
-    window.location.assign(data.url);
+    window.location.assign(data.url,);
   };
 
   return (
@@ -27,33 +27,6 @@ const SettingsPage = () => {
       <Box fontSize = "xl" paddingBottom = "5px">
       Delays
       </Box>
-      {/* <HStack paddingX = "10px">
-        <FormControl id = "monitor-delay">
-          <FormLabel>
-          Monitor Delay
-          </FormLabel>
-          <NumberInput min = {100}>
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </FormControl>
-
-        <FormControl id = "retry-delay">
-          <FormLabel>
-          Retry-delay
-          </FormLabel>
-          <NumberInput min = {100}>
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </FormControl>
-      </HStack> */}
       <Box paddingBottom = "20px" paddingTop = "40px" w = "100%">
         <Box sx = {styles} borderRadius = "xl" paddingY = "5px">
           <Center>
@@ -68,6 +41,7 @@ const SettingsPage = () => {
           </Center>
         </Box>
       </Box>
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <Button onClick = {onClick} width = "100%" borderRadius = {20}>
             Manage billing
       </Button>
